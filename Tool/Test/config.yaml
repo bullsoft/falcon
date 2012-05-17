@@ -1,0 +1,15 @@
+db:
+  default:
+    adapter: mysql
+    dsn:
+      dbname: Dr_Cradle3
+      charset: utf8
+  maseter:
+    m0:
+      dsn:
+        host: 127.0.0.1
+        port: 3306
+      username: root
+      password: 123456
+
+use_namespace: yes

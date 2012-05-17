@@ -1,0 +1,36 @@
+{% extends "Error/base.html" %}
+{% block header %}
+		<!-- Header -->
+		<div id="header">
+			<h2>抱歉，您访问的页面有误或不存在！</h2>
+			<h5>Somebody really liked this page, or maybe your mis-typed the URL.</h5>
+		</div>
+        <!-- End Header -->
+{% endblock %}
+{% block content %}
+		<!-- The content div -->
+		<div id="content">
+			<!-- text -->
+			<div id="text">
+				<!-- The info text -->
+				<p>对不起，您访问的页面有误或不存在。请使用下面的导航链接回到正确的位置。</p>
+                <br />
+				<h3>迷路了？跟我走。。。</h3>
+				<!-- End info text -->
+				<!-- Page links -->
+				<ul>
+					<li><a href="home">&raquo; Home</a></li>
+                    <li><a href="demo">&raquo; Demo</a></li>
+					<li><a href="about">&raquo; About</a></li>
+					<li><a href="contact">&raquo; Contact</a></li>
+				</ul>
+				<!-- End page links -->	
+			</div>
+			<!-- End info text -->
+			<!-- Book icon -->
+			<img id="book" src="Framework/Public/error/images/img-01.png" alt="Book iCon" />
+			<!-- End Book icon -->
+			<div style="clear:both;"></div>
+		</div>
+		<!-- End Content -->
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "Error/base.html" %}
+{% block header %}
+		<!-- Header -->
+		<div id="header">
+			<h2>抱歉，您的网站有错误！</h2>
+			<h5>哇，您肯定是粗心了，不小心写出了BUG！</h5>
+		</div>
+        <!-- End Header -->
+{% endblock %}
+{% block content %}
+		<!-- The content div -->
+		<div id="content">
+			<!-- text -->
+			<div id="text">
+				<!-- The info text -->
+                {{message}}
+                <br />
+			</div>
+			<!-- End info text -->
+			<!-- Book icon -->
+			<img id="book" src="Framework/Public/error/images/img-02.png" alt="Book iCon" />
+			<!-- End Book icon -->
+			<div style="clear:both;"></div>
+		</div>
+		<!-- End Content -->
+{% endblock %}

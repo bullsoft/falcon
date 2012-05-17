@@ -1,0 +1,125 @@
+/* Reset */
+* {
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* Body */
+body {
+	background: url(../images/background.jpg) no-repeat top #465364;
+	text-align: center;
+}
+
+/* No borders around images */
+img {
+	border: none;
+}
+
+/* Warp around everything */
+#warp {
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 985px;
+	font-family: Helvetica;
+	text-align: left;
+}
+
+/* Header */
+#header_top {
+	background: url(../images/top.png) no-repeat;
+	width: 985px;
+	height: 30px;
+}
+
+/* Header content */
+#header {
+	background: url(../images/box_bg.png) repeat-y;
+	width: 985px;
+	text-align: center;
+}
+
+/* Page title */
+#header h2 {
+	padding-top: 10px;
+}
+
+/* Subtitle */
+#header h5 {
+	margin-top: 5px;
+	padding-bottom: 15px;
+	color: #acacac;
+}
+
+/* Content div */
+#content {
+	background: url(../images/content_bg.png) repeat-y;
+	width: 985px;
+}
+
+/* The info text */
+#text {
+	float: left;
+	margin: 60px 0px 40px 60px;;
+	width: 330px;
+	/* IE margin fix */
+	display: inline;
+}
+
+/* The info text P */
+#text p {
+	margin-top: 30px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #292929;
+}
+
+/* The links list */
+#text ul {
+	margin-top: 30px;
+	margin-left: 0px;
+	list-style: none inside;
+	font-size: 12px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+/* The list items */
+#text li {
+	padding: 5px 0px;
+	margin: 0;
+}
+
+/* The links */
+#text a {
+	color: #292929;
+	text-decoration: none;
+}
+
+/* Link hover */
+#text a:hover {
+	text-decoration: none;
+}
+
+/* The book icon */
+#book {
+	float: right;
+	width: 472px;
+	height: 332px;
+	margin: 60px 60px 40px 0px;
+
+}
+
+/* Footer */
+#footer {
+	background: url(../images/box_bg.png) repeat-y;
+	width: 985px;
+
+}
+
+/* Footer bottom */
+#footer_bottom {
+	background: url(../images/bottom.png) no-repeat;
+	width: 985px;
+	height: 28px;
+
+}

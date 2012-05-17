@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <db>
+    <default>
+      <adapter>mysql</adapter>
+      <dsn>
+        <dbname>Dr_Cradle3</dbname>
+        <charset>utf8</charset>
+      </dsn>
+    </default>
+    <master>
+      <m0>
+        <dsn>
+          <host>127.0.0.1</host>
+          <port>3306</port>
+        </dsn>
+        <username>root</username>
+        <password>123456</password>
+      </m0>
+    </master>
+  </db>
+</config>

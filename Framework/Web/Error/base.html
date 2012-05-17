@@ -1,0 +1,42 @@
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>BULL Framework - 404 Error</title>
+        <base href="http://172.22.163.10:8080/bull/" />
+        <link type="text/css" rel="stylesheet" href="Framework/Public/error/css/stylesheet.css" />
+		<link type="text/css" rel="stylesheet" href="Framework/Public/error/css/red.css"  />
+        <script type="text/javascript" src="Framework/Public/assets/js/jquery.js"></script> 
+		<!-- PNGFix for IE6 -->
+		<script type="text/javascript" src="Framework/Public/assets/js/jquery.pngFix.js"></script> 
+		<!-- Active pngfix -->
+		<script type="text/javascript"> 
+    	  $(document).ready(function(){ 
+      		  $(document).pngFix(); 
+    	  }); 
+		</script> 
+	</head>
+    <body>
+      <!-- Warp around everything -->
+      <div id="warp">
+		<!-- Header top -->
+		<div id="header_top"></div>
+		<!-- End header top -->
+        {% block header %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+        <!-- Footer -->
+		<div id="footer">
+          <p style="float:right; margin: 3px 30px 0 0; font-size: 10px;">
+            &copy; BullSoft 2012
+          </p>
+		</div>
+		<!-- End Footer -->
+		<!-- Footer bottom -->
+		<div id="footer_bottom"></div>
+		<!-- End Footer bottom -->
+		<div style="clear:both;"></div>
+	</div>
+	<!-- End Warp around everything -->
+</body>
+</html>

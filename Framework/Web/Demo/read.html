@@ -1,0 +1,58 @@
+{% extends "Demo/index.html" %}
+{% block content %}  
+<div class="page-header">
+  <h1>骚牛 - 数据库读取演示</h1>
+</div>
+{% if error %}
+<script type="text/javascript">
+  alert("{{error}}");
+</script>
+{% endif %}
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>地址</th>
+      <th>留言</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for shop in shops %}
+  <tr>
+    <td>{{ shop.name|e }}</td>
+    <td class="muted">{{ shop.address|e }}</td>
+    <td>{{ shop.comment|e }}</td>
+  </tr>
+  {% else %}
+  <tr>
+    <td colspan="3">未找到任何记录</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<iframe src="javascript:false;" id="pframe" name="pframe" frameborder="0" scrolling="no" style="display:none"></iframe>
+<pre class="prettyprint linenums" style="color:#ff0000; background-color:#000000; font-size:12pt; font-family:'DejaVu Sans Mono';">
+<span style="color:#f3e651">49 </span>    <span style="color:#ffffff; font-weight:bold">public function</span> <span style="color:#ffcc33">actionRead</span><span style="color:#f3e651">(</span><span style="color:#ffffff">$id</span> <span style="color:#f3e651">=</span> null<span style="color:#f3e651">)</span>
+<span style="color:#f3e651">50 </span>    <span style="color:#f3e651">{</span>
+<span style="color:#f3e651">51 </span>        <span style="color:#ffffff">$mode</span> <span style="color:#f3e651">=</span> Framework_Model_Db_Shop<span style="color:#f3e651">::</span><span style="color:#ffcc33">getInstance</span><span style="color:#f3e651">();</span>
+<span style="color:#f3e651">52 </span>        <span style="color:#ffffff; font-weight:bold">if</span> <span style="color:#f3e651">(</span><span style="color:#ffffff">$id</span> <span style="color:#f3e651">===</span> null<span style="color:#f3e651">) {</span>
+<span style="color:#f3e651">53 </span>            <span style="color:#ffffff">$this</span><span style="color:#f3e651">-&gt;</span>data<span style="color:#f3e651">-&gt;</span>shops <span style="color:#f3e651">=</span> <span style="color:#ffffff">$mode</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">selectAll</span><span style="color:#f3e651">();</span>
+<span style="color:#f3e651">54 </span>        <span style="color:#f3e651">}</span> <span style="color:#ffffff; font-weight:bold">else</span> <span style="color:#f3e651">{</span>
+<span style="color:#f3e651">55 </span>            <span style="color:#ffffff">$elements</span> <span style="color:#f3e651">=</span> <span style="color:#ffffff; font-weight:bold">new</span> <span style="color:#ffcc33">Bull_Form_Element</span><span style="color:#f3e651">();</span>
+<span style="color:#f3e651">56 </span>            <span style="color:#ffffff">$elements</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">setElement</span><span style="color:#f3e651">(</span><span style="color:#bb00ff">'id'</span><span style="color:#f3e651">);</span>
+<span style="color:#f3e651">57 </span>            <span style="color:#ffffff">$elements</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">addFilter</span><span style="color:#f3e651">(</span><span style="color:#bb00ff">'id'</span><span style="color:#f3e651">,</span> <span style="color:#bb00ff">'ValidateNumeric'</span><span style="color:#f3e651">);</span>
+<span style="color:#f3e651">58 </span>            <span style="color:#ffffff">$elements</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">setValue</span><span style="color:#f3e651">(</span><span style="color:#bb00ff">'id'</span><span style="color:#f3e651">,</span> <span style="color:#ffffff">$id</span><span style="color:#f3e651">);</span>
+<span style="color:#f3e651">59 </span>            <span style="color:#ffffff">$elements</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">validate</span><span style="color:#f3e651">();</span>
+<span style="color:#f3e651">60 </span>            <span style="color:#ffffff; font-weight:bold">if</span> <span style="color:#f3e651">(</span><span style="color:#ffffff">$elements</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">isFailure</span><span style="color:#f3e651">()) {</span>
+<span style="color:#f3e651">61 </span>                <span style="color:#ffffff">$invalid</span> <span style="color:#f3e651">=</span> <span style="color:#ffcc33">array_filter</span><span style="color:#f3e651">(</span><span style="color:#ffffff">$elements</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">getInvalids</span><span style="color:#f3e651">(</span><span style="color:#bb00ff">'id'</span><span style="color:#f3e651">));</span>
+<span style="color:#f3e651">62 </span>                <span style="color:#ffffff">$txt</span> <span style="color:#f3e651">=</span> <span style="color:#ffffff">$invalid</span><span style="color:#f3e651">[</span><span style="color:#aaff00">0</span><span style="color:#f3e651">];</span>
+<span style="color:#f3e651">63 </span>                <span style="color:#ffffff">$this</span><span style="color:#f3e651">-&gt;</span>data<span style="color:#f3e651">-&gt;</span>error <span style="color:#f3e651">=</span> <span style="color:#ffffff">$txt</span><span style="color:#f3e651">;</span>
+<span style="color:#f3e651">64 </span>                <span style="color:#ffffff; font-weight:bold">return</span> <span style="color:#f3e651">;</span>
+<span style="color:#f3e651">65 </span>            <span style="color:#f3e651">}</span> <span style="color:#ffffff; font-weight:bold">else</span> <span style="color:#f3e651">{</span>
+<span style="color:#f3e651">66 </span>                <span style="color:#ffffff">$this</span><span style="color:#f3e651">-&gt;</span>data<span style="color:#f3e651">-&gt;</span>shops <span style="color:#f3e651">=</span> <span style="color:#ffffff">$mode</span><span style="color:#f3e651">-&gt;</span><span style="color:#ffcc33">selectBy</span><span style="color:#f3e651">(</span><span style="color:#ffffff">$id</span><span style="color:#f3e651">);</span>
+<span style="color:#f3e651">67 </span>            <span style="color:#f3e651">}</span>
+<span style="color:#f3e651">68 </span>        <span style="color:#f3e651">}</span>
+<span style="color:#f3e651">69 </span>    <span style="color:#f3e651">}</span>
+<span style="color:#f3e651">70 </span><span style="color:#f3e651">}</span>
+</pre>
+{% endblock %}

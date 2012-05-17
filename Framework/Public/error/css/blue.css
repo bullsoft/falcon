@@ -1,0 +1,19 @@
+/* Page title */
+#header h2 {
+	color: #187086;
+}
+
+/* Page links */
+#text a:hover {
+	color: #16687d;
+}
+
+/* Search button */
+input#submit {
+		background: url(../images/searchbutton_bg.png) no-repeat;
+}
+
+/* Twitter links */
+#twitter_text a {
+	color: #135869;
+}
