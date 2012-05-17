@@ -1,7 +1,7 @@
 #!/bin/bash
 #please modify this script adapting to your module!
-BULL="BullFramework"
-BULL_SRC=$BULL"_SRC"
+BULL="framework"
+BULL_SRC=$BULL"_src"
 
 cd ..
 mkdir ./$BULL_SRC
@@ -20,9 +20,9 @@ rm -f build.sh
 rm -rf Tool/Test
 
 #rm tmp 
-rm -rf Framework/Tmp/session
-rm -rf Framework/Tmp/cache
-rm -rf Framework/Tmp/log
+rm -rf Framework/Tmp/session/*
+rm -rf Framework/Tmp/cache/*
+rm -rf Framework/Tmp/log/*
 
 cd ..
 
