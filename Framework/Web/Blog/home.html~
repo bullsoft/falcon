@@ -1,0 +1,39 @@
+<div class="container">
+   
+  <header class="jumbotron masthead">
+    <div class="inner">
+      <h1>大家好</h1>
+      <p>大家好，我是顾伟刚，你们这帮SB</p>
+    </div>
+    
+
+  </header>
+ 
+  <header class="jumbotron masthead">
+    <div class="inner">
+      <h1>Hello world!</h1>
+      <p>Welcome to WordPress. This is your first post. Edit or delete it, then start blogging!</p>
+    </div>
+    
+
+  </header>
+<hr class="soften">
+<div class="marketing">
+  <div class="row">
+    <div class="span4">
+          </div>
+    <div class="span4">
+          </div>
+    <div class="span4">
+          </div>
+  </div>
+</div><!-- /.marketing -->
+
+
+      <footer>
+
+      <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; TEST 2012</p>
+                </footer>
+
+    </div> <!-- /container -->

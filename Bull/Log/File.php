@@ -19,7 +19,7 @@ class Bull_Log_File extends Bull_Log_Abstract
      * @var string
      * 
      */
-    protected $_format = '%t %c %e %m',
+    protected $_format = '%t %c %e %m';
     
     /**
      * 
@@ -39,9 +39,9 @@ class Bull_Log_File extends Bull_Log_Abstract
      * @return void
      * 
      */
-    protected function __construct($file, $format='%t %c %e %m')
+    public function __construct($file, $events = '*', $format='%t %c %e %m')
     {
-        parent::__construct();
+        parent::__construct($events);
         $this->_file   = $file;
         $this->_format = $format;
     }

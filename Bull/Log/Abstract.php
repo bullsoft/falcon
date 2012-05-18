@@ -45,11 +45,10 @@ abstract class Bull_Log_Abstract
      *        Default false.
      * 
      */
-    protected function __construct($events = '*', $microtime = false)
+    protected function __construct($events = '*')
     {
         $this->preConstruct();
         $this->setEvents($events);
-        $this->setMicrotime($microtime);
         $this->postConstruct();
     }
 
@@ -72,7 +71,7 @@ abstract class Bull_Log_Abstract
      * Set time format.
      *
      */
-    protected function setMicrotime($microtime)
+    public function setMicrotime($microtime)
     {
         if ($microtime == true) {
             $this->_microtime = $microtime;

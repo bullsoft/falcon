@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <base href="http://172.22.163.10:8080/bull/" />
+    <base href="http://172.22.163.10:8080/framework/" />
     <!-- Le styles -->
     <link href="Framework/Public/assets/css/bootstrap.css" rel="stylesheet">
     <link href="Framework/Public/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
@@ -14,6 +14,8 @@
       body {
         padding-top: 60px;
         padding-bottom: 40px;
+        background-image: url("Framework/Public/assets/img/grid-18px-masked.png");
+        background-repeat: repeat-x;
       }
       .sidebar-nav {
         padding: 9px 0;
@@ -49,7 +51,7 @@
   </head>
 
   <body>
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top" id="bull-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -73,6 +75,15 @@
             <ul class="nav">
               <li class="{% if controller=="home" %}active{% endif %}"><a href="home">Home</a></li>
               <li class="{% if controller=="demo" %}active{% endif %}"><a href="demo">Demo</a></li>
+              <li class="dropdown{% if controller=="blog" %} active{% endif %}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="blog/home">home</a></li>
+                      <li><a href="blog/article">article</a></li>
+                      <li><a href="blog/list">list</a></li>
+                      <li><a href="blog/sample">smaple</a></li>
+                    </ul>
+              </li>
               <li class="{% if controller=="about" %}active{% endif %}"><a href="about">About</a></li>
               <li class="{% if controller=="contact" %}active{% endif %}"><a href="contact">Contact</a></li>
             </ul>

@@ -1,0 +1,72 @@
+{% include "Layout/header.html" %}
+<link href="Framework/Public/assets/css/blog.css" rel="stylesheet">
+<div class="row">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="blog/home">Home</a></li>
+      <span class="divider">/</span><a href="?cat=1" title="View all posts in Uncategorized">Uncategorized</a>
+      <span class="divider">/</span>
+      <li class="active">Hello world!</li>
+    </ul>
+  </div><!--/.container -->
+</div><!--/.row -->
+<div class="container">
+  <!-- Masthead==================================================-->
+  <header class="jumbotron subhead" id="overview">
+    <h1>Hello world!</h1>
+  </header>
+  <div class="row content">
+    <div class="span8">
+      <p class="meta"><span class="sep">Posted on </span><a href="?p=1" title="3:35 am" rel="bookmark"><time class="entry-date" datetime="2012-02-27T03:35:30+00:00" pubdate>February 27, 2012</time></a><span class="byline"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="?author=1" title="View all posts by admin" rel="author">admin</a></span></span></p>
+      <p>Welcome to WordPress. This is your first post. Edit or delete it, then start blogging!</p>
+      <hr />
+      <div id="comments">
+        <h2 id="comments-title">
+        One thought on &ldquo;<span>Hello world!</span>&rdquo;		</h2>
+        <ol class="commentlist">
+          <li class="comment even thread-even depth-1" id="li-comment-1">
+            <article id="comment-1" class="comment">
+              <footer>
+                <div class="comment-author vcard">
+                  <img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=40' class='avatar avatar-40 photo avatar-default' height='40' width='40' />
+                  <cite class="fn"><a href='http://wordpress.org/' rel='external nofollow' class='url'>Mr WordPress</a></cite>
+                  <span class="says">says:</span>
+                </div><!-- .comment-author .vcard -->
+                <div class="comment-meta commentmetadata">
+                  <a href="?p=1#comment-1">
+                  <time pubdate datetime="2012-02-27T03:35:30+00:00">February 27, 2012 at 3:35 am</time></a>
+                </div><!-- .comment-meta .commentmetadata -->
+              </footer>
+              <div class="comment-content"><p>Hi, this is a comment.<br />To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.</p>
+              </div>
+              <div class="reply">
+                <a class='comment-reply-link' href='/wordpress/?p=1&#038;replytocom=1#respond' onclick='return addComment.moveForm("comment-1", "1", "respond", "1")'>Reply</a>
+              </div><!-- .reply -->
+            </article><!-- #comment-## -->
+          </li>
+        </ol>
+        <div id="respond">
+          <h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/wordpress/?p=1#respond" style="display:none;">Cancel reply</a></small></h3>
+          <form action="wp-comments-post.php" method="post" id="commentform">
+            <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+            <p class="comment-form-author"><label for="author">Name</label> <span class="required">*</span><input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+            <p class="comment-form-email"><label for="email">Email</label><span class="required">*</span><input id="email" name="email" type="text" value="" size="30" aria-required='true' /></p>
+            <p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" size="30" /></p>
+            <p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>
+            <p class="form-submit">
+              <input name="submit" type="submit" id="submit" value="Post Comment" />
+              <input type='hidden' name='comment_post_ID' value='1' id='comment_post_ID' />
+              <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+            </p>
+          </form>
+        </div><!-- #respond -->
+      </div><!-- #comments -->
+      <ul class="pager">
+      <li class="next"><a href="?p=4" rel="next">大家好 <span class="meta-nav">&rarr;</span></a></li></ul>
+    </div><!-- /.span8 -->
+    <div class="span4">
+      <div class="well">
+      </div><!--/.well .sidebar-nav -->
+    </div><!-- /.span4 -->
+  </div><!-- /.row .content -->
+  {% include "Layout/footer.html" %}

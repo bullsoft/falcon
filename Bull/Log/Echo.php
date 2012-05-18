@@ -32,9 +32,9 @@ class Bull_Log_Echo extends Bull_Log_Abstract
     protected $_output = null;
 
     
-    public function __construct($format = '%t %c %e %m')
+    public function __construct($events = '*', $format = '%t %c %e %m')
     {
-        parent::__construct;
+        parent::__construct($events);
         $this->_format = $format;
     }
     
