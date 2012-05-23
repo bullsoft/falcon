@@ -1,12 +1,6 @@
 <?php
-
 define("ROOT", dirname(dirname(__DIR__)));
-define("BULL_CONFIG_MODE", "default");
-
-require ROOT."/Framework/Bootstrap.php";
-$bootstrap = new Bootstrap();
-$bootstrap->execCli();
-
+require ROOT. '/Tool/cli.php';
 
 /* $view = new Bull_View_Twig(); */
 /* $view->name = "Roy Gu"; */

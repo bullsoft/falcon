@@ -1,11 +1,6 @@
 <?php
-
 define("ROOT", dirname(dirname(dirname(__FILE__))));
-define("BULL_CONFIG_MODE", "dev");
-
-require ROOT. "/Tool/Bootstrap.php";
-$bootstrap = new Bootstrap();
-$bootstrap->execCli();
+require ROOT. '/Tool/cli.php';
 
 $config = new Bull_Parse_Xml();
 

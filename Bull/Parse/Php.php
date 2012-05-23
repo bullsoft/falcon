@@ -1,5 +1,4 @@
 <?php
-
 class Bull_Parse_Php extends Bull_Parse_Abstract
 {
     public function load($file)
@@ -7,7 +6,7 @@ class Bull_Parse_Php extends Bull_Parse_Abstract
         $realfile = Bull_Util_File::exists($file);
         
         if (!$realfile) {
-            throw new Bull_Parse__Exception("File: {$file} Not exists.");
+            throw new Bull_Parse_Exception("File: {$file} Not exists.");
         }
         include $realfile;
         unset($realfile, $file);

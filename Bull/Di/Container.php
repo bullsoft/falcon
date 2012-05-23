@@ -114,7 +114,6 @@ class Bull_Di_Container
             $closetag = '}}';
             $olen = strlen($opentag);
             $clen = strlen($closetag);
-        
             if (substr($code, 0, $olen) == $opentag
                 && substr($code, -1 * $clen) == $closetag) {
                 $code = eval(substr($code, $olen, -1 * $clen));
@@ -138,14 +137,16 @@ class Bull_Di_Container
                 $val = $val();
             }
         }
-        
         // merge the setters
         $setters = array_merge((array) $setter, $setters);
-        
+
         // create the new instance
-        $call = array(new ReflectionClass($class), 'newInstance');
-        
-        $object = call_user_func_array($call, $params);
+        if (is_subclass_of($class, 'Bull_Util_Singleton')) {
+            $object = $class::getInstance($params);
+        } else {
+            $call   = array(new ReflectionClass($class), 'newInstance');
+            $object = call_user_func_array($call, $params);
+        }
         
         // call setters after creation
         foreach ($setters as $method => $value) {

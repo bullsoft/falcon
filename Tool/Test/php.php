@@ -48,12 +48,12 @@ $name  = isset($argv[1])?$argv[1]:null;
 $table = isset($argv[2])?$argv[2]:null;
 $model = isset($argv[3])?$argv[3]:null;
 
-$db = Bull_Di_Container::newInstance('Bull_Db_Front');
+$sql_front = Bull_Di_Container::newInstance('Bull_Sql_Front');
 $config = Bull_Di_Container::get('config');
 
-$db->setServer(array($name => $config->get($name)));
+$sql_front->setServer(array($name => $config->get($name)));
 
-$objGen = new Bull_Model_Generate($name, $db->getConnect($name), $config->system->directory, $config->model->directory);
+$objGen = new Bull_Model_Generate($name, $sql_front->getConnect($name), $config->system->directory, $config->model->directory);
 $objGen->execute($table, $model);
     
 EOF;

@@ -1,10 +1,6 @@
 <?php
 define("ROOT", dirname(dirname(__DIR__)));
-define("BULL_CONFIG_MODE", "defalut");
-require ROOT . "/Tool/Bootstrap.php";
-$bootstrap = new Bootstrap();
-$bootstrap->execCli();
-
+require ROOT. '/Tool/cli.php';
 
 // nc -l -p 8888 localhost
 $socket = new Bull_Net_Socket();

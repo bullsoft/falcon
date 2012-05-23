@@ -4,21 +4,18 @@
  *
  * @author Gu Weigang <guweigang@baidu.com>
  *
- * @package Bull.Db
+ * @package Bull.Sql
  *
  */
-
-class Bull_Db_Factory
+class Bull_Sql_ConnectionFactory
 {
     /* 数据库配置 */
-    static private $db_conn   = array();
-
+    static private $db_conn = array();
     /* 主从库数据库对象 */
-    private static $slave     = array();
-    private static $master    = array();
+    private static $slave   = array();
+    private static $master  = array();
+    final private function __construct() {}
     
-    private function __construct() {}
-
     /**
      *
      * 根据配置节加载数据库配置
@@ -32,42 +29,31 @@ class Bull_Db_Factory
      */
     static public function newConnection($name, $config)
     {
-        if (!isset(self::$db_conn[$name]))
-        {
+        if (!isset(self::$db_conn[$name])) {
             $default = array("adapter" => "mysql");
             $masters = array();
             $slaves  = array();
-        
-            if (isset($config["default"]))
-            {
+            
+            if (isset($config["default"])) {
                 $default = $config['default'];
             }
 
-            if (isset($config["master"]))
-            {
-                foreach($config["master"] as $key => $master)
-                {
+            if (isset($config["master"])) {
+                foreach($config["master"] as $key => $master) {
                     $masters[$key] = $master;
                 }
             }
 
-            if (isset($config["slave"]))
-            {
-                foreach($config["slave"] as $key => $slave)
-                {
+            if (isset($config["slave"])) {
+                foreach($config["slave"] as $key => $slave) {
                     $slaves[$key] = $slave;
                 }
             }
             
             $sql_adapter = new Bull_Sql_AdapterFactory();
-        
-            $conn = new Bull_Sql_ConnectionManager($sql_adapter,
-                                                   $default,
-                                                   $masters,
-                                                   $slaves);
+            $conn = new Bull_Sql_ConnectionManager($sql_adapter, $default, $masters, $slaves);
             self::$db_conn[$name] = $conn;
         }
-
         return self::$db_conn[$name];
     }
     
@@ -82,8 +68,7 @@ class Bull_Db_Factory
      */
     static public function getConnection($name = null)
     {
-        if ($name === null)
-        {
+        if ($name === null) {
             return self::$db_conn;
         } else if (isset(self::$db_conn[$name])) {
             return self::$db_conn[$name];
@@ -105,18 +90,15 @@ class Bull_Db_Factory
      */
     static public function getMaster($name, $index = null)
     {
-        if (!isset(self::$master[$name]))
-        {
+        if (!isset(self::$master[$name])) {
             $conn_manager = self::getConnection($name);
         
-            if ($index === null)
-            {
+            if ($index === null) {
                 self::$master[$name] = $conn_manager->getWrite();
             } else {
                 self::$master[$name] = $conn_manager->getMaster($index);
             }
         }
-        
         return self::$master[$name];
     }
 
@@ -133,19 +115,14 @@ class Bull_Db_Factory
      */
     static public function getSlave($name, $index = null)
     {
-        if (!isset(self::$slave[$name]))
-        {
+        if (!isset(self::$slave[$name])) {
             $conn_manager = self::getConnection($name);
- 
-            if ($index === null)
-            {
+             if ($index === null) {
                 self::$slave[$name] = $conn_manager->getRead();
             } else {
                 self::$slave[$name] = $conn_manager->getSlave($index);
             }
-       
         }
-       
         return self::$slave[$name];   
     }
 }

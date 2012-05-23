@@ -1,51 +1,40 @@
 <?php
-class Framework_Model_Db_Shop extends Bull_Model_Abstract
+class Framework_Model_Db_Summaries extends Bull_Model_Abstract
 {
-     protected $table = "shop";
+     protected $table = "summaries";
 
      protected $name  = "db";
 
      protected function postConstruct()      
      {
          $this->cols = array (
-             'shop_id' => 
+             'id' => 
              Bull_Sql_Column::__set_state(array(
-                 'name' => 'shop_id',
-                 'type' => 'int',
-                 'size' => 11,
+                 'name' => 'id',
+                 'type' => 'mediumint',
+                 'size' => 6,
                  'scale' => NULL,
                  'notnull' => true,
                  'default' => NULL,
                  'autoinc' => true,
                  'primary' => true,
              )),
-             'name' => 
+             'blog_id' => 
              Bull_Sql_Column::__set_state(array(
-                 'name' => 'name',
-                 'type' => 'varchar',
-                 'size' => 30,
+                 'name' => 'blog_id',
+                 'type' => 'mediumint',
+                 'size' => 6,
                  'scale' => NULL,
                  'notnull' => true,
                  'default' => NULL,
                  'autoinc' => false,
                  'primary' => false,
              )),
-             'address' => 
+             'comment_count' => 
              Bull_Sql_Column::__set_state(array(
-                 'name' => 'address',
-                 'type' => 'mediumtext',
-                 'size' => NULL,
-                 'scale' => NULL,
-                 'notnull' => true,
-                 'default' => NULL,
-                 'autoinc' => false,
-                 'primary' => false,
-             )),
-             'comment' => 
-             Bull_Sql_Column::__set_state(array(
-                 'name' => 'comment',
-                 'type' => 'mediumtext',
-                 'size' => NULL,
+                 'name' => 'comment_count',
+                 'type' => 'mediumint',
+                 'size' => 6,
                  'scale' => NULL,
                  'notnull' => true,
                  'default' => NULL,
@@ -53,5 +42,10 @@ class Framework_Model_Db_Shop extends Bull_Model_Abstract
                  'primary' => false,
              )),
          );
+     }
+
+     public function buildRelated()
+     {
+         $this->belongsTo('blogs');
      }
 }
