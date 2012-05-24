@@ -4,20 +4,33 @@ require ROOT. '/Tool/cli.php';
 
 $model = Framework_Model_Db_Blogs::getInstance();
 
+// --------------------------------------------------------------
+//
+// 使用Collection读取, has-one, has-many, has-many through
+//
+// --------------------------------------------------------------
 $result = $model->selectAll();
 
 $collection = $model->getCollection($result);
 
-/* echo (count($collection)); */
-/* var_dump($collection[0]->summaries()->comment_count); */
+echo (count($collection));
+var_dump($collection[0]->summaries->toArray());
 
-/* foreach($collection as $key => $value) */
-/* { */
-/*     echo $value->title; */
-/*     var_dump($value->comments()->toArray()); */
-/* } */
+var_dump($collection[0]->tags->toArray());
 
-/* exit; */
+foreach($collection as $key => $value)
+{
+    echo $value->title;
+    var_dump($value->comments->toArray());
+}
+
+exit;
+
+// --------------------------------------------------------------
+//
+// 使用Collection插入，has-one, has-many, has-many through
+//
+// --------------------------------------------------------------
 
 $data =  array (
     'status'  => 'draft',
@@ -44,7 +57,6 @@ $data =  array (
 
 $record = $model->newRecord($data);
 
-// var_dump($collection);
 $record->save();
 
 var_dump($record->comments->toArray());

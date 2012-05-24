@@ -7,12 +7,13 @@ $model = Framework_Model_Db_Blogs::getInstance();
 
 $result = $model->selectBy(1);
 
-// var_export($result);
 
 $record = $model->getRecord($result[0]);
 
 var_dump($record->taggings);
+
 exit;
+
 foreach($record->tags as $tags)
 {
     echo $tags->name;
@@ -33,10 +34,6 @@ $data =  array (
         'id' => '1',
         'name' => '顾伟刚',),
     'summaries' => array (),
-    /* 'tags' => array( */
-    /*     array('name' => "test",), */
-    /*     array('name' => 'hahahah'), */
-    /* ), */
 );
 
 $record = $model->newRecord($data);
