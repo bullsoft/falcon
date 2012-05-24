@@ -5,6 +5,20 @@ require ROOT. '/Tool/cli.php';
 $model = Framework_Model_Db_Blogs::getInstance();
 
 // --------------------------------------------------------------
+// Blog与其他模型的关系
+// 
+// $this->belongsTo('authors');
+// $this->hasOne('summaries');
+// $this->hasMany('comments');
+// $this->hasMany('taggings');
+// $this->hasManyThrough('tags', 'taggings');
+// 
+// --------------------------------------------------------------
+
+
+
+
+// --------------------------------------------------------------
 //
 // 使用Collection读取, has-one, has-many, has-many through
 //
