@@ -24,7 +24,7 @@ class Bull_Model_Record
      * @var Bull_Model_Abstract
      * 
      */
-    protected $_model;
+    protected $model;
     
     /**
      * 
@@ -44,7 +44,7 @@ class Bull_Model_Record
      * @var string
      * 
      */
-    protected $_sql_status = null;
+    protected $sql_status = null;
     
     /**
      * 
@@ -53,9 +53,17 @@ class Bull_Model_Record
      * @var bool
      * 
      */
-    protected $_is_new = false;
+    protected $is_new = false;
 
-    protected $_is_dirty = false;
+    /**
+     * 
+     * Tracks if *this record* is dirty.
+     * 
+     * @var bool
+     * 
+     */
+    protected $is_dirty = false;
+    
     /**
      * 
      * If you call save() and an exception gets thrown, this stores that
@@ -64,7 +72,7 @@ class Bull_Model_Record
      * @var Bull_Model_Exception
      * 
      */
-    protected $_save_exception;
+    protected $save_exception;
     
     /**
      * 
@@ -77,14 +85,14 @@ class Bull_Model_Record
      * @see setStatus()
      * 
      */
-    protected $_initial = array();
+    protected $initial = array();
 
     /**
      *
      * Record data. 
      *
      */
-    protected $_data = array();
+    protected $data = array();
 
     /**
      * 
@@ -98,14 +106,20 @@ class Bull_Model_Record
      */
     public function __get($key)
     {
-        $found = array_key_exists($key, $this->_data);
-        if (! $found && ! empty($this->_model->related[$key])) {
+        $found = array_key_exists($key, $this->data);
+        if (! $found && ! empty($this->model->related[$key])) {
             // the key is for a related that has no data yet.
             // get the relationship object and get the related object
-            $related = $this->_model->getRelated($key);
-            $this->_data[$key] = $related->fetch($this);
+            $related = $this->model->getRelated($key);
+            $this->data[$key] = $related->fetch($this);
         }
-        return $this->_data[$key];
+        
+        // 有必要使用Closure么？
+        if ($this->data[$key] instanceof Closure) {
+            $this->data[$key] = $this->data[$key]();
+        }
+        
+        return $this->data[$key];
     }
     
     /**
@@ -122,8 +136,8 @@ class Bull_Model_Record
      */
     public function __set($key, $val)
     {
-        $this->_data[$key] = $val;
-        $this->_setIsDirty();
+        $this->data[$key] = $val;
+        $this->setIsDirty();
     }
     
     /**
@@ -137,8 +151,8 @@ class Bull_Model_Record
      */
     public function __unset($key)
     {
-        unset($this->_data[$key]);
-        $this->_setIsDirty();
+        unset($this->data[$key]);
+        $this->setIsDirty();
     }
     
     /**
@@ -152,9 +166,14 @@ class Bull_Model_Record
      */
     public function __isset($key)
     {
-        return isset($this->_data[$key]);
+        return isset($this->data[$key]);
     }
-    
+
+
+    public function toArray()
+    {
+        return $this->getInsertData();
+    }
     /**
      * 
      * Loads data from an array.
@@ -189,6 +208,8 @@ class Bull_Model_Record
         foreach ($load as $key => $value) {
             $this->$key = $value;
         }
+
+        $this->fixRelatedData();
     }
     
     // -----------------------------------------------------------------
@@ -206,7 +227,7 @@ class Bull_Model_Record
      */
     public function getModel()
     {
-        return $this->_model;
+        return $this->model;
     }
     
     /**
@@ -218,7 +239,7 @@ class Bull_Model_Record
      */
     public function getPrimaryCol()
     {
-        return $this->_model->primary();
+        return $this->model->primary();
     }
     
     /**
@@ -230,13 +251,13 @@ class Bull_Model_Record
      */
     public function getPrimaryVal()
     {
-        $col = $this->_model->primary();
+        $col = $this->model->primary();
         return $this->$col;
     }
     
     // -----------------------------------------------------------------
     //
-    // Persistence: save, insert, update, delete, refresh.
+    // save, insert, update, delete, refresh.
     //
     // -----------------------------------------------------------------
     
@@ -244,27 +265,6 @@ class Bull_Model_Record
      * 
      * Saves this record and all related records to the database, inserting or
      * updating as needed.
-     * 
-     * Hook methods:
-     * 
-     * 1. `_preSave()` runs before all save operations.
-     * 
-     * 2. `_preInsert()` and `_preUpdate()` run before the insert or update.
-     * 
-     * 3. As part of the model insert()/update() logic, `filter()` gets called,
-     *    which itself has `_preFilter()` and `_postFilter()` hooks.
-     *    
-     * 4. `_postInsert()` and `_postUpdate()` run after the insert or update.
-     * 
-     * 5. `_postSave()` runs after all save operations, but before related
-     *    records are saved.
-     * 
-     * 6. `_preSaveRelated()` runs before saving related records.
-     * 
-     * 7. Each related record is saved, invoking the save() routine with all
-     *    its hooks on each related record.
-     * 
-     * 8. `_postSaveRelated()` runs after all related records are saved.
      * 
      * @param array $data An associative array of data to merge with existing
      * record data.
@@ -278,24 +278,24 @@ class Bull_Model_Record
             throw new Bull_Model_Exception('ERR_DELETED');
         }
         
-        $this->_save_exception = null;
+        $this->save_exception = null;
         
         // load data at save-time?
         if ($data) {
             $this->load($data);
-            $this->_setIsDirty();
+            $this->setIsDirty();
         }
         try {
             $this->_save();
-            $this->_saveRelated();
-            if ($this->_model->filter->isFailure()) {
+            $this->saveRelated();
+            if ($this->model->filter->isFailure()) {
                 return false;
             } else {
                 return true;
             }
         } catch (Bull_Model_Exception_RecordInvalid $e) {
             // filtering should already have set the invalid messages
-            $this->_save_exception = $e;
+            $this->save_exception = $e;
             return false;
         }
     }
@@ -314,47 +314,21 @@ class Bull_Model_Record
     {
         // only save if need to
         if ($this->isDirty() || $this->isNew()) {
-            // pre-save routine
-            $this->_preSave();
             // perform pre-save for any relateds that need to modify the 
             // native record, but only if instantiated
-            $list = array_keys($this->_model->related);
+            $list = array_keys($this->model->related);
             foreach ($list as $name) {
-                if (! empty($this->_data[$name]) && ! is_object($this->_data[$name])) {
-                    $this->_model->getRelated($name)->preSave($this, $this->_data[$name]);
+                if (! empty($this->data[$name])) {
+                    $this->model->getRelated($name)->preSave($this);
                 }
             }
             // insert or update based on newness
             if ($this->isNew()) {
-                $this->_insert();
+                $this->insert();
             } else {
-                $this->_update();
+                $this->update();
             }
-            // post-save routine
-            $this->_postSave();
         }
-    }
-    
-    /**
-     * 
-     * User-defined pre-save logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _preSave()
-    {
-    }
-    
-    /**
-     * 
-     * User-defined post-save logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _postSave()
-    {
     }
     
     /**
@@ -365,42 +339,37 @@ class Bull_Model_Record
      * @return void
      * 
      */
-    protected function _insert()
+    protected function insert()
     {
-        // pre-insert logic
-        $this->_preInsert();
         // modify special columns for insert
-        $this->_modInsert();
+        $this->modInsert();
         // get the data for insert
-        $data = $this->_getInsertData();
+        $data = $this->getInsertData();
         // apply record filters
         $this->filter($data);
 
         // try the insert
         try {
             // retain the inserted ID, if any
-            $this->_model->insert($data);
-            $id = $this->_model->lastInsertId();
+            $this->model->insert($data);
+            $id = $this->model->lastInsertId();
         } catch (Bull_Model_Exception_QueryFailed $e) {
             // failed at at the database for some reason
-            $this->_modle->filter->setInvalid('*', $e->getInfo('pdo_text'));
+            $this->modle->filter->setInvalid('*', $e->getInfo('pdo_text'));
             throw $e;
         }
         // if there is an autoinc column, set its value
-        foreach ($this->_model->cols as $col => $info) {
-            if ($info->autoinc && empty($this->_data[$col])) {
+        foreach ($this->model->cols as $col => $info) {
+            if ($info->autoinc && empty($this->data[$col])) {
                 // set the value ...
-                $this->_data[$col] = $id;
+                $this->data[$col] = $id;
                 // ... and skip all other cols
                 break;
             }
         }
         
         // record was successfully inserted
-        $this->_setSqlStatus(self::SQL_STATUS_INSERTED);
-        
-        // post-insert logic
-        $this->_postInsert();
+        $this->setSqlStatus(self::SQL_STATUS_INSERTED);
     }
     
     /**
@@ -410,19 +379,19 @@ class Bull_Model_Record
      * @return void
      * 
      */
-    protected function _modInsert()
+    protected function modInsert()
     {
         // time right now for created/updated
         $now = date('Y-m-d H:i:s');
         
         // force the 'created' value if there is a 'created' column
-        $col = $this->_model->created_col;
+        $col = $this->model->created_col;
         if ($col) {
             $this->$col = $now;
         }
         
         // force the 'updated' value if there is an 'updated' column
-        $col = $this->_model->updated_col;
+        $col = $this->model->updated_col;
         if ($col) {
             $this->$col = $now;
         }
@@ -435,12 +404,12 @@ class Bull_Model_Record
      * @return array The values to be inserted.
      * 
      */
-    protected function _getInsertData()
+    protected function getInsertData()
     {
         // get only table columns
         $data = array();
-        $cols = array_keys($this->_model->columns());
-        foreach ($this->_data as $col => $val) {
+        $cols = array_keys($this->model->columns());
+        foreach ($this->data as $col => $val) {
             if (in_array($col, $cols)) {
                 $data[$col] = $val;
             }
@@ -451,44 +420,23 @@ class Bull_Model_Record
     
     /**
      * 
-     * User-defined pre-insert logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _preInsert() {}
-    
-    /**
-     * 
-     * User-defined post-insert logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _postInsert() {}
-    
-    /**
-     * 
      * Updates the current record at the database, making calls to pre- and
      * post-update logic.
      * 
      * @return void
      * 
      */
-    protected function _update()
+    protected function update()
     {
-        // pre-update logic
-        $this->_preUpdate();
-        
         // modify special columns for update
-        $this->_modUpdate();
+        $this->modUpdate();
         
         // get the data for update
-        $data = $this->_getUpdateData();
+        $data = $this->getUpdateData();
 
         // it's possible we have no data to update, even after all that
         if (! $data) {
-            $this->_setSqlStatus(self::SQL_STATUS_UNCHANGED);
+            $this->setSqlStatus(self::SQL_STATUS_UNCHANGED);
             return;
         }
 
@@ -502,17 +450,14 @@ class Bull_Model_Record
         
         // try the update
         try {
-            $this->_model->update($data, $where, $ext);
+            $this->model->update($data, $where, $ext);
         } catch (Bull_Model_Exception_QueryFailed $e) {
             // failed at at the database for some reason
-            $this->_model->filter->setInvalid('*', $e->getInfo('pdo_text'));
+            $this->model->filter->setInvalid('*', $e->getInfo('pdo_text'));
             throw $e;
         }
         // record was successfully updated
-        $this->_setSqlStatus(self::SQL_STATUS_UPDATED);
-
-        // post-update logic
-        $this->_postUpdate();
+        $this->setSqlStatus(self::SQL_STATUS_UPDATED);
     }
     
     /**
@@ -522,10 +467,10 @@ class Bull_Model_Record
      * @return void
      * 
      */
-    protected function _modUpdate()
+    protected function modUpdate()
     {
         // force the 'updated' value
-        $col = $this->_model->updated_col;
+        $col = $this->model->updated_col;
         if ($col) {
             $this->$col = date('Y-m-d H:i:s');
         }
@@ -539,12 +484,12 @@ class Bull_Model_Record
      * @return array values that should be updated
      * 
      */
-    protected function _getUpdateData()
+    protected function getUpdateData()
     {
         // get only table columns that have changed
         $data = array();
-        $cols = array_keys($this->_model->columns());
-        foreach ($this->_data as $col => $val) {
+        $cols = array_keys($this->model->columns());
+        foreach ($this->data as $col => $val) {
             if (in_array($col, $cols) && $this->isChanged($col)) {
                 $data[$col] = $val;
             }
@@ -552,24 +497,6 @@ class Bull_Model_Record
         // done!
         return $data;
     }
-    
-    /**
-     * 
-     * User-defined pre-update logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _preUpdate() {}
-    
-    /**
-     * 
-     * User-defined post-update logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _postUpdate() {}
     
     /**
      * 
@@ -582,41 +509,19 @@ class Bull_Model_Record
      * @todo Keep track of invalid saves on related records and collections?
      * 
      */
-    protected function _saveRelated()
+    protected function saveRelated()
     {
-        // pre-hook
-        $this->_preSaveRelated();
         // save each related
-        $list = array_keys($this->_model->related);
+        $list = array_keys($this->model->related);
         foreach ($list as $name) {
             // only save if instantiated
-            if (! empty($this->_data[$name]) && !is_object($this->_data[$name])) {
+            if (! empty($this->data[$name])) {
                 // get the relationship object and save the related
-                $related = $this->_model->getRelated($name);
-                $related->save($this, $this->_data[$name]);
+                $related = $this->model->getRelated($name);
+                $related->save($this);
             }
         }
-        // post-hook
-        $this->_postSaveRelated();
     }
-    
-    /**
-     * 
-     * User-defined logic to execute before saving related records.
-     * 
-     * @return void
-     * 
-     */
-    protected function _preSaveRelated() {}
-    
-    /**
-     * 
-     * User-defined logic to execute after saving related records.
-     * 
-     * @return void
-     * 
-     */
-    protected function _postSaveRelated() {}
     
     /**
      * 
@@ -635,53 +540,29 @@ class Bull_Model_Record
             throw new Bull_Model_Exception('ERR_DELETED');
         }
         
-        $this->_preDelete();
-        
         $primary = $this->getPrimaryCol();
         $where = array(
             "$primary = ?" => $this->getPrimaryVal(),
         );
-        $this->_model->delete($where);
-        $this->_setSqlStatus(self::SQL_STATUS_DELETED);
-        $this->_postDelete();
+        $this->model->delete($where);
+        $this->setSqlStatus(self::SQL_STATUS_DELETED);
     }
     
     /**
      * 
-     * User-defined pre-delete logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _preDelete() {}
-    
-    /**
-     * 
-     * User-defined post-delete logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _postDelete() {}
-    
-    /**
-     * 
      * Filter the data.
-     * 
-     * @param Solar_Filter $filter Use this filter instead of the default one.
-     * When empty (the default), uses the default filter for the record.
      * 
      * @return void
      * 
      */
     public function filter()
     {
-        // @TODO:
+        // @TODO: If failure, throw new Bull_Model_Exception();
     }
     
     // -----------------------------------------------------------------
     //
-    // Record status
+    // 当状单条记录状态
     //
     // -----------------------------------------------------------------
 
@@ -694,7 +575,7 @@ class Bull_Model_Record
      */
     public function isNew()
     {
-        return (bool) $this->_is_new;
+        return (bool) $this->is_new;
     }
 
     /**
@@ -706,24 +587,29 @@ class Bull_Model_Record
      */
     public function isDeleted()
     {
-        return $this->_sql_status == self::SQL_STATUS_DELETED;
+        return $this->sql_status == self::SQL_STATUS_DELETED;
     }
 
     public function isDirty()
     {
-        return (bool) $this->_is_dirty;
+        return (bool) $this->is_dirty;
+    }
+
+    protected function setIsNew()
+    {
+        $this->is_new = true;
     }
     
     /**
      * 
-     * Marks the struct as dirty.
+     * Marks the record as dirty.
      * 
      * @return void
      * 
      */
-    protected function _setIsDirty()
+    protected function setIsDirty()
     {
-        $this->_is_dirty = true;
+        $this->is_dirty = true;
     }
     
     /**
@@ -735,7 +621,7 @@ class Bull_Model_Record
      */
     public function getSqlStatus()
     {
-        return $this->_sql_status;
+        return $this->sql_status;
     }
     
     /**
@@ -748,19 +634,19 @@ class Bull_Model_Record
      * @return void
      * 
      */
-    protected function _setSqlStatus($sql_status)
+    protected function setSqlStatus($sql_status)
     {
         // is this a change in status?
-        if ($sql_status == $this->_sql_status) {
+        if ($sql_status == $this->sql_status) {
             // no change, we're done
             return;
         }
         
         // set the new status
-        $this->_sql_status = $sql_status;
+        $this->sql_status = $sql_status;
         
         // should we reset other information?
-        $reset = in_array($this->_sql_status, array(
+        $reset = in_array($this->sql_status, array(
             self::SQL_STATUS_INSERTED,
             self::SQL_STATUS_REFRESHED,
             self::SQL_STATUS_UNCHANGED,
@@ -770,14 +656,14 @@ class Bull_Model_Record
         if ($reset) {
             
             // reset the initial data for table columns
-            $this->_initial = array_intersect_key(
-                $this->_data,
-                $this->_model->cols
+            $this->initial = array_intersect_key(
+                $this->data,
+                $this->model->cols
             );
             
             // no longer invalid, dirty, or new
-            $this->_is_dirty = false;
-            $this->_is_new = false;
+            $this->is_dirty = false;
+            $this->is_new = false;
         }
     }
     
@@ -812,7 +698,7 @@ class Bull_Model_Record
     {
         // if no column specified, check if the record as a whole has changed
         if ($col === null) {
-            foreach ($this->_initial as $col => $val) {
+            foreach ($this->initial as $col => $val) {
                 if ($this->isChanged($col)) {
                     return true;
                 }
@@ -821,31 +707,31 @@ class Bull_Model_Record
         }
         
         // col needs to exist in the initial array
-        if (! array_key_exists($col, $this->_initial)) {
+        if (! array_key_exists($col, $this->initial)) {
             return null;
         }
         
         // track changes to or from null
-        $from_null = $this->_initial[$col] === null &&
-                     $this->_data[$col] !== null;
+        $from_null = $this->initial[$col] === null &&
+                     $this->data[$col] !== null;
         
-        $to_null   = $this->_initial[$col] !== null &&
-                     $this->_data[$col] === null;
+        $to_null   = $this->initial[$col] !== null &&
+                     $this->data[$col] === null;
         
         if ($from_null || $to_null) {
             return true;
         }
         
         // track numeric changes
-        $both_numeric = is_numeric($this->_initial[$col]) &&
-                        is_numeric($this->_data[$col]);
+        $both_numeric = is_numeric($this->initial[$col]) &&
+                        is_numeric($this->data[$col]);
         if ($both_numeric) {
             // use normal inequality
-            return $this->_initial[$col] != (string) $this->_data[$col];
+            return $this->initial[$col] != (string) $this->data[$col];
         }
         
         // use strict inequality
-        return $this->_initial[$col] !== $this->_data[$col];
+        return $this->initial[$col] !== $this->data[$col];
     }
     
     /**
@@ -858,7 +744,7 @@ class Bull_Model_Record
     public function getChanged()
     {
         $list = array();
-        foreach ($this->_initial as $col => $val) {
+        foreach ($this->initial as $col => $val) {
             if ($this->isChanged($col)) {
                 $list[] = $col;
             }
@@ -878,7 +764,7 @@ class Bull_Model_Record
      */
     public function getSaveException()
     {
-        return $this->_save_exception;
+        return $this->save_exception;
     }
 
     /**
@@ -890,12 +776,12 @@ class Bull_Model_Record
      */
     public function isInvalid()
     {
-        if ($this->_model->filter->isFailure()) {
+        if ($this->model->filter->isFailure()) {
             // one or more properties on this record is invalid.
             // although we could use _getInvalid() here, this is
             // a quick shortcut for common cases.
             return true;
-        } elseif ($this->_sql_status == self::SQL_STATUS_ROLLBACK) {
+        } elseif ($this->sql_status == self::SQL_STATUS_ROLLBACK) {
             // we had a rollback, so *something* is invalid
             return true;
         } else {
@@ -906,48 +792,18 @@ class Bull_Model_Record
 
     /**
      * 
-     * Make sure our related data values are the right value and type.
-     * 
-     * Make sure our related objects are the right type or will be loaded when
-     * necessary
-     * 
-     * @return void
-     * 
-     */
-    protected function _fixRelatedData()
-    {
-        $list = array_keys($this->_model->related);
-        
-        foreach ($list as $name) {
-            // convert related values to correct object type
-            $convert = array_key_exists($name, $this->_data)
-                    && ! is_array($this->_data[$name]);
-            
-            if (! $convert) {
-                continue;
-            }
-            
-            $related = $this->_model->getRelated($name);
-            if (is_null($this->_data[$name])) {
-                $this->_data[$name] = $related->fetch($this->_data);
-            }
-        }
-    }
-    
-    /**
-     * 
      * Create a new record/collection related to this one and returns it.
      * 
      * @param string $name The relation name.
      * 
      * @param array $data Initial data.
      * 
-     * @return Bull_Model_Record
+     * @return Bull_Model_Record|Bull_Model_Collection
      * 
      */
     public function newRelated($name, $data = null)
     {
-        $related = $this->_model->getRelated($name);
+        $related = $this->model->getRelated($name);
         $new = $related->newRecord($data);
         return $new;
     }
@@ -961,7 +817,7 @@ class Bull_Model_Record
      * 
      * @param array $data Initial data.
      * 
-     * @return Bull_Model_Record
+     * @return Bull_Model_Record|Bull_Model_Collection
      * 
      */
     public function setNewRelated($name, $data = null)
@@ -972,8 +828,6 @@ class Bull_Model_Record
         $this->$name = $this->newRelated($name, $data);
         return $this->$name;
     }
-    
-    
     
     /**
      * 
@@ -988,32 +842,32 @@ class Bull_Model_Record
      * @return void
      * 
      */
-    public function init(Bull_Model_Abstract $model, array $data=array())
+    public function init(Bull_Model_Abstract $model, array $spec)
     {
-        if ($this->_model) {
+        if ($this->model) {
             throw new Bull_Model_Exception('ERR_CANNOT_REINIT');
         }
         
         // inject the model
-        $this->_model = $model;
+        $this->model = $model;
 
         // data
-        $this->_data = $data;
+        $this->data = $spec;
         
         // Record the inital values but only for columns that have physical backing
-        $this->_initial = array_intersect_key($data, $model->cols);
+        $this->initial = array_intersect_key($spec, $model->cols);
 
         // fix up related data elements
-        $this->_fixRelatedData();
+        $this->fixRelatedData();
         
         // new?
-        $this->_is_new = false;
+        $this->is_new = false;
         
         // can't be dirty
-        $this->_is_dirty = false;
+        $this->is_dirty = false;
         
         // no last sql status
-        $this->_sql_status = null;
+        $this->sql_status = null;
     }
     
     /**
@@ -1033,13 +887,43 @@ class Bull_Model_Record
      */
     public function initNew()
     {
-        // $this->init($model, $spec);
-        $this->_is_new = true;
+        $this->is_new = true;
     }
 
-    public function  free()
+    /**
+     * 
+     * Make sure our related data values are the right value and type.
+     * 
+     * Make sure our related objects are the right type or will be loaded when
+     * necessary
+     * 
+     * @return void
+     * 
+     */
+    protected function fixRelatedData()
     {
-        unset($this->_data);
+        $list = array_keys($this->model->related);
+        
+        foreach ($list as $name) {
+            // convert related values to correct object type
+            $convert = array_key_exists($name, $this->data)
+                    && ! is_object($this->data[$name]);
+            
+            if (! $convert) {
+                continue;
+            }
+            $related = $this->model->getRelated($name);
+            if (empty($this->data[$name])) {
+                $this->data[$name] = $related->fetchEmpty();
+            } else {
+                $this->data[$name] = $related->fetchNew($this->data[$name]);
+            }
+        }
+    }
+    
+    public function free()
+    {
+        unset($this->data);
     }
     
     public function __call($method, $args)

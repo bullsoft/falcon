@@ -57,28 +57,11 @@ abstract class Bull_Model_Related_ToOne extends Bull_Model_Related
      * @return Bull_Model_Record
      * 
      */
-    public function fetchNew(array $data)
+    public function fetchNew(array $data=array())
     {
         return $this->_foreign_model->newRecord($data);
     }
 
-    /**
-     *
-     * Fetch Data according to native record.
-     *
-     * @param array $data Data from the native record.
-     *
-     */
-    public function fetch(array $data)
-    {
-        $related = $this;
-        return function () use ($related, $data) {
-            return $related->getModel()->selectOne(
-                $related->cols,
-                array($related->foreign_col."='{$data[$related->native_col]}'"));
-        };
-    }
-    
     /**
      * 
      * Sets the base name for the foreign class; assumes the related name is

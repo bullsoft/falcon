@@ -246,8 +246,37 @@ abstract class Bull_Model_Related
      */
     abstract public function fetchEmpty();
 
-    
-    abstract public function fetch(array $data);
+    public function fetch($spec)
+    {
+        if ($spec instanceof Bull_Model_Record) {
+            $native_id = $spec->{$this->native_col};
+        } else if(is_array($spec)) {
+            $native_id = $spec[$this->native_col];
+        } else {
+            $native_id = $spec;
+        }
+        
+        $where = array();
+        $cond  = "{$this->foreign_col} = ?";
+        $where[$cond] = $native_id;
+        
+        if ($this->isOne()) {
+            $related = $this;
+            $obj = function () use ($related, $where) {
+                $sql_ret = $related->getModel()->selectOne($related->cols, $where);
+                return $related->getModel()->getRecord($sql_ret);
+            };
+        } elseif ($this->isMany()) {
+            $related = $this;
+            $obj = function () use ($related, $where) {
+                $sql_ret = $related->getModel()->selectAll($related->cols, $where);
+                return $related->getModel()->getCollection($sql_ret);
+            };
+        } else {
+            throw new Bull_Model_Exception('ERR_NOT_ONE_OR_ALL');
+        }
+        return $obj;
+    }
     /**
      * 
      * Sets the base name for the foreign class.
@@ -388,12 +417,12 @@ abstract class Bull_Model_Related
      * record.
      * At least for now, only belongs-to needs this.
      
-     * @param Solar_Sql_Model_Record $native The native record to save from.
+     * @param Bull_Model_Record $native The native record to save from.
      * 
      * @return void
      * 
      */
-    public function preSave($native, array $data) {}
+    public function preSave($native) {}
     
     /**
      * 
@@ -404,7 +433,7 @@ abstract class Bull_Model_Related
      * @return void
      * 
      */
-    abstract public function save($native, array $data);
+    abstract public function save($native);
     
     /**
      * 

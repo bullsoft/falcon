@@ -65,24 +65,14 @@ abstract class Bull_Model_Related_ToMany extends Bull_Model_Related
      * 
      * @param array $data Data for the new collection.
      * 
-     * @return Solar_Sql_Model_Collection
+     * @return Bull_Model_Collection
      * 
      */
-    public function fetchNew(array $data)
+    public function fetchNew(array $data=array())
     {
         return $this->_foreign_model->newCollection($data);
     }
     
-
-    public function fetch(array $data)
-    {
-        $related = $this;
-        return function () use ($related, $data) {
-            return $related->getModel()->selectAll(
-                $related->cols,
-                array($related->foreign_col."='{$data[$related->native_col]}'"));
-        };
-    }
     /**
      * 
      * Sets the base name for the foreign class; assumes the related name is

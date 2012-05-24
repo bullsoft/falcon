@@ -6,23 +6,22 @@ $model = Framework_Model_Db_Blogs::getInstance();
 
 $result = $model->selectAll();
 
-// var_export($result);
-// $collection = $model->getCollection($result);
-// var_export($record->authors());
-// var_export($record->summaries());
-// echo (count($collection));
-// var_dump($collection[0]);
+$collection = $model->getCollection($result);
+
+/* echo (count($collection)); */
+/* var_dump($collection[0]->summaries()->comment_count); */
 
 /* foreach($collection as $key => $value) */
 /* { */
 /*     echo $value->title; */
-/*     var_dump($value->comments()); */
-/*     exit; */
+/*     var_dump($value->comments()->toArray()); */
 /* } */
+
+/* exit; */
 
 $data =  array (
     'status'  => 'draft',
-    'title'   => 'BullSoft测试333asdfl;kjasld;fja;sldkjf;',
+    'title'   => 'BullSoft测试大家好大家好百度时代有限公司',
     'body'    => 'BullSoft测试',
     'authors' => array (
         'id' => '1',
@@ -31,17 +30,15 @@ $data =  array (
         'comment_count' => 0,),
     'comments' => array(
         array('title' => "给BullSoft",
-              'content' => "给BullSoft",
-              'author' => '顾伟刚哈哈',
-        ),
+              'content' => "留方给BullSoft",
+              'author' => '顾伟刚',),
         array('title' => "给BullFramework",
-              'content' => "给BullSoft111",
-              'author' => '顾伟刚哈哈111',
-        ),
+              'content' => "留言给BullFramework",
+              'author' => '顾伟刚',),
     ),
     'tags' => array(
-        array('name' => "test",),
-        array('name' => 'hahahah'),
+        array('name' => "bullsoft",),
+        array('name' => 'bullframework'),
     ),
 );
 
@@ -49,3 +46,5 @@ $record = $model->newRecord($data);
 
 // var_dump($collection);
 $record->save();
+
+var_dump($record->comments->toArray());

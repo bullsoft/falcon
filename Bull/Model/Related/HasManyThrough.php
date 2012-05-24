@@ -50,9 +50,23 @@ class Bull_Model_Related_HasManyThrough extends Bull_Model_Related_ToMany
     public $through_conditions;
 
 
+    /**
+     *
+     * The through class name.
+     *
+     * @var string
+     *
+     */
     public $_through_class;
     
 
+    /**
+     *
+     * The through model object.
+     *
+     * @var Bull_Model_Abstract
+     *
+     */
     protected $_through_model;
     
     /**
@@ -65,6 +79,18 @@ class Bull_Model_Related_HasManyThrough extends Bull_Model_Related_ToMany
     protected function setType()
     {
         $this->type = 'has_many_through';
+    }
+
+    /**
+     *
+     * Get *through* model object.
+     *
+     * @return Bull_Model_Related_HasManyThrough
+     *
+     */
+    public function getThruModel()
+    {
+        return $this->_through_model;
     }
     
     /**
@@ -128,29 +154,37 @@ class Bull_Model_Related_HasManyThrough extends Bull_Model_Related_ToMany
      * @return object The related collection object.
      * 
      */
-    public function fetch(array $spec)
+    public function fetch($spec)
     {
-        if (is_array($spec)) {
+        if ($spec instanceof Bull_Model_Record) {
+            $native_id = $spec->{$this->native_col};
+        } else if(is_array($spec)) {
             $native_id = $spec[$this->native_col];
         } else {
             $native_id = $spec;
         }
 
-        $through = $this->_through_model
-            ->selectAll(array($this->through_native_col, $this->through_foreign_col),
-                        array($this->through_native_col ." = ?"=> $native_id));
+        $where = array();
+        $cond  = "{$this->through_native_col} = ?";
+        $where[$cond] = $native_id;
         
-        $foreign_ids = array();
-        foreach($through as $val)
-        {
-            $foreign_ids[] = $val[$this->through_foreign_col];
-        }
+        $related = $this;
+        $obj = function () use ($related, $where) {
+            $cols = array($related->through_native_col, $related->through_foreign_col);
+            $through = $related->getThruModel()->selectAll($cols, $where);
 
-        $foreign = $this->_foreign_model
-            ->selectAll($this->cols,
-                        array($this->foreign_col . " IN ( ? )" => implode(',', $foreign_ids)));
-        
-        return $this->_foreign_model->getCollection($foreign);
+            $foreign_ids = array();
+            foreach($through as $val) {
+                $foreign_ids[] = $val[$related->through_foreign_col];
+            }
+            
+            $where_in = array();
+            $cond = "{$related->foreign_col} IN ( ? )";
+            $where_in[$cond] = $foreign_ids;
+            $foreign = $related->getModel()->selectAll($related->cols, $where_in);
+            return $related->getModel()->getCollection($foreign);
+        };
+        return $obj;
     }
     
     /**
@@ -202,36 +236,49 @@ class Bull_Model_Related_HasManyThrough extends Bull_Model_Related_ToMany
      * @return void
      * 
      */
-    public function save($native, array $data)
+    public function save($native)
     {
+        // get the foreign collection to work with
+        $foreign = $native->{$this->name};
+        $through = $native->{$this->through};
+
         // if no foreign records, kill off all through records
-        if (empty($data)) {
+        if ($foreign->isEmpty()) {
+            $through->deleteAll();
             return;
         }
-
-        // get the foreign collection to work with
-        $foreign = $this->fetchNew($data);
-        
-        // get the through collection to work with
-        // $through = $native->{$this->through};
         
         // save the foreign records as they are, which creates the necessary
         // primary key values the through mapping will need
         $foreign->save();
-        
+
         // the list of existing foreign values
         $foreign_list = $foreign->getColVals($this->foreign_col);
-
-        $through = $this->_through_model->newCollection();
+        
+        // the list of existing through values
+        $through_list = $through->getColVals($this->through_foreign_col);
+        
+        // find mappings that *do* exist but shouldn't, and delete them
+        foreach ($through_list as $through_key => $through_val) {
+            if (! in_array($through_val, $foreign_list)) {
+                $through->deleteOne($through_key);
+            }
+        }
+        
+        // make sure all existing "through" have the right native IDs on them
+        foreach ($through as $record) {
+            $record->{$this->through_native_col} = $native->{$this->native_col};
+        }
         
         // find mappings that *don't* exist, and add them
         foreach ($foreign_list as $foreign_val) {
+            if (! in_array($foreign_val, $through_list)) {
                 $through->appendNew(array(
                     $this->through_native_col  => $native->{$this->native_col},
                     $this->through_foreign_col => $foreign_val,
                 ));
+            }
         }
-        
         // done with the mappings, save them
         $through->save();
     }
@@ -240,7 +287,7 @@ class Bull_Model_Related_HasManyThrough extends Bull_Model_Related_ToMany
      * 
      * Are the related "foreign" and "through" collections valid?
      * 
-     * @param Solar_Sql_Model_Record $native The native record.
+     * @param Bull_Model_Record $native The native record.
      * 
      * @return bool
      * 

@@ -7,9 +7,6 @@
  * 
  * @author Gu Weigang <guweigang@baidu.com>
  * 
- * @todo Implement an internal unit-of-work status registry so that we can 
- * handle mass insert/delete without hitting the database unnecessarily.
- * 
  */
 class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
 {
@@ -20,14 +17,26 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * @var Bull_Model_Abstract
      * 
      */
-    protected $_model;
+    protected $model;
 
-    protected $_data;
-    
-    protected $_valid;
+    /**
+     *
+     * Data of-course as you know.
+     *
+     * @var array
+     *
+     */
+    protected $data;
 
-    protected $_is_new = false;
-    
+    /**
+     *
+     * Iterator: is this *postiont* valid?
+     *
+     * @bool
+     *
+     */
+    protected $valid;
+
     /**
      * 
      * When calling save(), these are the data keys that were invalid and thus
@@ -38,12 +47,8 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * @see save()
      * 
      */
-    protected $_invalid_offsets = array();
+    protected $invalid_offsets = array();
     
-    public function initNew()
-    {
-        $this->_is_new = true;
-    }
     /**
      * 
      * Returns a record from the collection based on its key value.  Converts
@@ -59,25 +64,19 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     {
         if (! $this->__isset($key)) {
             // create a new blank record for the missing key
-            throw new Bull_Model_Exception("ERR_KEY_NOT_EXISTS");
+            $this->data[$key] = $this->model->newRecord();
         }
 
         // convert array to record object.
-        // honors single-table inheritance.
-        if (is_array($this->_data[$key])) {
-            
+        if (is_array($this->data[$key])) {
             // convert the data array to an object.
             // get the main data to load to the record.
-            $load = $this->_data[$key];
-            if ($this->_is_new) {
-                $this->_data[$key] = $this->_model->newRecord($load);
-            } else {
-                $this->_data[$key] = $this->_model->getRecord($load);
-            }
+            $load = $this->data[$key];
+            $this->data[$key] = $this->model->newRecord($load);
         }
         
         // return the record
-        return $this->_data[$key];
+        return $this->data[$key];
     }
     
     /**
@@ -94,7 +93,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function __isset($key)
     {
-        return array_key_exists($key, $this->_data);
+        return array_key_exists($key, $this->data);
     }
     
     /**
@@ -113,12 +112,12 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     {
         // what key to look for?
         if (empty($col)) {
-            $col = $this->_model->primary();
+            $col = $this->model->primary();
         }
         
         // get all key values
         $list = array();
-        foreach ($this->_data as $key => $val) {
+        foreach ($this->data as $key => $val) {
             $list[$key] = $val[$col];
         }
         
@@ -155,26 +154,26 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * These let users override how the column properties are accessed
      * through the magic __get, __set, etc. methods.
      * 
-     * @param Solar_Sql_Model $model The origin model object.
+     * @param Bull_Model_Abstract $model The origin model object.
      * 
      * @return void
      * 
      */
     public function setModel(Bull_Model_Abstract $model)
     {
-        $this->_model = $model;
+        $this->model = $model;
     }
     
     /**
      * 
      * Returns the model from which the data originates.
      * 
-     * @return Solar_Sql_Model $model The origin model object.
+     * @return Bull_Model_Abstract $model The origin model object.
      * 
      */
     public function getModel()
     {
-        return $this->_model;
+        return $this->model;
     }
     
     /**
@@ -186,7 +185,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * We need this so that fetchAssoc() loading works properly; otherwise, 
      * integer keys get renumbered, which disconnects the association.
      * 
-     * @param array|Solar_Struct $spec The data to load into the object.
+     * @param array $spec The data to load into the object.
      * 
      * @return void
      * 
@@ -194,10 +193,26 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     public function load($spec)
     {
         if (is_array($spec)) {
-            $this->_data = $spec;
+            $this->data = $spec;
         } else {
-            $this->_data = array();
+            $this->data = array();
         }
+    }
+
+    /**
+     * 
+     * Returns the data for each record in this collection as an array.
+     * 
+     * @return array
+     * 
+     */
+    public function toArray()
+    {
+        $data = array();
+        foreach ($this as $key => $record) {
+            $data[$key] = $record->toArray();
+        }
+        return $data;
     }
     
     /**
@@ -211,49 +226,38 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     public function save()
     {
         // reset the "invalid record offset"
-        $this->_invalid_offsets = array();
+        $this->invalid_offsets = array();
         
-        // pre-logic
-        $this->_preSave();
-
         // save, instantiating each record
         foreach ($this as $offset => $record) {
             if (! $record->isDeleted()) {
                 $result = $record->save();
+                // var_dump($record);
                 if (! $result) {
-                    $this->_invalid_offsets[] = $offset;
+                    $this->invalid_offsets[] = $offset;
                 }
             }
         }
         
-        // post-logic
-        $this->_postSave();
-        
         // done!
-        if ($this->_invalid_offsets) {
+        if ($this->invalid_offsets) {
             return false;
         } else {
             return true;
         }
     }
-    
+
     /**
      * 
-     * User-defined pre-save logic for the collection.
+     * Are there any records in the collection?
      * 
-     * @return void
-     * 
-     */
-    protected function _preSave() {}
-    
-    /**
-     * 
-     * User-defined post-save logic for the collection.
-     * 
-     * @return void
+     * @return bool True if empty, false if not.
      * 
      */
-    protected function _postSave() {}
+    public function isEmpty()
+    {
+        return empty($this->data);
+    }
     
     /**
      * 
@@ -264,7 +268,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function isInvalid()
     {
-        if ($this->_invalid_offsets) {
+        if ($this->invalid_offsets) {
             return true;
         } else {
             return false;
@@ -300,7 +304,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     public function getInvalidRecords()
     {
         $list = array();
-        foreach ($this->_invalid_offsets as $key) {
+        foreach ($this->invalid_offsets as $key) {
             $list[$key] = $this->__get($key);
         }
         return $list;
@@ -315,30 +319,10 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function deleteAll()
     {
-        $this->_preDeleteAll();
-        foreach ($this->_data as $key => $val) {
+        foreach ($this->data as $key => $val) {
             $this->deleteOne($key);
         }
-        $this->_postDeleteAll();
     }
-    
-    /**
-     * 
-     * User-defined pre-delete logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _preDeleteAll() {}
-    
-    /**
-     * 
-     * User-defined post-delete logic.
-     * 
-     * @return void
-     * 
-     */
-    protected function _postDeleteAll() {}
     
     /**
      * 
@@ -346,14 +330,14 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * 
      * @param array $spec An array of data for the new record.
      * 
-     * @return Solar_Sql_Model_Record The newly-appended record.
+     * @return Bull_Model_Record The newly-appended record.
      * 
      */
     public function appendNew(array $data = array())
     {
         // create a new record from the spec and append it
-        $record = $this->_model->newRecord($data);
-        $this->_data[] = $record;
+        $record = $this->model->newRecord($data);
+        $this->data[] = $record;
         return $record;
     }
     
@@ -361,7 +345,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * 
      * Deletes a record from the database and removes it from the collection.
      * 
-     * @param mixed $spec If a Solar_Sql_Model_Record, looks up the record in
+     * @param mixed $spec If a Bull_Model_Record, looks up the record in
      * the collection and deletes it.  Otherwise, is treated as an offset 
      * value (**not** a record primary key value) and that record is deleted.
      * 
@@ -388,7 +372,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
             }
             $record->free();
             unset($record);
-            unset($this->_data[$key]);
+            unset($this->data[$key]);
         }
     }
     
@@ -402,7 +386,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function removeAll()
     {
-        $this->_data = array();
+        $this->data = array();
     }
     
     /**
@@ -410,7 +394,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * Removes one record from the collection but **does not** delete it from
      * the database.
      * 
-     * @param mixed $spec If a Solar_Sql_Model_Record, looks up the record in
+     * @param mixed $spec If a Bull_Model_Record, looks up the record in
      * the collection and deletes it.  Otherwise, is treated as an offset 
      * value (**not** a record primary key value) and that record is removed.
      * 
@@ -431,7 +415,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
             $key = $spec;
         }
         
-        unset($this->_data[$key]);
+        unset($this->data[$key]);
     }
     
     /**
@@ -446,7 +430,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      * in the collection.  As such, you should check the return for boolean 
      * false to indicate failure.
      * 
-     * @param Solar_Sql_Model_Record $record The record to find in the
+     * @param Bull_Model_Record $record The record to find in the
      * collection.
      * 
      * @return mixed The record offset (which may be zero), or boolean false
@@ -483,7 +467,11 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     }
 
 
-    // ========================= ArrayAccess =========================== //
+    // -----------------------------------------------------------------
+    //
+    // 数组访问 ArrayAccess
+    //
+    // -----------------------------------------------------------------
     
     /**
      * 
@@ -550,6 +538,13 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
     {
         $this->__unset($key);
     }
+
+
+    // -----------------------------------------------------------------
+    //
+    // 可数 Coutable
+    //
+    // -----------------------------------------------------------------
     
     /**
      * 
@@ -560,11 +555,16 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function count()
     {
-        return count($this->_data);
+        return count($this->data);
     }
 
     
-    // ===================== Iterator ========================
+    // -----------------------------------------------------------------
+    //
+    // 迭代器 Iterator
+    //
+    // -----------------------------------------------------------------
+    
     /**
      * 
      * Returns the struct value for the current iterator position.
@@ -586,7 +586,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function key()
     {
-        return key($this->_data);
+        return key($this->data);
     }
     
     /**
@@ -598,7 +598,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function next()
     {
-        $this->_valid = (next($this->_data) !== false);
+        $this->valid = (next($this->data) !== false);
     }
     
     /**
@@ -610,7 +610,7 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function rewind()
     {
-        $this->_valid = (reset($this->_data) !== false);
+        $this->valid = (reset($this->data) !== false);
     }
     
     /**
@@ -622,6 +622,6 @@ class Bull_Model_Collection implements ArrayAccess, Countable, Iterator
      */
     public function valid()
     {
-        return $this->_valid;
+        return $this->valid;
     }
 }

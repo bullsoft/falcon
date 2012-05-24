@@ -44,18 +44,19 @@ class Bull_Model_Related_HasMany extends Bull_Model_Related_ToMany
      * @return void
      * 
      */
-    public function save($native, array $data)
+    public function save($native)
     {
-        if (empty($data)) {
+        // get the foreign collection to work with
+        $foreign = $native->{$this->name};
+        
+        if ($foreign->isEmpty()) {
             return;
         }
         
         // set the foreign_col on each foreign record to the native value
-        foreach ($data as $key => $item) {
-            $data[$key][$this->foreign_col] = $native->{$this->native_col};
+        foreach ($foreign as $key => $record) {
+            $record->{$this->foreign_col} = $native->{$this->native_col};
         }
-        $foreign = $this->fetchNew($data);
-        
         $foreign->save();
     }
 }

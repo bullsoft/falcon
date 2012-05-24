@@ -11,26 +11,35 @@ $result = $model->selectBy(1);
 
 $record = $model->getRecord($result[0]);
 
-// var_dump($record->tags[0]->name);
+var_dump($record->taggings);
+exit;
+foreach($record->tags as $tags)
+{
+    echo $tags->name;
+}
 
-// exit;
+foreach($record->comments as $val)
+{
+    echo $val->content;
+}
 
-$record->title = "BullSoft测试222rrrrfdasd";
+exit;
+
 $data =  array (
     'status'  => 'draft',
-    'title'   => 'BullSoft测试222',
+    'title'   => 'BullSoft测试 Has One',
     'body'    => 'BullSoft测试',
     'authors' => array (
         'id' => '1',
         'name' => '顾伟刚',),
-    'summaries' => array (
-        'comment_count' => 0,),
-    'tags' => array(
-        array('name' => "test",),
-        array('name' => 'hahahah'),
-    ),
+    'summaries' => array (),
+    /* 'tags' => array( */
+    /*     array('name' => "test",), */
+    /*     array('name' => 'hahahah'), */
+    /* ), */
 );
 
+$record = $model->newRecord($data);
 
 $record->save();
 

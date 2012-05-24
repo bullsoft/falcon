@@ -138,7 +138,7 @@ class Bull_Cli_Php
      * 
      * @param string $php The PHP command; e.g., "/usr/local/php".
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function setPhp($php)
@@ -157,7 +157,7 @@ class Bull_Cli_Php
      * 
      * @param string $file The php.ini file location.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function setIniFile($file)
@@ -177,7 +177,7 @@ class Bull_Cli_Php
      * 
      * @param string $val The php.ini setting value.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function setIniVal($key, $val)
@@ -195,7 +195,7 @@ class Bull_Cli_Php
      * 
      * @param string $list The array of php.ini key-value pairs.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function setIniArray($list)
@@ -244,7 +244,7 @@ class Bull_Cli_Php
      * @param bool $echo True to echo the process as it runs, or false to
      * suppress output.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function setEcho($echo)
@@ -270,11 +270,11 @@ class Bull_Cli_Php
     
     /**
      * 
-     * Runs a code string as a Solar script.
+     * Runs a code string as a Bull script.
      * 
-     * @param string $code The code to run as a Solar script.
+     * @param string $code The code to run as a Bull script.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function runBullCode($code)
@@ -304,7 +304,7 @@ class Bull_Cli_Php
      * 
      * @param string $code The script code.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     public function runCode($code)
@@ -320,7 +320,7 @@ class Bull_Cli_Php
      * 
      * @param string $code The code to execute.
      * 
-     * @return Solar_Php
+     * @return Bull_Cli_Php
      * 
      */
     protected function _run($code)
@@ -432,8 +432,7 @@ class Bull_Cli_Php
     
     /**
      * 
-     * Wraps the given code string in extra code to load, start, and stop
-     * Solar.
+     * Wraps the given code string in extra code to load, start, and stop Bull.
      * 
      * @param string $code The code to run in the separate process.
      * 

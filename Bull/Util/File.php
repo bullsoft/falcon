@@ -9,7 +9,7 @@ class Bull_Util_File
 {
     /**
      * 
-     * The path of the file currently being used by Solar_File::load().
+     * The path of the file currently being used by Bull_Util_File::load().
      * 
      * @var string
      * 

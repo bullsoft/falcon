@@ -93,6 +93,7 @@ class Framework_Model_Db_Blogs extends Bull_Model_Abstract
          $this->belongsTo('authors');
          $this->hasOne('summaries');
          $this->hasMany('comments');
+         $this->hasMany('taggings');
          $this->hasManyThrough('tags', 'taggings');
          $this->foreign_col = "blog_id";
      }

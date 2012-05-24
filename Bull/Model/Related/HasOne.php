@@ -27,8 +27,7 @@ class Bull_Model_Related_HasOne extends Bull_Model_Related_ToOne
      * 
      * A support method for _fixRelated() to handle has-one relationships.
      * 
-     * @param array &$opts The relationship options; these are modified in-
-     * place.
+     * @param array $opts The relationship options; 
      * 
      * @return void
      * 
@@ -73,14 +72,16 @@ class Bull_Model_Related_HasOne extends Bull_Model_Related_ToOne
      * @return void
      * 
      */
-    public function save($native, array $data)
+    public function save($native)
     {
+        $foreign = $native->{$this->name};
+     
         // cover for has-one-or-null
-        if (empty($data)) {
+        if (! $foreign) {
             return;
         }
         // set the foreign_col to the native value
-        $data[$this->foreign_col] = $native->{$this->native_col};
-        $record = $this->fetchNew($data)->save();
+        $foreign->{$this->foreign_col} = $native->{$this->native_col};
+        $foreign->save();
     }
 }

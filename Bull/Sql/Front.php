@@ -186,14 +186,7 @@ class Bull_Sql_Front extends Bull_Util_Singleton
         $read_stats = array("SELECT", "SHOW", "DESCRIBE", "DESC", "EXPLAIN");
 
         /* Regex to parse SQL */
-        $regex = <<<EOREGEX
-/(`(?:[^`]|``)`|[@A-Za-z0-9_.`-]+)
-|(\+|-|\*|\/|!=|>=|<=|<>|>|<|&&|\|\||=|\^|\(|\)|\\t|\\r\\n|\\n)
-|('(?:[^']+|'')*'+)
-|("(?:[^"]+|"")*"+)
-|([^ ,]+)
-/ix
-EOREGEX;
+        $regex = '/\s+/ix';
         /* Parse SQL */
         $tokens = (array) preg_split($regex, $sql, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
         /* Convert to Upper-String */

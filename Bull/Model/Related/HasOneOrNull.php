@@ -1,6 +1,6 @@
 <?php
 
-class Bull_Model_Related_HasOneOrNull extends Bull_Model_Related_ToOne
+class Bull_Model_Related_HasOneOrNull extends Bull_Model_Related_HasOne
 {
     /**
      * 

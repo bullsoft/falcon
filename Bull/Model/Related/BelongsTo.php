@@ -78,16 +78,16 @@ class Bull_Model_Related_BelongsTo extends Bull_Model_Related_ToOne
      * @return void
      * 
      */
-    public function preSave($native, array $data)
+    public function preSave($native)
     {
         // see if we have the foreign record that the native record belongs to
-        // $foreign = $native->{$this->name};
-        if (empty($data)) {
+        $foreign = $native->{$this->name};
+        if (! $foreign) {
             // we need the record the native belongs to, to connect the two
             throw new Bull_Model_Exception('ERR_NO_RELATED_RECORD');
         } else {
             // the foreign record exists, connect with the native
-            $native->{$this->native_col} = $data[$this->foreign_col];
+            $native->{$this->native_col} = $foreign->{$this->foreign_col};
         }
     }
     
@@ -103,5 +103,5 @@ class Bull_Model_Related_BelongsTo extends Bull_Model_Related_ToOne
      * @return void
      * 
      */
-    public function save($native, array $data) {}
+    public function save($native) {}
 }

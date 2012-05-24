@@ -750,13 +750,11 @@ abstract class Bull_Model_Abstract extends Bull_Util_Singleton
         return $this->sql_front->getConnect($this->name);
     }
 
-    public function getRecord(array $data=array())
+    public function getRecord(array $data = array())
     {
         $record = new Bull_Model_Record();
         $insert = array();
         if (!empty($data)) {
-            $relateds = array_keys($this->related);
-            $append   = array_fill_keys($relateds, null);
             foreach($this->cols as $key => $col) {
                 if (isset($data[$key])) {
                     $insert[$key] = $data[$key];
@@ -769,7 +767,6 @@ abstract class Bull_Model_Abstract extends Bull_Util_Singleton
                     $insert[$key] = $data[$key];
                 }
             }
-            $insert = array_merge($append, $insert);
         }
         $record->init($this, $insert);
         return $record;
@@ -785,13 +782,6 @@ abstract class Bull_Model_Abstract extends Bull_Util_Singleton
     public function getCollection(array $data = array())
     {
         $collection = new Bull_Model_Collection();
-        if (!empty($data)) {
-            $relateds = array_keys($this->related);
-            $append   = array_fill_keys($relateds, null);
-            foreach($data as $key => $value) {
-                $data[$key] = array_merge($append, $data[$key]);
-            }
-        }
         $collection->setModel($this);
         $collection->load($data);
         return $collection;
@@ -800,7 +790,6 @@ abstract class Bull_Model_Abstract extends Bull_Util_Singleton
     public function newCollection(array $data = array())
     {
         $collection = $this->getCollection($data);
-        $collection->initNew();
         return $collection;
     }
 }
