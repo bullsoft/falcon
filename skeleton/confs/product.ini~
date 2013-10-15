@@ -1,0 +1,26 @@
+[application]
+modelsDir        = /apps/common/models/
+viewsDir         = /apps/common/views/
+pluginsDir       = /apps/plugins/
+libraryDir       = /apps/library/
+
+baseUri          = /adpipe/
+baseUrl          = "http://adpipe.baidu.com"
+
+logger.dir       = "/home/work/var/log/adpipe/"
+logger.format    = "[%file%:%line%][%ip%] %message%"
+
+debug            = no
+
+[cli_module]
+travel.className    = 'Adpipe\Travel\'PHALCON_RUN_ENV
+travel.path         = PHALCON_DIR"/travel/"PHALCON_RUN_ENV".php"
+
+insurance.className = 'Adpipe\Insurance\'PHALCON_RUN_ENV
+insurance.path      = PHALCON_DIR"/insurance/"PHALCON_RUN_ENV".php"
+
+[web_module]
+
+
+[library]
+

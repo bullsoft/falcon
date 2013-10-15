@@ -1,0 +1,35 @@
+[application]
+modelsDir        = /apps/common/models/
+viewsDir         = /apps/common/views/
+pluginsDir       = /apps/plugins/
+libraryDir       = /apps/library/
+
+baseUri          = /adpipe/
+baseUrl          = "http://tycoon.baidu.com:8081/adpipe"
+
+logger.dir       = "/home/work/var/log/adpipe/"
+logger.format    = "[%file%:%line%][%ip%] %message%"
+
+debug            = yes
+
+[cli_module]
+travel.className    = 'Adpipe\Travel\'PHALCON_RUN_ENV
+travel.path         = PHALCON_DIR"/travel/"PHALCON_RUN_ENV".php"
+
+insurance.className = 'Adpipe\Insurance\'PHALCON_RUN_ENV
+insurance.path      = PHALCON_DIR"/insurance/"PHALCON_RUN_ENV".php"
+
+[web_module]
+
+[database]
+common.nodes      = 1
+common.charset    = "utf8"
+
+common.host[]     = "10.81.12.126"
+common.port[]     = "7900"
+common.username[] = "root"
+common.password[] = "root"
+common.dbname[]   = "Dr_Vs_Common"
+
+[library]
+

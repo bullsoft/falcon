@@ -1,0 +1,10 @@
+<?php
+namespace Nexus\Sample\Tasks;
+
+class SampleTask extends \Phalcon\CLI\Task
+{
+    public function mainAction()
+    {
+        echo "sample task";
+    }
+}

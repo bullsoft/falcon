@@ -1,0 +1,12 @@
+<?php
+namespace Nexus\Sample\Controllers;
+
+class IndexController extends ControllerBase
+{
+    public function indexAction()
+    {
+        echo "Hello,I'm here: Tycoon\Job\IndexController";
+        echo "<br />";
+        exit;
+    }
+}

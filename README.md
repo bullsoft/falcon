@@ -1,4 +1,4 @@
-Bull Framework for PHP ( >=5.3.0 )
+Framework for phalconphp (PHP >=5.3.10 )
 ====
 
-a php framework based solar and aura
+a php framework based on phalcon
