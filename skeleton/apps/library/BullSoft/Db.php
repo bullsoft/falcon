@@ -1,4 +1,5 @@
 <?php
+namespace BullSoft;
 class Db
 {
     static public function connect($nodeName)

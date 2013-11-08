@@ -5,7 +5,6 @@ final class Bootstrap
     protected $di          = null;
     protected $application = null;
     protected $loader      = null;
-    protected $rootPath    = null;
 
     // 运行环境
     protected $env = "dev";
@@ -23,7 +22,6 @@ final class Bootstrap
     
     public function exec()
     {
-        $this->rootPath = PHALCON_SKELETON_DIR;
         $this->loader = new \Phalcon\Loader();
     }
     
@@ -31,12 +29,11 @@ final class Bootstrap
     {
         $this->exec();
         define("PHALCON_RUN_ENV", "Module");
-        $this->config = new \Phalcon\Config\Adapter\Ini($this->rootPath.'/confs/'.$this->env.'.ini');
+        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault();
         $this->application = new \Phalcon\Mvc\Application();
-        // load components that you need
-        $this->load($this->rootPath.'/loads/default-web.php');
         $this->application->setDI($this->di);
+        $this->load(PHALCON_SKELETON_DIR.'/loads/default-web.php');
         echo $this->application->handle()->getContent();
     }
 
@@ -44,40 +41,52 @@ final class Bootstrap
     {
         $this->exec();
         define("PHALCON_RUN_ENV", "Task");        
-        $this->config = new \Phalcon\Config\Adapter\Ini($this->rootPath.'/confs/'.$this->env.'.ini');        
+        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault\CLI();
         $this->application = new \Phalcon\CLI\Console();
-        // load components that you need
-        $this->load($this->rootPath.'/loads/default-cli.php');
         $this->application->setDI($this->di);
+        $this->load(PHALCON_SKELETON_DIR.'/loads/default-cli.php');
         $this->application->handle($argv);
     }
 
+    public function execMicro()
+    {
+        $this->exec();
+        define("PHALCON_RUN_ENV", "Micro");
+        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
+        $this->di          = new \Phalcon\DI\FactoryDefault\CLI();
+        $this->application = new \Phalcon\Mvc\Micro();
+        $this->application->setDI($this->di);
+        $this->load(PHALCON_SKELETON_DIR.'/loads/default-micro.php');
+        return $this->application;
+        // You need handle it yourself
+    }
+    
     public function execCliforTest()
     {
         $this->exec();
         define("PHALCON_RUN_ENV", "Task");        
-        $this->config = new \Phalcon\Config\Adapter\Ini($this->rootPath.'/confs/'.$this->env.'.ini');        
+        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault\CLI();
         $this->application = new \Phalcon\CLI\Console();
-        $this->load($this->rootPath.'/loads/default-cli.php');
         $this->application->setDI($this->di);
+        $this->load(PHALCON_SKELETON_DIR.'/loads/default-cli.php');
     }
 
     public function execWebforTest()
     {
         $this->exec();
         define("PHALCON_RUN_ENV", "Module");        
-        $this->config = new \Phalcon\Config\Adapter\Ini($this->rootPath.'/confs/'.$this->env.'.ini');        
+        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');        
         $this->di          = new \Phalcon\DI\FactoryDefault();
         $this->application = new \Phalcon\Mvc\Application();
-        $this->load($this->rootPath.'/loads/default-web.php');
         $this->application->setDI($this->di);
+        $this->load(PHALCON_SKELETON_DIR.'/loads/default-web.php');
     }
     
     public function load($file)
     {
-        $system      = $this->rootPath;
+        $system      = PHALCON_SKELETON_DIR;
         $loader      = $this->loader;
         $config      = $this->config;
         $application = $this->application;

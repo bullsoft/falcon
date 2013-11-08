@@ -1,37 +1,5 @@
 <?php
-/* Logger.php --- 
- * 
- * Filename: Logger.php
- * Description: 
- * Author: Gu Weigang
- * Maintainer: 
- * Created: Sun Jan  6 16:37:48 2013 (+0800)
- * Version: 94279
- * Last-Updated: Fri Aug  2 11:24:25 2013 (+0800)
- *           By: Gu Weigang
- *     Update #: 17
- * 
- */
-
-/* Change Log:
- * 1. initial
- * 2. drop method Logger::getIP()
- * 3. use Utility::getIP() instead
- * 
- */
-
-/* This program is part of "Baidu Darwin PHP Software"; you can redistribute it and/or
- * modify it under the terms of the Baidu General Private License as
- * published by Baidu Campus.
- * 
- * You should have received a copy of the Baidu General Private License
- * along with this program; see the file COPYING. If not, write to
- * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
- * Republic of China, 100085.
- */
-
-/* Code: */
-
+namespace BullSoft;
 class Logger
 {
     protected $logger;

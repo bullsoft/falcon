@@ -1,36 +1,5 @@
 <?php
-/* Utility.php --- 
- * 
- * Filename: Utility.php
- * Description: 
- * Author: Gu Weigang
- * Maintainer: 
- * Created: Sun Jan  6 16:41:40 2013 (+0800)
- * Version: 94279
- * Last-Updated: Fri Jul 26 12:24:18 2013 (+0800)
- *           By: Gu Weigang
- *     Update #: 39
- * 
- */
-
-/* Change Log:
- * 1. add getIP()
- * 2. add getDI()
- * 
- */
-
-/* This program is part of "Baidu Darwin PHP Software"; you can redistribute it and/or
- * modify it under the terms of the Baidu General Private License as
- * published by Baidu Campus.
- * 
- * You should have received a copy of the Baidu General Private License
- * along with this program; see the file COPYING. If not, write to
- * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
- * Republic of China, 100085.
- */
-
-/* Code: */
-
+namespace BullSoft;
 class Utility
 {
     public static function getIP()
@@ -47,11 +16,6 @@ class Utility
             $ip = "unknown";
         }
         return $ip;
-    }
-
-    public static function getDI()
-    {
-        return \Phalcon\DI::getDefault();
     }
 
     public static function array_column(array $input, $column, $key=null)
@@ -133,15 +97,6 @@ class Utility
             default:
                 throw new \Exception("Unknow json decode error");
         }
-    }
-
-    public static function safe_json_decode($str, $assoc= false)
-    {
-        return json_decode(preg_replace("/[[:cntrl:]]/", "",
-                                        str_replace(array("\n", "\r\n", "\r", "\t", "\\"),
-                                                    array("<br />", "<br />", "<br />", "    ", "\\\\"),
-                                                    trim($str))),
-                           $assoc);
     }
 
     public static function get_file_total_lines($path)

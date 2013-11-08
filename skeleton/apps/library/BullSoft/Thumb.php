@@ -1,34 +1,5 @@
 <?php
-/* Thumb.php --- 
- * 
- * Filename: Thumb.php
- * Description: 
- * Author: Gu Weigang
- * Maintainer: 
- * Created: Sat Jan 19 10:31:42 2013 (+0800)
- * Version: 65159
- * Last-Updated: Sun Jan 20 12:04:14 2013 (+0800)
- *           By: Gu Weigang
- *     Update #: 5
- * 
- */
-
-/* Change Log:
- * 
- * 
- */
-
-/* This program is part of "Baidu Darwin PHP Software"; you can redistribute it and/or
- * modify it under the terms of the Baidu General Private License as
- * published by Baidu Campus.
- * 
- * You should have received a copy of the Baidu General Private License
- * along with this program; see the file COPYING. If not, write to
- * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
- * Republic of China, 100085.
- */
-
-/* Code: */
+namespace BullSoft;
 class Thumb
 {
 	private $image;
