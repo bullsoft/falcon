@@ -1,5 +1,5 @@
 <?php
-namespace Nexus\Sample;
+namespace BullSoft\Sample;
 use Phalcon\Config\Adapter\Ini as Config;
 
 class Module
@@ -8,9 +8,9 @@ class Module
     {
         $loader = new \Phalcon\Loader();
         $loader->registerNamespaces(array(
-            'Nexus\Sample\Controllers' => __DIR__.'/controllers/',
-            'Nexus\Sample\Models'      => __DIR__.'/models/',
-            'Nexus\Sample\Logics'      => __DIR__.'/logics/',
+            'BullSoft\Sample\Controllers' => __DIR__.'/controllers/',
+            'BullSoft\Sample\Models'      => __DIR__.'/models/',
+            'BullSoft\Sample\Logics'      => __DIR__.'/logics/',
         ))->register();
     }
 
@@ -29,7 +29,7 @@ class Module
         // Registering a dispatcher
         $di->set('dispatcher', function () {
                 $dispatcher = new \Phalcon\Mvc\Dispatcher();
-                $dispatcher->setDefaultNamespace("Nexus\Sample\Controllers\\");
+                $dispatcher->setDefaultNamespace("BullSoft\Sample\Controllers\\");
                 return $dispatcher;
             });
     }

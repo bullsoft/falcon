@@ -6,10 +6,10 @@
  * Author: Gu Weigang
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
- * Version: 94279
- * Last-Updated: Tue Sep 17 15:18:29 2013 (+0800)
+ * Version: master
+ * Last-Updated: Tue Nov 12 11:28:22 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 15
+ *     Update #: 21
  * 
  */
 
@@ -62,7 +62,7 @@ $di->set('flash', function(){
 // register rules for router
 $di->set('router', function() {
     $router = new \Phalcon\Mvc\Router();
-    $router->setDefaultModule("web");
+    $router->setDefaultModule("sample");
     $router->add("/:module/:controller/:action/:params",
                  array("module"     => 1,
                        "controller" => 2,
