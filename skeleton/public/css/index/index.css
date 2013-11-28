@@ -1,0 +1,80 @@
+
+
+
+
+
+.main-wapper{padding-top: 20px}
+.main{width: 980px;margin: 0 auto}
+
+.goods-box{width: 980px;overflow: hidden}
+.goods-box-inner{width: 1200px}
+.single-goods{width:300px;height: 410px;border-radius: 2px;box-shadow: 2px 2px 2px #ccc;float: left;background: #FFFFFF;position: relative;margin:0 37px 30px 0}
+.goods-show{width: 100%;height: 260px;position: relative;overflow: hidden}
+.goods-show .shadow{position: absolute;bottom: 0;left: 0;background:rgba(255,255,255,0.85);width: 100%;height: 56px}
+.goods-show .img{position: absolute;bottom: 0;left: 0;height: 260px;overflow: hidden}
+.goods-show .shadow .name{width: 180px;height: 36px;display: block;font-size: 13px;color: rgba(238,145,42,1);text-decoration: none;overflow: hidden;float: left;margin: 10px 0 0 10px;cursor: pointer}
+.goods-show .shadow .price{color: #444;margin: 20px 10px 0 0;float:right;display: block}
+
+
+.goods-info{width: 100%;height:260px;}
+.single-goods .txt-info{height: 200px; position: absolute; top: 0; left: 0;
+	background:rgba(0,0,0,0.2); opacity:0; padding: 0 20px;color:#fff;
+	font-size:14px;
+	-webkit-transform:scale(0.3,0.3);
+	-moz-transition:scale(0.3,0.3);
+	-o-transition:scale(0.3,0.3);
+	transform: scale(0.3,0.3);
+	border-radius: 50%;
+	overflow: hidden
+}
+.goods-info:hover .txt-info{opacity:1;
+	-webkit-transform:scale(1,1);-moz-transition:scale(1,1);
+	-o-transition:scale(1,1);transform: scale(1,1);
+	border-radius: 0
+}
+.goods-info:hover .shadow{background-color: rgb(0,170,170)}
+.goods-info:hover .shadow .price{color: #FFFFFF}
+
+.goods-info:hover .shadow .name{color: #FFFFFF}
+.single-goods .txt-info .name{height: 18px;overflow: hidden;font-size: 16px;}
+.single-goods .txt-info .info{margin-top: 20px}
+.single-goods .txt-info .skip{display: block;position: absolute;bottom: 0;left: 0;height: 40px;width: 100%;}
+.single-goods .txt-info .skip-a{text-decoration: none;width: 100px;margin: auto;cursor: pointer;display: block}
+.single-goods .txt-info .skip-a:hover span{background: #ff5200}
+.single-goods .txt-info .skip span{display: block;margin: 0 auto;width: 80px;color: #FFFFFF;background: #ffad26;padding:5px 10px;text-align: center}
+.merchant-box{font-size: 14px;padding: 15px 20px 0 20px}
+.merchant-box .line{margin-bottom: 8px}
+.merchant-box span{float: left;margin-right: 10px}
+.merchant-box a{float: right}
+.merchant-box .star,.merchant-box .star-level{width: 75px;height: 16px;display: block}
+.merchant-box .star-level{margin-top: 3px;}
+.merchant-box .star{background: url('../../images/star.png') no-repeat}
+.merchant-box .star-level{position: relative;}
+.merchant-box .star-grey{float: right;position: absolute;top: 0px;right: 0px;background-position: -75px 0}
+.merchant-box .star-one .star-grey{width: 80%}
+.merchant-box .star-two .star-grey{width: 60%}
+.merchant-box .star-three .star-grey{width: 40%}
+.merchant-box .star-four .star-grey{width: 20%}
+.merchant-box .star-five .star-grey{width: 0%}
+
+.recom-box{padding:10px 0 0 0;}
+.recom-box .recom{float: left}
+.recom-box img{width: 28px;height: 28px;border-radius: 50%;float: left}
+.recom-box span{float: left;font-size: 16px;padding-right: 10px;margin-top:4px}
+.recom-box .recom .nick{color: #E0543B;margin-left: 10px}
+.recom-box .oprate{float: right;font-size: 14px}
+
+.oprate-box{position: absolute;bottom: 0;left: 0;width: 100%;height: 40px;background:#CCCCCC;}
+.oprate-box .inner{padding-top:10px;}
+.oprate-box .oprate{float: left;margin-left: 20px;font-size: 14px}
+.oprate-box .oprate i{font-style: normal;font-size: 12px}
+.oprate-box .oprate span{}
+.oprate-box .oprate a{float: right;text-decoration:none;color:#999999;}
+.oprate-box .oprate .star{margin-right: 15px}
+.oprate-box .oprate .star:hover{color:#ffbb4d}
+.oprate-box .oprate .prefer:hover{color:#e74c3c}
+
+
+
+
+.single-goods .cont{height: 100px;overflow: hidden;font-size: 14px;margin-top: 10px;padding: 0 20px}

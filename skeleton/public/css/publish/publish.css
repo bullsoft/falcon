@@ -1,0 +1,64 @@
+.wapper{background: #FFFFFF}
+.main{margin: 40px auto 0;width: 980px;min-height: 450px}
+.main .content{width: 680px}
+.recom h1{height: 40px;line-height: 40px;color: #666;position: relative}
+.recom h1 .txt{font-size: 20px;display: block;width: 90px;float: left}
+.recom h1 .line{margin-top:24px;height: 3px;
+				border-top:1px solid #d5d5d5;border-bottom:1px solid #d5d5d5;
+			display: block;width: 580px;float: left}
+.recom.web h1 .txt{font-size: 16px}
+.recom .back-step{font-size: 16px;position: absolute;top: -5px;right: 10px;}
+
+.capture-link div{float: left}
+.capture-link-input input{width: 510px;height:28px;outline:none;border: 1px solid #ccc;padding: 4px 5px;
+box-sizing:content-box;
+box-shadow:0px 3px 3px #f2f2f2 inset;
+border-radius: 2px
+}
+.capture-link-input input:focus{box-shadow:0px 0px 10px #e2e2e2 inset}
+.capture-link-btn{width: 120px;margin-left: 30px}
+.capture-link-btn span{display: block;padding: 9px 20px;text-align: center}
+
+.website-box{padding-top: 40px}
+.website{width: 310px;float: left;}
+.website .line{margin: 10px 0 0 0;}
+.website .line .txt{text-align: center;margin-bottom: 5px;font-size: 14px}
+.website a{background:#e4e4e4;border:1px solid rgba(0, 0, 0, 0.07);padding: 4px 8px 1px;margin-top:10px;color: #787878;display: inline-block;margin-right: 4px;border-radius: 2px;font-size: 12px;text-decoration: none}
+.website a:hover{background:rgba(44, 152, 224, 0.7);color: #FFFFFF}
+
+.website.foreign{margin-left: 50px}
+.website.foreign .ck-line:after{background:#ce3d00}
+.website.foreign a:hover{background:rgba(206, 61, 0, 0.7);color: #FFFFFF}
+
+.goods-info{margin-top: 20px}
+.goods-info .img-box{padding: 10px 10px 0 0;width: 138px;float: left}
+.goods-info .img-box img{width: 138px;height: 138px}
+.goods-info .change-img{padding-top: 10px;text-align: center}
+.goods-info .change-img a{font-size: 14px;padding:2px 8px 3px}
+
+.goods-info .info{padding: 20px 0 0 20px;float: left;}
+.goods-info .info .txt{font-size: 18px;color: #686868;}
+.goods-info .info input{width: 400px}
+.goods-info .info .price{color:rgb(253,108,11);font-size: 14px;padding-top: 10px}
+
+.goods-sprite{padding-top: 50px}
+.goods-sprite .tit{padding-bottom: 5px;font-size: 14px;color: #686868}
+.goods-sprite.goods-images .ck-line:after{background: #E74C3C}
+.goods-sprite.goods-images{padding-top: 60px}
+.resaon-box{padding-top: 10px}
+.resaon-box textarea{resize: none;display: block;width: 100%;height: 150px}
+
+.goods-images-box{padding-top: 10px}
+.goods-images-box .change-img{float: right;font-size: 12px;}
+.goods-images-box .change-img .normal-btn{padding-bottom: 2px}
+.image-list-box{width: 680px;overflow: hidden}
+.image-list{width: 700px;padding-top: 8px}
+.image-list li{float: left;margin:0 13px 13px 0}
+.image-list img{width: 125px;height: 125px;border: 1px solid rgba(223,224,225,.7)}
+
+.publish-btn-box{padding-top: 20px}
+.publish-btn-box .line{border-top: 1px solid #D5D5D5;padding-top: 15px}
+.publish-btn-box a{float: right;font-size: 14px;padding-bottom: 4px;}
+.publish-btn-box .publish{background-color: rgb(253,50,11);color: #FFFFFF;font-size: 14px;float: left}
+.publish-btn-box .publish:hover{background-color: rgb(200,40,11)}
+.publish-btn-box .cancel:hover{background-color: rgba(233,233,233,.7);color: #999}

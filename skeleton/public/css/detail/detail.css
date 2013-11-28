@@ -1,0 +1,55 @@
+.main-wapper{margin-top: 40px}
+.main{width: 980px;margin: 0 auto;color: #535353}
+.goods-detail{width:670px;border:1px solid #dfdfdf;padding-bottom: 40px;background: #FFFFFF}
+.goods-detail-inner{min-height: 100px;border-bottom:1px solid #dfdfdf;}
+.goods-detail-inner .img{width: 290px;height: 290px;float: left}
+.goods-detail-inner .img img{width: 290px;height: 290px}
+.goods-detail-inner .right{padding: 40px 40px 0 20px}
+.goods-detail-inner .goods-name{width: 300px;max-height: 40px;margin: 0}
+.goods-detail-inner .goods-pt{color: #999;font-size: 14px;margin-top: 10px}
+
+.oprate-box{padding-top:30px;}
+.oprate-box .oprate{font-size: 20px}
+.oprate-box .oprate i{font-style: normal;font-size: 16px}
+.oprate-box .oprate a{float: left;text-decoration:none;color:#999999;}
+.oprate-box .oprate .star{margin-right: 30px}
+.oprate-box .oprate .star:hover{color:#ffbb4d}
+.oprate-box .oprate .prefer:hover{color:#e74c3c}
+
+.goods-detail-inner .orgin{padding-top: 40px;font-size: 12px;color: #999}
+.goods-detail-inner .orgin a{padding-left: 10px}
+
+.recom{padding: 20px 30px 0}
+.recom .user{font-size: 14px}
+.recom .user img{border-radius: 50%;width: 36px;height: 36px}
+.recom .user a{color: #ffa40d;text-decoration: none}
+.recom .user a:hover{color:#ff5200}
+.recom .user a.nick{padding:0 10px;}
+.recom .user strong{font-weight: normal;color: #555}
+
+.recom .info{padding:20px 0 0;line-height: 20px;font-size: 14px}
+.uk-icon-quote-left:before, .uk-icon-quote-right:before{font-size: 8px;position: relative;top: -4px}
+
+
+.merchant{border: 1px solid #e8e8e8;margin: 30px 0 70px;background-color: #FFFFFF}
+.merchant .hd{background-color: #fbfbfb;height: 60px;padding-left: 20px;line-height: 60px;color: #444444;font-weight: 700}
+.merchant .hd .count{color: #fff;font-size:22px;background-color: #363636;display: block;height: 60px;float: right;width: 60px;text-align: center}
+
+.merchant-list li{border-top: 1px solid #e8e8e8;height: 50px;line-height: 50px;padding: 0 20px;}
+.merchant-list li span{float: left;padding-right: 20px}
+.merchant-list li .ev-star{margin-top: 17px}
+.merchant-list li .price{padding-left: 20px}
+.merchant-list li .buy{float: right}
+
+.hot-goods{width: 255px;border:1px solid #e8e8e8 }
+.hot-goods .hd{background-color:#fbfbfb;height: 40px;line-height:40px;padding-left: 10px;}
+.hot-goods-list li{background-color: #ffffff;border-top:1px solid #e8e8e8;cursor: pointer}
+.hot-goods-list li:hover{background-color:#FBFBFB}
+.hot-goods-list .img{float: left;height: 70px;line-height: 70px;width:70px;text-align: center}
+.hot-goods-list .img img{width: 50px;height: 50px}
+.hot-goods-list .info{font-size: 12px}
+.hot-goods-list .info p{width: 150px;max-height: 20px;overflow: hidden}
+.hot-goods-list .name{color: #565656;text-decoration: none}
+.hot-goods-list .price{color: #999}
+.hot-goods-list .info{padding-top:15px;float: left}
+.hot-goods-list .info p{margin:0;padding-bottom: 5px}
