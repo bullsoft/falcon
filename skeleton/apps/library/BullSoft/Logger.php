@@ -1,5 +1,7 @@
 <?php
+
 namespace BullSoft;
+
 class Logger
 {
     protected $logger;
@@ -9,6 +11,7 @@ class Logger
     public function __construct($filepath)
     {
         $dir = dirname($filepath);
+        
         if(!file_exists($dir)) {
             try {
                 mkdir($dir, 0777, true);
@@ -17,6 +20,7 @@ class Logger
                 throw $e;
             }
         }
+        
         $this->filepath = $filepath;
     }
 
@@ -28,8 +32,18 @@ class Logger
     public function __call($method, $args)
     {
         $methods = array(
-            "special", "custom", "debug", "info", "notice", "warning", "error", "alert", "critical", "emergence"
+            "special",
+            "custom",
+            "debug",
+            "info",
+            "notice",
+            "warning",
+            "error",
+            "alert",
+            "critical",
+            "emergence",
         );
+        
         if (!in_array($method, $methods)) {
             throw new \BadMethodCallException("method {$method} not exists");
         }
@@ -46,21 +60,27 @@ class Logger
     public function log($message, $type, $args=array())
     {
         $errorTypes = array(
-            \Phalcon\Logger::WARNING, \Phalcon\Logger::ERROR, \Phalcon\Logger::ALERT, \Phalcon\Logger::CRITICAL, \Phalcon\Logger::EMERGENCE
+            \Phalcon\Logger::WARNING,
+            \Phalcon\Logger::ERROR,
+            \Phalcon\Logger::ALERT,
+            \Phalcon\Logger::CRITICAL,
+            \Phalcon\Logger::EMERGENCE,
         );
+        
         if(in_array($type, $errorTypes, true)) {
             $this->logger = new \Phalcon\Logger\Adapter\File($this->filepath.".wf");
         } else {
             $this->logger = new \Phalcon\Logger\Adapter\File($this->filepath);
         }
         
-        $trace = debug_backtrace();
-        $depth = count($trace)>1?1:0;
+        $trace   = debug_backtrace();
+        $depth   = count($trace) > 1 ? 1 : 0;
         $current = $trace[$depth];
-        $file  = basename($current['file']);
-        $line  = $current['line'];
-        $ip    = \Utility::getIP();
+        $file    = basename($current['file']);
+        $line    = $current['line'];
+        $ip      = \BullSoft\Utility::getIP();
         unset($trace, $current);
+        
         $message = preg_replace('/%(\w+)%/e', '$\\1', $this->template);
         if (!empty($args)) {
             $message .= PHP_EOL;

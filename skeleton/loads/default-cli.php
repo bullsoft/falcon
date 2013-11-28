@@ -6,10 +6,10 @@
  * Author: Gu Weigang
  * Maintainer: 
  * Created: Tue Jan 29 14:55:44 2013 (+0800)
- * Version: 106863
- * Last-Updated: Mon Oct 14 13:04:22 2013 (+0800)
+ * Version: master
+ * Last-Updated: Wed Nov 27 12:10:20 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 26
+ *     Update #: 27
  * 
  */
 
@@ -41,14 +41,6 @@ $di->set('dispatcher', function() use ($di) {
         $dispatcher = new Phalcon\CLI\Dispatcher();
         $dispatcher->setDI($di);
         return $dispatcher;
-});
-
-$di->set('adpipe_ui', function(){
-        return \Db::connect("adpipe_ui");
-});
-
-$di->set('exp', function(){
-        return \Db::connect("experiment");
 });
 
 $application->registerModules($config->cli_module->toArray());

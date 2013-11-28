@@ -6,10 +6,10 @@
  * Author: Gu Weigang
  * Maintainer: 
  * Created: Tue Jan 29 14:44:41 2013 (+0800)
- * Version: 106863
- * Last-Updated: Mon Oct 14 12:40:34 2013 (+0800)
+ * Version: master
+ * Last-Updated: Wed Nov 27 12:10:12 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 62
+ *     Update #: 65
  * 
  */
 
@@ -39,12 +39,10 @@ $loader->registerDirs(
         $system.$config->application->libraryDir,
     ))->register();
 
-// $loader->registerPrefixes(array("Hessian_" => $system.'/apps/library/Hessian/')) ->register();
-
 $loader->registerNamespaces(
     array(
-        "Adpipe\Models"  => $system.$config->application->modelsDir,
-        "Adpipe\Library" => $system.$config->application->libraryDir,
+        "BullSoft\Models"  => $system.$config->application->modelsDir,
+        "BullSoft\Library" => $system.$config->application->libraryDir,
     ))->register();
 
 // class autoloader
@@ -60,7 +58,7 @@ $di->set('config', function () use ($config) {
 // global logger
 $di->set('logger', function() use ($config) {
     $filename = date('Ymd');
-    $logger = new \Logger($config->application->logger->dir . $filename);
+    $logger = new \BullSoft\Logger($config->application->logger->dir . $filename);
     $logger->setFormat($config->application->logger->format);
     return $logger;
 });
@@ -76,5 +74,9 @@ if (!function_exists("getDI")) {
         return \Phalcon\DI::getDefault();
     }    
 }
+
+$di->set('db', function(){
+        return \BullSoft\Db::connect("db");
+});
 
 /* default.php ends here */

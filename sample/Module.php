@@ -25,12 +25,29 @@ class Module
         $gConfig = $di->get('config');
         $gConfig->merge($mConfig);
         $di->set('config', $gConfig);
-        
+
         // Registering a dispatcher
-        $di->set('dispatcher', function () {
-                $dispatcher = new \Phalcon\Mvc\Dispatcher();
-                $dispatcher->setDefaultNamespace("BullSoft\Sample\Controllers\\");
-                return $dispatcher;
-            });
+        $di->set('dispatcher', function () use ($di) {
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
+            $dispatcher->setDefaultNamespace("BullSoft\Sample\Controllers\\");
+            return $dispatcher;
+        });
+
+        $di->set('view', function()  {
+            $view = new \Phalcon\Mvc\View();
+            $view->setViewsDir(__DIR__.'/views/');
+            $view->registerEngines(array(
+                ".volt" => function($view, $di) {
+                    $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+                    $volt->setOptions(array(
+                        "compiledPath"      => $di->get('config')->view->compiledPath,
+                        "compiledExtension" => $di->get('config')->view->compiledExtension,
+                        "compileAlways"     => (bool) $di->get('config')->application->debug
+                    ));
+                    return $volt;                    
+                }
+            ));
+            return $view;
+        });
     }
 }

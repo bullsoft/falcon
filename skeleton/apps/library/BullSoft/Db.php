@@ -1,5 +1,7 @@
 <?php
+
 namespace BullSoft;
+
 class Db
 {
     static public function connect($nodeName)
@@ -19,6 +21,7 @@ class Db
                 \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES '.$nodes['charset']
             ),
         );
+        
         try {
             $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($descriptor);
         } catch(\Exception $e) {
@@ -26,10 +29,11 @@ class Db
             usleep(200000);
             $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($descriptor);            
         }
+        
         // debug mode
-        if((bool) $configs->application->debug &&
-           isset($configs->database->$nodeName->logger)
-        ) {
+        if((bool) $configs->application->debug
+           && isset($configs->database->$nodeName->logger))
+        {
             if(!file_exists($configs->database->$nodeName->logger)) {
                 try {
                     mkdir($configs->database->$nodeName->logger, 0777, true);
@@ -37,6 +41,7 @@ class Db
                     error_log("Db.php: permission denied for creating directory");
                 }
             }
+            
             try {
                 // event manager
                 $evtManager = new \Phalcon\Events\Manager();

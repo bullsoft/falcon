@@ -1,5 +1,6 @@
 <?php
 namespace BullSoft;
+
 class Utility
 {
     public static function getIP()
@@ -105,6 +106,26 @@ class Utility
             throw new \Exception("Not a filename");
         }
         return intval(exec("wc -l " . $path));
+    }
+
+    public static function getPageXPath($url)
+    {
+        $html = file_get_contents($url);
+        $html = mb_convert_encoding($html, "UTF-8", "GB2312");
+        $encode  = mb_detect_encoding($html);
+        $headpos = mb_strpos($html, '<HEAD>');
+        if (false === $headpos) {
+            $headpos = mb_strpos($html, '<head>');
+        }
+        if (false !== $headpos) {
+            $headpos += 6;
+            $html = mb_substr($html,0,$headpos) . '<meta http-equiv="Content-Type" content="text/html; charset='.$encode.'">' .mb_substr($html, $headpos);
+        }
+        $content=mb_convert_encoding($html, 'HTML-ENTITIES', $encode);
+        $dom = new \DOMDocument('1.0', $encode);
+        @$dom->loadHTML($content);
+        $xpath = new \DOMXPath($dom);
+        return $xpath;
     }
 }
 

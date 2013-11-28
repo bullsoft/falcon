@@ -1,5 +1,7 @@
 <?php
+
 namespace BullSoft;
+
 class Thumb
 {
 	private $image;
