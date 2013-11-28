@@ -12,7 +12,7 @@
 	    <img src="/images/1.jpg" style="margin-top: -20px"/>
           </div>
           <div class="shadow transition-all">
-	    <a class="name transition-all" title="好货！WOLVERNE正品男靴牛仔靴男鞋 工装靴潮流短靴高..."> 好货！WOLVERNE正品男靴牛仔靴男鞋 工装靴潮流短靴高... </a>
+	    <a class="name transition-all" title="好货！WOLVERNE正品男靴牛仔靴男鞋 工装靴潮流短靴高..." href="{{ url('sample/index/detail') }}"> 好货！WOLVERNE正品男靴牛仔靴男鞋 工装靴潮流短靴高... </a>
 	    <span class="price transition-all" title="￥359.10">￥359.10</span>
           </div>
           <div class="txt-info transition-all">
@@ -31,7 +31,7 @@
 	      </div>
 	    </div>
 	    <div class="skip">
-	      <a class="skip-a"> <span>体验一下</span> </a>
+	      <a class="skip-a" href="{{ url('sample/index/detail') }}"> <span>体验一下</span> </a>
 	    </div>
 
           </div>

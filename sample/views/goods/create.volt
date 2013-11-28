@@ -4,6 +4,12 @@
 {% block style %}
 {{ super() }}
 <link href="/css/publish/publish.css" rel="stylesheet" media="screen" />
+<style type="text/css">
+.capture-link-btn button {
+   height: 38px;
+   border: 0;
+ }
+</style>
 {% endblock %}
 
 {% block main_content %}

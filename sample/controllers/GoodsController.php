@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: 
- * Last-Updated: Thu Nov 28 17:33:21 2013 (+0800)
+ * Last-Updated: Thu Nov 28 18:16:55 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 41
+ *     Update #: 43
  * 
  */
 
@@ -62,18 +62,24 @@ class GoodsController extends ControllerBase
         $id = basename($url, ".html");
         
         $xpath = \BullSoft\Utility::getPageXPath($url);
+
+        // goods name query node
         $nameQuery = '//*[@id="name"]';
         $nameNode = $xpath->query($nameQuery);
 
+        // goods name
         $goods['name'] = trim($nameNode->item(0)->nodeValue);
 
+        // goods price url
         $priceUrl = "http://p.3.cn/prices/get?skuid=J_" . $id . "&type=1";
         $priceJson = file_get_contents($priceUrl);
         $priceArr = reset(json_decode($priceJson, true));
+
+        // goods price
         $goods['price'] = $priceArr['p'];
 
+        // goods images
         $imgQuery = '//*[@id="spec-list"]/div/ul/li/*';
-
         $imgNode = $xpath->query($imgQuery);
 
         $goods['img_s'] = array();
@@ -85,9 +91,10 @@ class GoodsController extends ControllerBase
             $goods['img_l'][$key] = str_replace('/n5/', '/n1/', $goods['img_s'][$key]);
         }
 
-        $goods['img_default'] = $goods['img_l'][0];
+        // goods default image
+        $goods['img_default'] = reset($goods['img_l']);
+        
         $this->view->setVar('goods', $goods);
-        // return $goods;
     }
 }
 

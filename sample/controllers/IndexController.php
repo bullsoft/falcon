@@ -8,4 +8,9 @@ class IndexController extends ControllerBase
         // echo "Hello,I'm here: BullSoft\Sample\IndexController" . PHP_EOL;
         // exit;
     }
+
+    public function detailAction()
+    {
+        
+    }
 }
