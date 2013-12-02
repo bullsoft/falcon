@@ -110,9 +110,12 @@ class Utility
 
     public static function getPageXPath($url)
     {
-        $html = file_get_contents($url);
-        $html = mb_convert_encoding($html, "UTF-8", "GB2312");
+        $html = file_get_contents($url); 
         $encode  = mb_detect_encoding($html);
+        
+        if(strtolower($encode) != 'utf-8') {
+            $html = mb_convert_encoding($html, "UTF-8", "GB2312");
+        }
         $headpos = mb_strpos($html, '<HEAD>');
         if (false === $headpos) {
             $headpos = mb_strpos($html, '<head>');
