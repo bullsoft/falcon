@@ -6,10 +6,10 @@
  * Author: Gu Weigang
  * Maintainer: 
  * Created: Wed Jul 24 21:37:13 2013 (+0800)
- * Version: 95786
- * Last-Updated: Thu Jul 25 20:36:28 2013 (+0800)
+ * Version: master
+ * Last-Updated: Thu Dec  5 10:37:41 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 51
+ *     Update #: 55
  * 
  */
 
@@ -30,7 +30,7 @@
 
 /* Code: */
 
-require_once dirname(dirname((__DIR__))). "/bootstrap/cli.php";
+require_once __DIR__ . "/bootstrap/cli.php";
 registerTask('sample');
 
 /**
@@ -38,6 +38,12 @@ registerTask('sample');
  */
 class testSample extends PHPUnit_Framework_TestCase
 {
+    public function testDefault()
+    {
+        $expected = true;
+        $actual   = false;
+        $this->assertEquals($expected, $actual);        
+    }
 }
 
 /* testSample.php ends here */

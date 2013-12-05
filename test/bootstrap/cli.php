@@ -6,10 +6,10 @@
  * Author: Gu Weigang
  * Maintainer: 
  * Created: Tue Feb 19 16:10:36 2013 (+0800)
- * Version: 94281
- * Last-Updated: Mon Jul 22 13:31:58 2013 (+0800)
+ * Version: master
+ * Last-Updated: Thu Dec  5 10:34:19 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 11
+ *     Update #: 12
  * 
  */
 
@@ -35,9 +35,9 @@ require_once $system.'/apps/Bootstrap.php';
 $boostrap = new Bootstrap();
 $boostrap->execCliforTest();
 $GLOBALS["modules"] = array(
-    'travel' => array(
-        'className' => 'Adpipe\Travel\Task',
-        'path'      => $dir.'/travel/Task.php'
+    'sample' => array(
+        'className' => 'BullSoft\Sample\Task',
+        'path'      => $dir.'/sample/Task.php'
     ),
 );
 

@@ -6,10 +6,10 @@
  * Author: Gu Weigang
  * Maintainer: 
  * Created: Wed Jan 16 14:32:55 2013 (+0800)
- * Version: 71821
- * Last-Updated: Thu Mar 28 11:58:41 2013 (+0800)
+ * Version: master
+ * Last-Updated: Thu Dec  5 10:39:24 2013 (+0800)
  *           By: Gu Weigang
- *     Update #: 9
+ *     Update #: 10
  * 
  */
 
@@ -34,7 +34,11 @@ $system = $dir . '/skeleton';
 require_once $system.'/apps/Bootstrap.php';
 $boostrap = new Bootstrap();
 $boostrap->execWebforTest();
-$GLOBALS["modules"] = array
+$GLOBALS["modules"] = array(
+    'sample' => array(
+        'className' => 'BullSoft\Sample\Module',
+        'path'      => $dir.'/sample/Module.php'
+    ),    
 );
 
 function registerModule($module_name)
