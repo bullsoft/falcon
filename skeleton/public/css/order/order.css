@@ -1,0 +1,137 @@
+.wapper{background: #FFFFFF}
+.main-wapper{padding-top: 20px}
+.main{width: 980px;margin: 0 auto;font-size: 14px}
+
+.order-title{margin: 20px 0}
+
+.shopping-nav{float:right}
+.shopping-nav-ul li{float: left;width: 130px;border-bottom:5px solid #ccc;color:#CCCCCC;margin-left: 2px}
+.shopping-nav-ul li.doing{border-bottom-color:#7abd54;color: #7abd54}
+.shopping-nav-ul li.done{border-bottom-color:#caecb6;color: #caecb6}
+
+.shopping-content{padding-top: 18px}
+.shopping-content h3{font-size: 16px;}
+.shopping-content .title h3{float: left;color: #000000;font-weight: 700}
+.shopping-content .title-line{
+	display: block;height: 2px;
+	border-top: 1px solid #d5d5d5;
+	border-bottom: 1px solid #d5d5d5;
+	float: right;
+	margin-top:15px;
+	width: 890px;
+}
+
+/*收货人信息*/
+.consignee-person-info{}
+.consignee-person-info .line{height: 28px;line-height: 28px}
+.consignee-person-info .line span{padding-left: 16px}
+.consignee-person-info .line span.postcode{padding-left:0px}
+
+.consignee-modify-box{display: none}
+
+.consignee-list-ul li{padding: 10px 0 5px 20px;}
+.consignee-list-ul .line{padding-left: 10px;height: 24px;line-height: 24px;font-size: 12px}
+.consignee-list-ul li.current{background:#fff4d3 }
+
+.consignee-list-ul input[type=radio]{float: left;margin-top: 5px}
+.consignee-list-ul .line span,.consignee-list-ul a{float:left;height: 20px;line-height:20px;display: block;}
+.consignee-list-ul .line span{padding-left: 8px;}
+.consignee-list-ul .address{max-width: 600px;height: 20px;line-height: 20px;overflow: hidden}
+.consignee-list-ul .line .phone{padding-left: 15px}
+.consignee-list-ul .line a.setToDefault{padding-left: 16px}
+.consignee-list-ul .line a.edit{padding-left: 16px}
+.consignee-list-ul .line a.del{padding-left: 16px}
+.consignee-list-ul .line .default-txt{padding-left: 16px;color: #7abd54}
+
+
+/*收货地址编辑框*/
+.consignee-info-edit{font-size: 12px;padding:10px 0 10px 20px;display: none;overflow: hidden}
+.consignee-info-edit .edit-line{height: 32px;line-height: 32px}
+.consignee-info-edit input{height: 24px;outline: none;border: 1px solid #E3E3E3;padding: 1px 4px}
+.consignee-info-edit label{width: 80px;display: inline-block}
+.consignee-info-edit select{outline: none;padding: 1px 1px 1px 2px}
+.street-address{padding-top: 3px}
+.street-address-input{width: 240px}
+
+.save-adress-box{margin-top:15px;}
+
+
+.goods-list{margin-top:30px}
+.goods-list .title-line{width: 905px}
+.goods-list .head>div, .goods-list .goods-info>div{
+	float: left;
+}
+.goods-list .head>div, .goods-list .goods-info>div{text-align: center;}
+.goods-list .head>div div{display: block;margin-right: 4px;background: #E2E2E2;padding: 5px 0}
+.goods-list .head>div:last-child div{margin: 0}
+.goods-list .product{width: 40%}
+.goods-list .merchant{width: 25%}
+.goods-list .price{width: 20%}
+.goods-list .num{width: 18%}
+.goods-list .subtotal{width: 22%}
+.goods-list .merchant-info{float: none;height:20px;line-height: 20px;padding: 5px 0 5px 10px;margin-top: 15px;border-bottom: 1px solid #E3E3E3;font-size: 16px}
+
+
+.merchant-goods-list{padding-bottom: 20px}
+.goods-info{padding: 12px 0 10px;border-bottom:1px dashed #ddd;background: #fffee7}
+.goods-info>div{height: 52px;}
+.goods-info .price,.goods-info .num,.goods-info .merchant,.goods-info .subtotal{line-height: 52px}
+.goods-info .product>div{padding-left: 10px}
+.goods-info .p-img{float: left}
+.goods-info .p-img a{display: block;height:50px;width: 50px;border: 1px solid #ddd}
+.goods-info .p-img img{width: 50px;height: 50px}
+.goods-info .p-detail{padding: 0 10px 0 65px;font-size: 12px}
+.goods-info .p-detail .name{text-align: left;height: 36px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
+
+.goods-shop-info{margin-top: 2px;background:#fff4d3;}
+.goods-shop-info .message-box{width: 50%;float: left;padding-top: 10px}
+.goods-shop-info .message-box .inner{padding-left: 10px}
+.goods-shop-info .message-box textarea{resize: none;height: 50px;width: 380px;outline: none;border-color:#e3e3e3}
+.goods-shop-info .message-box textarea:focus{border-color:#FFAD26}
+.goods-shop-cost-box{width: 50%;float: right}
+.goods-shop-cost-box .inner-box{border-left: 1px solid #ffffff}
+.goods-shop-cost{height: 40px;line-height:40px;border-top:1px solid #ffffff;padding-right: 10px}
+.goods-shop-cost:first-of-type{border: none}
+.goods-shop-cost span{float: right}
+.goods-shop-cost-price{display: block;width: 100px;text-align: right}
+
+
+.goods-subtotal-box{background:#fff4d3;border-top: 1px solid #FFFFFF;padding-right: 10px;height: 45px;line-height: 45px}
+.goods-subtotal-box span{float: right;display: block;}
+.goods-subtotal-box .goods-subtotal-label{line-height: 49px}
+.goods-subtotal-box .goods-subtotal-price{font-size: 22px;color: rgb(253,108,11);padding-left: 8px}
+
+.close-accounts{padding-top: 10px}
+.close-accounts span{display: block;float: right;width: 100px;text-align: right;font-size: 12px}
+.close-accounts span.label{width: 200px;padding-right: 12px}
+.close-accounts .total{margin-top: 10px}
+.close-accounts .total span{font-weight: 700;font-size: 24px;color: rgb(253,108,11)}
+.close-accounts .total span.label{font-size: 18px;color: #555555}
+
+.submit-order-box{padding-top: 15px}
+.submit-order-box>div{float: right}
+.submit-order-box .price-box{display: block;float: left;margin-top: 12px}
+.submit-order-box .price{color: rgb(253,108,11);font-size: 24px;padding-left: 4px}
+.submit-order-box button{margin-left: 20px;float: left;font-size: 16px;font-weight: 700;padding:1px 20px 1px;background: rgba(253,108,11,.9)}
+
+.goods-info .num input{width: 50px;text-align: center;outline: none;margin: 0 6px}
+.goods-info .num a{color: #555555}
+.goods-info .num a:hover{color: #333}
+
+
+/*加入购物车成功*/
+.success-box{width: 580px;margin: 0 auto}
+.success-text{float: left;padding-top: 5px}
+.success-text h3{font-size: 28px;color: #7ABD54;padding: 0}
+.success-text h3 span{padding-right: 8px}
+.success-box .go-on{margin-left: 40px;float: left;}
+.success-box button{font-size: 18px;padding: 3px 20px 3px;margin-right: 20px}
+.success-box button span{padding-left: 12px;}
+
+/*购物车*/
+.shopping-cart .goods-list .product{width: 38%}
+.shopping-cart .goods-list .merchant{width: 20%}
+.shopping-cart .goods-list .price{width: 18%}
+.shopping-cart .goods-list .num{width: 16%}
+.shopping-cart .goods-list .oprate-del{width: 8%;}
+.goods-info .oprate-del{line-height: 52px}

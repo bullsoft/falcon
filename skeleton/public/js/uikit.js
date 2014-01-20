@@ -11,7 +11,7 @@
     }
 
     UI.fn = function(command, options) {
-
+		console.log(11111+'here');
         var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
 
         if (!UI[component]) {
@@ -40,7 +40,7 @@
                     OTransition: 'oTransitionEnd otransitionend',
                     transition: 'transitionend'
                 }, name;
-
+			console.log(element);
             for (name in transEndEventNames) {
                 if (element.style[name] !== undefined) {
                     return transEndEventNames[name];
@@ -48,7 +48,7 @@
             }
 
         }());
-
+		console.log(transitionEnd);
         return transitionEnd && { end: transitionEnd };
 
     })();
@@ -1601,7 +1601,9 @@
         this.dropdown.on("mouseover", ">li", function(){
             $this.pick($(this));
         });
-
+	
+		console.log(renderers[this.options.renderer]);
+		
         this.renderer = new renderers[this.options.renderer](this);
 
         this.element.data("search", this);

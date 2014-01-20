@@ -6139,8 +6139,8 @@ input.uk-search-field {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-  	 * Fit the phone width perfectly
-  	 */
+   * Fit the phone width perfectly
+   */
   .uk-modal-dialog {
     top: 0;
     left: 0;
