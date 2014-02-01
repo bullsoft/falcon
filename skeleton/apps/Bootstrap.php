@@ -1,7 +1,7 @@
 <?php
 final class Bootstrap
 {
-    protected $config      = null;
+    public $config      = null;
     protected $di          = null;
     protected $application = null;
     protected $loader      = null;
@@ -28,8 +28,6 @@ final class Bootstrap
     public function execWeb()
     {
         $this->exec();
-        define("PHALCON_RUN_ENV", "Module");
-        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault();
         $this->application = new \Phalcon\Mvc\Application();
         $this->application->setDI($this->di);
@@ -40,8 +38,6 @@ final class Bootstrap
     public function execCli($argv)
     {
         $this->exec();
-        define("PHALCON_RUN_ENV", "Task");        
-        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault\CLI();
         $this->application = new \Phalcon\CLI\Console();
         $this->application->setDI($this->di);
@@ -52,8 +48,6 @@ final class Bootstrap
     public function execMicro()
     {
         $this->exec();
-        define("PHALCON_RUN_ENV", "Micro");
-        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault\CLI();
         $this->application = new \Phalcon\Mvc\Micro();
         $this->application->setDI($this->di);
@@ -61,12 +55,10 @@ final class Bootstrap
         return $this->application;
         // You need handle it yourself
     }
-    
+
     public function execCliforTest()
     {
         $this->exec();
-        define("PHALCON_RUN_ENV", "Task");        
-        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');
         $this->di          = new \Phalcon\DI\FactoryDefault\CLI();
         $this->application = new \Phalcon\CLI\Console();
         $this->application->setDI($this->di);
@@ -76,8 +68,6 @@ final class Bootstrap
     public function execWebforTest()
     {
         $this->exec();
-        define("PHALCON_RUN_ENV", "Module");        
-        $this->config = new \Phalcon\Config\Adapter\Ini(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.ini');        
         $this->di          = new \Phalcon\DI\FactoryDefault();
         $this->application = new \Phalcon\Mvc\Application();
         $this->application->setDI($this->di);
@@ -92,5 +82,18 @@ final class Bootstrap
         $application = $this->application;
         $di          = $this->di;
         return require $file;
+    }
+
+    public function setConfig()
+    {
+        $_GET['_url'] = (isset($_GET['_url']))?$_GET['_url']:'';
+        $urlArr = explode('/',$_GET['_url']);
+
+        $gConfig = include(PHALCON_SKELETON_DIR.'/confs/'.$this->env.'.conf.php');
+        $moduleName = (count($urlArr) > 1)?$urlArr[1]:$gConfig->application->defaultModule;
+        $mConfig = include(PHALCON_DIR.'/'. $moduleName.'/confs/'.$this->env.'.conf.php');
+
+        $gConfig->merge($mConfig);
+        $this->config = $gConfig;
     }
 }
