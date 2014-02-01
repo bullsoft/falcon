@@ -5,10 +5,10 @@ ini_set ("memory_limit", "4G");
 
 try {
     require dirname(__DIR__) . '/apps/Bootstrap.php';
-    $boostrap = new Bootstrap();
+    $bootstrap = new Bootstrap();
 
     if (floatval(phpversion('phalcon')) < 1.1) {
-        $boostrap->execCli($_SERVER['argv']);
+        $bootstrap->execCli($_SERVER['argv']);
     } else {
         $args = $_SERVER['argv'];
 
@@ -28,7 +28,7 @@ try {
             $args['action'] = "main";
         }
         list($args['module'], $args['task']) = explode(":", $module_task);    
-        $boostrap->execCli($args);
+        $bootstrap->execCli($args);
     }
 } catch (Phalcon\Exception $e) {
     echo $e->getMessage();

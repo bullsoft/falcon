@@ -1,6 +1,5 @@
 <?php
 namespace BullSoft\Sample;
-use Phalcon\Config\Adapter\Ini as Config;
 
 class Module
 {
@@ -21,10 +20,10 @@ class Module
     */
     public function registerServices($di)
     {
-        $mConfig = new Config(__DIR__.'/confs/'.PHALCON_ENV.'.ini');
+        /*$mConfig = include(__DIR__.'/confs/'.PHALCON_ENV.'.conf.php');
         $gConfig = $di->get('config');
         $gConfig->merge($mConfig);
-        $di->set('config', $gConfig);
+        $di->set('config', $gConfig);*/
 
         // Registering a dispatcher
         $di->set('dispatcher', function () use ($di) {

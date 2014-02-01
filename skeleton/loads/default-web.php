@@ -61,14 +61,30 @@ $di->set('flash', function(){
 
 // register rules for router
 $di->set('router', function() {
-    $router = new \Phalcon\Mvc\Router();
-    $router->setDefaultModule("sample");
+    $router = new \Phalcon\Mvc\Router(false);
+    //$router->setDefaultModule("sample");
+    $router->removeExtraSlashes(true);
+    $router->add("/",
+        array("module" => 'sample',
+            "controller" => 'index',
+            "action" => 'index',
+        ));
+    $router->add("/:module",
+        array("module" => 1,
+            "controller" => 'index',
+            "action" => 'index',
+        ));
+    $router->add("/:module/:controller",
+        array("module" => 1,
+            "controller" => 2,
+            "action" => 'index',
+        ));
     $router->add("/:module/:controller/:action/:params",
-                 array("module"     => 1,
-                       "controller" => 2,
-                       "action"     => 3,
-                       "params"     => 4
-                 ));
+        array("module" => 1,
+            "controller" => 2,
+            "action" => 3,
+            "params" => 4
+        ));
     return $router;
 });
 
