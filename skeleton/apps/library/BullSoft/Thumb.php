@@ -1,4 +1,34 @@
 <?php
+/* Thumb.php --- 
+ * 
+ * Filename: Thumb.php
+ * Description: 
+ * Author: Gu Weigang
+ * Maintainer: 
+ * Created: Sat Jan 19 10:31:42 2013 (+0800)
+ * Version: master
+ * Last-Updated: Mon Dec 23 18:43:44 2013 (+0800)
+ *           By: Gu Weigang
+ *     Update #: 35
+ * 
+ */
+
+/* Change Log:
+ * 
+ * 
+ */
+
+/* This program is part of "Baidu Darwin PHP Software"; you can redistribute it and/or
+ * modify it under the terms of the Baidu General Private License as
+ * published by Baidu Campus.
+ * 
+ * You should have received a copy of the Baidu General Private License
+ * along with this program; see the file COPYING. If not, write to
+ * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
+ * Republic of China, 100085.
+ */
+
+/* Code: */
 
 namespace BullSoft;
 
@@ -48,7 +78,7 @@ class Thumb
      * @return 失败返回false
      *
      */
-	public function readfile($filename)
+	public function readfile($filename, $supportTypes)
     {
 		$this->image=null;
 		$info=getimagesize($filename);
@@ -57,8 +87,7 @@ class Thumb
 			//XXX "找不到文件"
 			return false;
 		}
-		$support = getDI()->get('config')->thumb->get("support");
-        $types = explode(",", $support);
+        $types = explode(",", $supportTypes);
 		if (!in_array($info['mime'],$types)) {
 			//XXX "不支持改文件格式！".$info['mime']
 			return false;
@@ -206,8 +235,10 @@ class Thumb
                 $b1 = ceil($b1);
             }
 
-			$thumb=imagecreatetruecolor($newwidth,$newheight);
+            $thumb=imagecreatetruecolor($newwidth,$newheight);
+            
             $this->transparent($thumb, $newwidth-1, $newheight-1);
+
             // imagecopyresized($thumb,$this->image,0,0,$x0,$y0,$newwidth,$newheight,$x1,$y1);
 			imagecopyresized($thumb,$this->image,$a0,$b0,0,0,$a1,$b1,$oldwidth,$oldheight);
 		}
@@ -240,11 +271,15 @@ class Thumb
 	 * @return string
      *
 	 */
-	public function output ()
+	public function output ($quality)
     {
 		if (empty($this->image)) return false;
 		ob_start();
-		imagejpeg($this->image,"", getDI()->get('config')->thumb->quality);
+        $method = $this->create[$this->type];
+        if ($method == "imagepng") {
+            $quality = min(9, $quality/10);
+        }
+		$method($this->image, "", $quality);                
 		$strTemp=ob_get_contents();
 		ob_end_clean();
 		return $strTemp;
@@ -403,11 +438,15 @@ class Thumb
 	 * @return string
      *
 	 */
-	public function outputHD ()
+	public function outputHD ($quality)
     {
 		if (empty($this->image)) return false;
 		ob_start();
-		imagejpeg($this->image,"",Ap_Application::app()->getConfig()->get("thumb")->get("quality"));
+        $method = $this->create[$this->type];
+        if ($method == "imagepng") {
+            $quality = min(9, $quality/10);
+        }
+		$method($this->image, "", $quality);        
 		$strTemp=ob_get_contents();
 		ob_end_clean();
 		return $strTemp;
@@ -438,7 +477,9 @@ class Thumb
         } else { // PNG JPEG
             imagealphablending($new_image, false);
             imagesavealpha($new_image,true);
+            
             $transparent = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
+            imagecolortransparent($new_image, $transparent);
             imagefilledrectangle($new_image, 0, 0, $width,$height, $transparent);
         }
         return true;
@@ -453,17 +494,21 @@ class Thumb
 	 * @return 失败返回false
      *
 	 */
-	public function writefile ($filename)
+	public function writefile ($filename, $quality)
     {
 		if (empty($this->image)) return false;
         $method = $this->create[$this->type];
-        $quality = getDI()->get('config')->thumb->quality;
         if ($method == "imagepng") {
             $quality = min(9, $quality/10);
         }
 		$method($this->image, $filename, $quality);
 		return true;
 	}
+
+    public function getType()
+    {
+        return end(explode("/", $this->type));
+    }
 }
 
 /* Thumb.php ends here */
