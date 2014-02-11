@@ -1,22 +1,29 @@
 <?php
 namespace BullSoft\Sample\Controllers;
 
+use BullSoft\Sample\Models\Product as ProductModel;
+
 class IndexController extends ControllerBase
 {
     public function indexAction()
     {
-        // echo "Hello,I'm here: BullSoft\Sample\IndexController" . PHP_EOL;
-        // exit;
+        $products = ProductModel::find();
+        $this->view->setVar("products", $products);
     }
 
-    public function detailAction()
+    public function detailAction($productId)
     {
-        $image = new \BullSoft\Thumb();
-        $url = "http://www.qianxs.com/mrMoney/images_n2/ICBC.png";
-        $image->readfile($url, "image/jpeg,image/png,image/gif");
-        $image->tothumbHD(78, 78, "scale");
-        header('Content-Type: image/png');
-        echo $image->outputHD(90);
-        exit;
+        $productId = intval($productId);
+        if($productId <= 0) {
+            $this->flash->error("产品ID必须大于0！");
+            exit(1);
+        }
+
+        $product = ProductModel::findFirst('id='.$productId);
+        if(empty($product)) {
+            $this->flash->error("抱歉，您请求的产品不存在！");
+            exit(1);
+        }
+        $this->view->setVar("product", $product);
     }
 }

@@ -4,34 +4,34 @@
 <div class="goods-box">
   <div class="goods-box-inner">
 
-    
+    {% for product in products %}
     <div class="single-goods transition-all">
       <div class="goods-show">
         <div class="goods-info">
           <div class="img">
-	    <img src="/images/1.jpg" style="margin-top: -20px"/>
+	    <img src="{{product.image_url}}" style="margin-top: -20px"/>
           </div>
           <div class="shadow transition-all">
-	    <a class="name transition-all" title="好货！WOLVERNE正品男靴牛仔靴男鞋 工装靴潮流短靴高..." href="{{ url('sample/index/detail') }}"> 好货！WOLVERNE正品男靴牛仔靴男鞋 工装靴潮流短靴高... </a>
-	    <span class="price transition-all" title="￥359.10">￥359.10</span>
+	    <a class="name transition-all" title="" href="{{ url('sample/index/detail/') }}{{product.id}}"> {{product.name}}</a>
+	    <span class="price transition-all" title="">{{product.price}}</span>
           </div>
           <div class="txt-info transition-all">
 	    <div class="recom-box clearfix">
 	      <div class="recom clearfix">
-	        <img src="/images/img/u2815691-25.jpg">
-	        <span class="nick">你在干嘛呢</span>
+	        <img src="{{product.user.photo}}">
+	        <span class="nick">{{product.user.nickname}}</span>
 	        <span>推荐</span>
 	      </div>
 	    </div>
 	    <div class="info">
 	      <div class="quote-l">
 	        <q class="quote-r">
-	          给自己看鞋。。。却发现男款不错 这是病 得治，不错的谢，赞一个
+	          {{product.description}}
 	        </q>
 	      </div>
 	    </div>
 	    <div class="skip">
-	      <a class="skip-a" href="{{ url('sample/index/detail') }}"> <span>体验一下</span> </a>
+	      <a class="skip-a" href="{{ url('sample/index/detail/') }}{{product.id}}"> <span>体验一下</span> </a>
 	    </div>
 
           </div>
@@ -39,44 +39,27 @@
       </div>
 
       <div class="merchant-box">
+        {% for provider in product.provider %}
         <div>
           <div class="line clearfix">
-	    <span class="name">淘一次</span>
-	    <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span>
-
-	    <span class="price">￥359.10</span>
-	    <a class="go" href="#">Go>></a>
+	    <span class="name"><a href="">{{provider.user.nickname}}</a></span>
+	    <!-- <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span> -->
+	    <span class="price" title="{{provider.slogan}}">零售一口价￥{{provider.price}}</span>
+	    <a class="go" href="{{ url('index/detail/') }}{{product.id}}">Go>></a>
           </div>
         </div>
-        <div>
-          <div class="line clearfix">
-	    <span class="name">淘一次</span>
-	    <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span>
-
-	    <span class="price">￥359.10</span>
-	    <a class="go" href="#">Go>></a>
-          </div>
-        </div>
-        <div>
-          <div class="line clearfix">
-	    <span class="name">淘一次</span>
-	    <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span>
-
-	    <span class="price">￥359.10</span>
-	    <a class="go" href="#">Go>></a>
-          </div>
-        </div>
+        {% endfor %}
       </div>
       <div class="oprate-box ">
         <div class="inner clearfix">
           <div class="oprate clearfix">
-	    <a class="prefer transition-all" href="#"><span class="uk-icon-heart"></span><i> 35</i></a>
-	    <a class="star transition-all" href="#"><span class="uk-icon-star"></span><i> 42</i></a>
+	    <a class="prefer transition-all" href="#"><span class="uk-icon-heart"></span><i> 42 </i></a>
+	    <a class="star transition-all" href="#"><span class="uk-icon-star"></span><i> {{product.like}}</i></a>
           </div>
         </div>
       </div>
     </div>
-
+    {% endfor %}
 
     
   </div>

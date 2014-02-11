@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/js/uikit.js"></script>
     {% endblock %}
     
-    <title>360砰！</title>
+    <title>血拼大爆炸！！！</title>
     <meta name="description" content="" />
     
   </head>

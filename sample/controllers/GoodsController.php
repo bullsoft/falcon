@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Fri Nov 29 18:46:53 2013 (+0800)
+ * Last-Updated: Sat Jan 25 16:55:22 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 82
+ *     Update #: 88
  * 
  */
 
@@ -65,6 +65,18 @@ class GoodsController extends ControllerBase
             $goods = $this->fetchYiXun($url);
         }
 
+        $host = '113.200.155.82';
+        $port = 6969;
+        $local = "null";
+        $client = new \BullSoft\WebSocket\Client($host, $port, '/');
+        $client->connect();
+        $goods = $client->send($url);
+        if($goods == false) {
+            $this->flash->error("商品请求失败！");
+            exit(1);
+        }
+        var_dump($goods);
+        exit;
         $this->view->setVar('goods', $goods);
     }
 
