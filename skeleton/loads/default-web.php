@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Mon Feb 10 17:57:00 2014 (+0800)
+ * Last-Updated: Wed Feb 12 15:42:49 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 29
+ *     Update #: 38
  * 
  */
 
@@ -63,6 +63,7 @@ $di->set('flash', function(){
 $di->set('router', function() {
     $router = new \Phalcon\Mvc\Router();
     $router->setDefaultModule("sample");
+    
     $router->add("/:module/:controller/:action/:params",
                  array("module"     => 1,
                        "controller" => 2,

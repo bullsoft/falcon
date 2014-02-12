@@ -58,7 +58,7 @@
 	  </span>
 	  <span class="price">￥{{provider.price}}</span>
 	  <span class="buy">
-	    <a href="#">Go>></a>
+	    <a href="{{ url('sample/cart/insertitem/') }}{{product.id}}/{{provider.user_id}}">加入购物车 >></a>
 	  </span>
 	</li>
         {% endfor %}

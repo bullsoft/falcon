@@ -12,8 +12,9 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     	$uriParts = explode('/', $uri);
     	return $this->dispatcher->forward(
     		array(
-    			'controller' => $uriParts[0], 
-    			'action' => $uriParts[1]
+                'module'     => $uriParts[0],
+    			'controller' => $uriParts[1], 
+    			'action' => $uriParts[2]
     		)
     	);
     }

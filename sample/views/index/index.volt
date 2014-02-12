@@ -13,7 +13,7 @@
           </div>
           <div class="shadow transition-all">
 	    <a class="name transition-all" title="" href="{{ url('sample/index/detail/') }}{{product.id}}"> {{product.name}}</a>
-	    <span class="price transition-all" title="">{{product.price}}</span>
+	    <span class="price transition-all" title="">￥{{product.price}}</span>
           </div>
           <div class="txt-info transition-all">
 	    <div class="recom-box clearfix">
@@ -31,7 +31,7 @@
 	      </div>
 	    </div>
 	    <div class="skip">
-	      <a class="skip-a" href="{{ url('sample/index/detail/') }}{{product.id}}"> <span>体验一下</span> </a>
+	      <a class="skip-a" href="{{ url('sample/index/detail/') }}{{product.id}}"> <span>查看详情</span> </a>
 	    </div>
 
           </div>
@@ -45,7 +45,7 @@
 	    <span class="name"><a href="">{{provider.user.nickname}}</a></span>
 	    <!-- <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span> -->
 	    <span class="price" title="{{provider.slogan}}">零售一口价￥{{provider.price}}</span>
-	    <a class="go" href="{{ url('index/detail/') }}{{product.id}}">Go>></a>
+	    <a class="go" href="{{ url('sample/index/detail/') }}{{product.id}}">GO >></a>
           </div>
         </div>
         {% endfor %}

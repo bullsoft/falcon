@@ -6,12 +6,14 @@
     </a>
     <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-flip">
       <ul class="uk-nav uk-nav-navbar">
-	<li><a href="#">Item</a></li>
-	<li><a href="#">Another item</a></li>
-	<li><a href="#">Item</a></li>
-	<li><a href="#">Another item</a></li>
+	<li><a href="#">我的主页</a></li>
+	<li><a href="{{ url('sample/cart/index') }}">我的购物车</a></li>        
+	<li><a href="#">购买记录</a></li>
+	<li><a href="#">愿望清单</a></li>
+	<li><a href="#">资料修改</a></li>
+        <li><a href="#">商家认证</a></li>
 	<li class="uk-nav-divider"></li>
-	<li><a href="#">Separated item</a></li>
+	<li><a href="#">退出</a></li>
       </ul>
     </div>
   </div>

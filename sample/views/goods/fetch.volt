@@ -6,7 +6,6 @@
 <link href="/css/publish/publish.css" rel="stylesheet" media="screen" />
 {% endblock %}
 
-
 {% block main_content %}
 
 <div class="content">
@@ -19,7 +18,7 @@
   </div>
   <div class="goods-info clearfix">
     <div class="img-box">
-      <img src="{{ goods['img_default'] }}" />
+      <img src="{{ goods['m_imgs'][0] }}" />
       <div class="change-img">
 	<a class="normal-btn transition-all" href="">更换主图</a>
       </div>
@@ -27,7 +26,7 @@
     <div class="info">
       <p class="txt">商品名称</p>
       <p class="name"><input class="normal-input" type="text" value="{{ goods['name'] }}" /></p>
-      <p class="price"><strong>￥{{ goods['price'] }}</strong></p>
+      <p class="price"><strong>{{ goods['price'] }}</strong></p>
     </div>
   </div>
   <div class="goods-sprite">
@@ -54,7 +53,7 @@
       </div>
       <div class="image-list-box">
 	<ul class="image-list">
-          {% for item in goods['img_l'] %}
+          {% for item in goods['m_imgs'] %}
 	  <li><img src="{{ item }}"/></li>
           {% endfor %}
 	</ul>
