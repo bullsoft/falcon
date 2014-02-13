@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Wed Jul 24 21:37:13 2013 (+0800)
  * Version: master
- * Last-Updated: Tue Feb 11 17:07:16 2014 (+0800)
+ * Last-Updated: Thu Feb 13 14:29:55 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 61
+ *     Update #: 76
  * 
  */
 
@@ -196,7 +196,6 @@ $cart2->importJson($cart->toJson());
 echo "\n{$cart2}\n";
 echo print_r($cart2->getTotals(), 1);
 echo print_r($cart2->getDiscountedTotals(), 1);
-
 
 /**
  * @backupGlobals disabled

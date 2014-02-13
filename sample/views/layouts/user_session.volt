@@ -10,6 +10,7 @@
 	<li><a href="{{ url('sample/cart/index') }}">我的购物车</a></li>        
 	<li><a href="#">购买记录</a></li>
 	<li><a href="#">愿望清单</a></li>
+	<li><a href="#">消息中心</a></li>        
 	<li><a href="#">资料修改</a></li>
         <li><a href="#">商家认证</a></li>
 	<li class="uk-nav-divider"></li>
@@ -23,7 +24,9 @@
 </div>
 
 <!-- 未登录  -->
+<!--
 <div class="login-register">
   <a class="ck-btn transition-all">登录</a>
   <a class="ck-btn transition-all">注册</a>
 </div>
+-->

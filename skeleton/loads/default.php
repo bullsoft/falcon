@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:44:41 2013 (+0800)
  * Version: master
- * Last-Updated: Wed Nov 27 12:10:12 2013 (+0800)
+ * Last-Updated: Thu Feb 13 16:31:28 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 65
+ *     Update #: 75
  * 
  */
 
@@ -32,17 +32,21 @@
 
 mb_internal_encoding("UTF-8");
 
+// include_once($system."/vendors/react/vendor/autoload.php");
+
 // register global class-dirs, class-namespace and class-prefix
 $loader->registerDirs(
     array(
         $system.$config->application->pluginsDir,
         $system.$config->application->libraryDir,
+        $system."/vendors/",
     ))->register();
 
 $loader->registerNamespaces(
     array(
         "BullSoft\Models"  => $system.$config->application->modelsDir,
         "BullSoft\Library" => $system.$config->application->libraryDir,
+        "Imagine"          => $system."/vendors/Imagine/lib/Imagine/",
     ))->register();
 
 // class autoloader

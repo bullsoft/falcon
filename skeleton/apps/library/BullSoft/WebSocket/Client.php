@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Sat Jan 25 00:09:00 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Jan 25 16:53:10 2014 (+0800)
+ * Last-Updated: Thu Feb 13 13:57:24 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 80
+ *     Update #: 103
  * 
  */
 
@@ -48,8 +48,11 @@ class Client
 
     public function connect()
     {
-        $this->sockfd = fsockopen($this->host, $this->port, $errno, $errstr, 2);
-
+        // $this->sockfd = fsockopen($this->host, $this->port, $errno, $errstr);
+        $this->sockfd = stream_socket_client($this->host.':'.$this->port, $errno, $errstr, 5);
+            
+        //stream_set_timeout($this->sockfd, 10);
+        
         // generate random string
         $key = base64_encode($this->generateRandomString(16, false, true));
 
@@ -92,7 +95,8 @@ class Client
     {
         if($this->isConnected) {
             fwrite($this->sockfd, $this->hybi10Encode($data)) or die('error:'.$errno.':'.$errstr);
-            $wsdata = fread($this->sockfd, 8192);
+            stream_set_timeout($this->sockfd, 2);
+            $wsdata = stream_get_contents($this->sockfd, -1);
             return json_decode($this->hybi10Decode($wsdata), true);
         } else {
             return false;
