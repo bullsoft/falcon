@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 12 16:56:40 2014 (+0800)
+ * Last-Updated: Thu Feb 13 14:39:57 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 91
+ *     Update #: 96
  * 
  */
 
@@ -54,10 +54,8 @@ class GoodsController extends ControllerBase
             $this->flash->error("URL不能为空！");
             exit(1);
         }
-        $itemUrl = parse_url($url, PHP_URL_HOST);
-        $host = '115.28.175.32';
+        $host = 'tcp://115.28.175.32';
         $port = 8080;
-        $local = "null";
         $client = new \BullSoft\WebSocket\Client($host, $port, '/');
         $client->connect();
         $goods = $client->send($url);
@@ -67,7 +65,6 @@ class GoodsController extends ControllerBase
         }
         $this->view->setVar('goods', $goods);
     }
-    
 }
 
 
