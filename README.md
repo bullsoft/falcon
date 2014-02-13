@@ -1,4 +1,7 @@
-Framework for phalconphp (PHP >=5.3.10 )
+Falcon - Fast Framework for phalconphp
 ====
 
-a php framework based on phalcon
+Requirement
+------
+* PHP: >= 5.3.10
+* Phalcon: >= 1.2.0
