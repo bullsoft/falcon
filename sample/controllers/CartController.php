@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
- * Version: 
- * Last-Updated: Wed Feb 12 17:17:40 2014 (+0800)
+ * Version: master
+ * Last-Updated: Fri Feb 14 12:23:07 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 49
+ *     Update #: 52
  * 
  */
 
@@ -84,7 +84,7 @@ class CartController extends ControllerBase
         if($this->request->isAjax()) {
             exit;
         } else {
-            $this->forward('sample/cart/index');
+            $this->response->redirect('sample/cart/index')->sendHeaders();
             return;
         }
     }
