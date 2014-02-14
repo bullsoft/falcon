@@ -44,6 +44,8 @@ class Module
                         "compiledExtension" => $di->get('config')->view->compiledExtension,
                         "compileAlways"     => (bool) $di->get('config')->application->debug
                     ));
+                    $compiler = $volt->getCompiler();
+                    $compiler->addExtension(new \BullSoft\Volt\Extension\PhpFunction());
                     return $volt;                    
                 }
             ));

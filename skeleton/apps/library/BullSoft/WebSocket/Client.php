@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Sat Jan 25 00:09:00 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 13 13:57:24 2014 (+0800)
+ * Last-Updated: Thu Feb 13 21:57:06 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 103
+ *     Update #: 109
  * 
  */
 
@@ -49,10 +49,8 @@ class Client
     public function connect()
     {
         // $this->sockfd = fsockopen($this->host, $this->port, $errno, $errstr);
-        $this->sockfd = stream_socket_client($this->host.':'.$this->port, $errno, $errstr, 5);
+        $this->sockfd = stream_socket_client($this->host.':'.$this->port, $errno, $errstr);
             
-        //stream_set_timeout($this->sockfd, 10);
-        
         // generate random string
         $key = base64_encode($this->generateRandomString(16, false, true));
 
@@ -67,9 +65,9 @@ class Client
 
         fwrite($this->sockfd, $head) or die('error:'.$errno.':'.$errstr);
 
+        stream_set_timeout($this->sockfd, 1);
         // get response from websocket server
-        $headers = fread($this->sockfd, 8192);
-
+        $headers = stream_get_contents($this->sockfd, -1);
         // get accept key
 		preg_match('#Sec-WebSocket-Accept:\s(.*)$#mU', $headers, $matches);
         
@@ -95,7 +93,7 @@ class Client
     {
         if($this->isConnected) {
             fwrite($this->sockfd, $this->hybi10Encode($data)) or die('error:'.$errno.':'.$errstr);
-            stream_set_timeout($this->sockfd, 2);
+            stream_set_timeout($this->sockfd, 3);
             $wsdata = stream_get_contents($this->sockfd, -1);
             return json_decode($this->hybi10Decode($wsdata), true);
         } else {

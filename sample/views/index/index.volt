@@ -26,7 +26,7 @@
 	    <div class="info">
 	      <div class="quote-l">
 	        <q class="quote-r">
-	          {{product.description}}
+	          {{ mb_substr(product.description, 0, 80, "UTF-8") }}
 	        </q>
 	      </div>
 	    </div>
