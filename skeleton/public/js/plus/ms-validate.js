@@ -17,7 +17,7 @@
 	
 	validateField = function(event, options){
 		
-		var status, $field, fieldValue, fieldValidate, validation
+		var status, $field, fieldValue, fieldValidate, validation;
 		// Field status 
 		status = {pattern : true,conditional : true,required : true};
 		// Current field

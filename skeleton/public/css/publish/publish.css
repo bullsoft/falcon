@@ -9,6 +9,8 @@
 .recom.web h1 .txt{font-size: 16px}
 .recom .back-step{font-size: 16px;position: absolute;top: -5px;right: 10px;}
 
+
+#publish-box .loading{display:none}
 .capture-link div{float: left}
 .capture-link-input input{width: 510px;height:28px;outline:none;border: 1px solid #ccc;padding: 4px 5px;
 box-sizing:content-box;
@@ -54,8 +56,9 @@ border-radius: 2px
 .goods-images-box .change-img .normal-btn{padding-bottom: 2px}
 .image-list-box{width: 680px;overflow: hidden}
 .image-list{width: 700px;padding-top: 8px}
-.image-list li{float: left;margin:0 13px 13px 0}
-.image-list img{width: 125px;height: 125px;border: 1px solid rgba(223,224,225,.7)}
+.image-list li{float: left;margin:0 13px 13px 0;position: relative}
+.image-list img{width: 125px;height: 125px;border: 1px solid rgba(223,224,225,.7);}
+.image-list img.l_img{position: absolute;top: 0;left: 0;}
 
 .publish-btn-box{padding-top: 20px}
 .publish-btn-box .line{border-top: 1px solid #D5D5D5;padding-top: 15px}

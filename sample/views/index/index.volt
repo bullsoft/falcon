@@ -1,8 +1,14 @@
 {# index/index.volt #}
 {% extends "main.volt" %}
+
+{% block style %}
+{{ super() }}
+<link href="/css/index/index.css" rel="stylesheet" media="screen" />
+{% endblock %}
+
 {% block main_content %}
 <div class="goods-box">
-  <div class="goods-box-inner">
+	<div class="goods-box-inner">
 
     {% for product in products %}
     <div class="single-goods transition-all">
@@ -33,35 +39,33 @@
 	    <div class="skip">
 	      <a class="skip-a" href="{{ url('sample/index/detail/') }}{{product.id}}"> <span>查看详情</span> </a>
 	    </div>
-
-          </div>
-        </div>
+	  </div>
+	</div>
       </div>
 
-      <div class="merchant-box">
-        {% for provider in product.provider %}
-        <div>
-          <div class="line clearfix">
-	    <span class="name"><a href="">{{provider.user.nickname}}</a></span>
-	    <!-- <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span> -->
-	    <span class="price" title="{{provider.slogan}}">零售一口价￥{{provider.price}}</span>
-	    <a class="go" href="{{ url('sample/index/detail/') }}{{product.id}}">GO >></a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-      <div class="oprate-box ">
-        <div class="inner clearfix">
-          <div class="oprate clearfix">
-	    <a class="prefer transition-all" href="#"><span class="uk-icon-heart"></span><i> 42 </i></a>
-	    <a class="star transition-all" href="#"><span class="uk-icon-star"></span><i> {{product.like}}</i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
+			<div class="merchant-box">
+				{% for provider in product.provider %}
+				<div>
+					<div class="line clearfix">
+						<span class="name"><a href="">{{provider.user.nickname}}</a></span>
+						<!-- <span class="star-level star-one"> <i class="star-light star"> </i> <i class="star-grey star"> </i> </span> -->
+						<span class="price" title="{{provider.slogan}}">零售一口价￥{{provider.price}}</span>
+						<a class="go" href="{{ url('sample/index/detail/') }}{{product.id}}">GO >></a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="oprate-box ">
+				<div class="inner clearfix">
+					<div class="oprate clearfix">
+						<a class="prefer transition-all" href="#"><span class="uk-icon-heart"></span><i> 42 </i></a>
+						<a class="star transition-all" href="#"><span class="uk-icon-star"></span><i> {{product.like}}</i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
 
-    
-  </div>
+	</div>
 </div>
 {% endblock %}
