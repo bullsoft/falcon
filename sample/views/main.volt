@@ -11,7 +11,6 @@
     <link href="/css/common/css3.css" rel="stylesheet" media="screen" />
     <link href="/css/common/common.css" rel="stylesheet" media="screen" />
     <link href="/css/common/nav.css" rel="stylesheet" media="screen" />
-    <link href="/css/index/index.css" rel="stylesheet" media="screen" />
     {% endblock %}
 
     {% block javascript %}
@@ -39,5 +38,11 @@
 	</div>
       </div>
     </div>
+    {% block javascript_bottom %}
+    	<script type="text/javascript" src="/js/global/ms.js"></script>
+    	<script type="text/javascript" src="/js/plus/nunjucks.js"></script>
+    	<script type="text/javascript" src="/js/global/config.js"></script>
+    	<script type="text/javascript" src="/js/plus/ms-template.js"></script>
+    {% endblock %}
   </body>
 </html>
