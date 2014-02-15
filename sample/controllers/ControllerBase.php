@@ -18,4 +18,14 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     		)
     	);
     }
+
+    protected function flashJson($status, $data = array(), $msg="")
+    {
+        $this->response->sendHeaders();
+        echo json_encode(array(
+            'status' => intval($status),
+            'data'   => $data,
+            'msg'    => $msg,
+        ));
+    }
 }

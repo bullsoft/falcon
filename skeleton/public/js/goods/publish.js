@@ -51,7 +51,7 @@
 					url = that.$publishForm.attr('action');
 					
 					//todo test
-					url = '/mock/publish-detail.json',
+					// url = '/mock/publish-detail.json',
 					$.ajax({
 						url : url,
 						type : 'post',

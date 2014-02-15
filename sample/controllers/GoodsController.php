@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 13 14:39:57 2014 (+0800)
+ * Last-Updated: Fri Feb 14 17:12:48 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 96
+ *     Update #: 98
  * 
  */
 
@@ -60,10 +60,15 @@ class GoodsController extends ControllerBase
         $client->connect();
         $goods = $client->send($url);
         if($goods == false) {
-            $this->flash->error("商品请求失败！");
-            exit(1);
+            // $this->flash->error("商品请求失败！");
+            $this->flashJson(500, array(), "商品请求失败！");
+        } else {
+            $goods['from_url'] = $url;
+            $goods['from']     = "京东商城";
+            $this->flashJson(200, $goods);
         }
-        $this->view->setVar('goods', $goods);
+        exit(1);
+        // $this->view->setVar('goods', $goods);
     }
 }
 
