@@ -1,4 +1,4 @@
-<div class="navigation">
+<div class="navigation" id="navigation">
 	<ul class="navigation-ul">
 		<li class="current">
 			<span class="nav-icon icon-index"> </span>

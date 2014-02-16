@@ -6,8 +6,13 @@
 <link href="/css/index/index.css" rel="stylesheet" media="screen" />
 {% endblock %}
 
+{% block javascript_bottom %}
+{{ super() }}
+<script src="/js/index/index.js"></script>
+{% endblock %}
+
 {% block main_content %}
-{% include "layouts/navigation.volt" %}	  
+{% include "layouts/navigation.volt" %}
 <div class="goods-box">
 	<div class="goods-box-inner">
 

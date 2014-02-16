@@ -1,4 +1,4 @@
-
+body{height: 1000px}
 
 
 
@@ -82,11 +82,11 @@
 .nav-icon{background: url(../../images/nav-icon.png) no-repeat}
 
 .navigation{position: absolute;	top: 0px;
-	min-height:400px;width: 130px;margin-left: -140px;padding:7px 0;
+	width: 130px;margin-left: -140px;padding:7px 0;
 	background:#fcfcfc;
 	border: 1px solid #00A9A9
 }
-
+.navigation-fixed{position: fixed;top:50px}
 .navigation li{padding: 5px 10px;font-size: 14px;}
 .navigation li .nav-icon{float: left;display:block;width:20px;height: 20px;}
 .navigation li a{color: #a3a3a3;padding-left: 10px;text-decoration: none}
