@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Mon Feb 17 17:20:07 2014 (+0800)
+ * Last-Updated: Mon Feb 17 17:32:00 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 108
+ *     Update #: 115
  * 
  */
 
@@ -54,7 +54,9 @@ class GoodsController extends ControllerBase
             $this->flash->error("URL不能为空！");
             exit(1);
         }
-        $host = 'http://115.28.223.103:8083/';
+        $hosts = $this->di->get('config')->phantomjs->hosts->toArray();
+        shuffle($hosts);
+        $host = reset($hosts);
         $post = 'url='.$url;
         $browser = new \Buzz\Browser();
         try {
