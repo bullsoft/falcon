@@ -12,7 +12,7 @@
 		var url, urlPostfix, urlPrefix;
 		urlPostfix = options.urlPostfix ? options.urlPostfix : 'html';
 		urlPrefix	= options.urlPrefix ? options.urlPrefix  : '/';
-		url = options.id.replace(/-/g,'/');
+		url = options.id.replace(/%/g,'/');
 		url = urlPrefix + url + '.' +  urlPostfix;
 		return url;
 	};
@@ -24,15 +24,19 @@
 		if($.trim(options.id) === ''){
 			throw 'Template-->options.id不能为空 ';
 		}
-		this.options = $.extend(true, {}, this._options, options);
+		this.options = $.extend(true, {}, _options, options);
 		html = TemplateMap[options.id];
 		if(!html){
 			url = rewriteUrl(options);
+			
+			$(options.loadBox || 'body').ms('loading');
+			
 			$.ajax({
 				url : url,
 				async: false,
 				dataType:'text',
 				success:function(data){
+					$(options.loadBox || 'body').ms('loading.destroy');
 					html = data;
 				}
 			});
@@ -59,7 +63,6 @@
 			return TemplateMap[this.options.id];
 		},
 	});
-	
 	
 	
 	 MS["template"] = TemplateInit;

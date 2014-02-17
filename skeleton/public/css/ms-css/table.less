@@ -1,0 +1,106 @@
+
+@table-border:              1px solid #e5e5e5;
+@table-hover-bg:            #eeeeee;
+@table-striped-bg:          #f5f5f5;
+
+/*
+ * Name:      Table
+ * Description:   Defines styles for tables
+ *
+ * Component:   `ms-table`
+ *
+ * Modifiers:   `ms-table-middle`
+ *          `ms-table-striped`
+ *          `ms-table-condensed`
+ *          `ms-table-hover`
+ *
+ ========================================================================== */
+/* Component
+ ========================================================================== */
+/* Block element behavior */
+.ms-table {
+  width: 100%;
+  margin-bottom: 15px;
+  border-collapse : collapse
+}
+/*
+ * Add margin if adjacent element
+ */
+* + .ms-table {
+  margin-top: 15px;
+}
+.ms-table th,
+.ms-table td {
+  padding: 8px 8px;
+}
+/* Set alignment */
+.ms-table th {
+  text-align: left;
+}
+.ms-table td {
+  vertical-align: top;
+}
+.ms-table thead th {
+  vertical-align: bottom;
+}
+.ms-table tr{
+  .transition(all linear 0.2s);
+}
+/*
+ * Caption and footer
+ */
+.ms-table caption,
+.ms-table tfoot {
+  font-size: 12px;
+  font-style: italic;
+}
+.ms-table caption {
+  text-align: left;
+  color: #999999;
+}
+/* Sub-modifier: `ms-table-middel`
+ ========================================================================== */
+.ms-table-middle,
+.ms-table-middle td {
+  vertical-align: middle !important;
+}
+/* Modifier: `ms-table-striped`
+ ========================================================================== */
+.ms-table-striped tbody tr:nth-of-type(odd){
+  background: @table-striped-bg;
+}
+/* Modifier: `ms-table-condensed`
+ ========================================================================== */
+.ms-table-condensed td {
+  padding: 4px 8px;
+}
+/* Modifier: `ms-table-hover`
+ ========================================================================== */
+.ms-table-hover tbody tr:hover{
+  background: @table-hover-bg;
+}
+
+.ms-table.ms-border{
+  border-left: @table-border;
+  border-top: @table-border;
+}
+
+.ms-table.ms-border th, .ms-table.ms-border td{
+  border-bottom: @table-border;
+  border-right: @table-border;
+}
+.ms-table.ms-center th, .ms-table.ms-center td{
+  text-align: center;
+}
+
+.ms-table.ms-border caption{
+  padding : 4px 0;
+  border-left: @table-border;
+  border-top: @table-border;
+  border-right: @table-border;
+}
+.ms-table caption.ms-center{
+  text-align: center;
+}
+
+

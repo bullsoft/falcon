@@ -1,10 +1,10 @@
-
+body{height: 1000px}
 
 
 
 
 .main-wapper{padding-top: 20px}
-.main{width: 980px;margin: 0 auto}
+.main{width: 980px;margin: 0 auto;position: relative}
 
 .goods-box{width: 980px;overflow: hidden}
 .goods-box-inner{width: 1200px}
@@ -75,6 +75,57 @@
 .oprate-box .oprate .prefer:hover{color:#e74c3c}
 
 
-
-
 .single-goods .cont{height: 100px;overflow: hidden;font-size: 14px;margin-top: 10px;padding: 0 20px}
+
+
+/*侧边栏导航条*/
+.nav-icon{background: url(../../images/nav-icon.png) no-repeat}
+
+.navigation{position: absolute;	top: 0px;
+	width: 130px;margin-left: -140px;padding:7px 0;
+	background:#fcfcfc;
+	border: 1px solid #00A9A9
+}
+.navigation-fixed{position: fixed;top:50px}
+.navigation li{padding: 5px 10px;font-size: 14px;}
+.navigation li .nav-icon{float: left;display:block;width:20px;height: 20px;}
+.navigation li a{color: #a3a3a3;padding-left: 10px;text-decoration: none}
+.navigation li:hover a,.navigation li.current a{color: #59B8E1}
+
+.navigation li .icon-index{background-position: 0 -620px}
+.navigation li:hover .icon-index,.navigation li.current .icon-index{background-position: 0 -1070px}
+
+.navigation li .icon-daliy{background-position:0 -679px}
+.navigation li:hover .icon-daliy,.navigation li.current .icon-daliy{background-position: 0 -1129px}
+
+.navigation li .icon-food{background-position:0 -1472px}
+.navigation li:hover .icon-food,.navigation li.current .icon-food{background-position: 0 -1501px}
+
+.navigation li .icon-dress{background-position:0 -770px}
+.navigation li:hover .icon-dress,.navigation li.current .icon-dress{background-position: 0 -1220px}
+
+.navigation li .icon-cosmetics{background-position:0 -830px}
+.navigation li:hover .icon-cosmetics,.navigation li.current .icon-cosmetics{background-position: 0 -1280px}
+
+.navigation li .icon-sport{background-position:0 -710px}
+.navigation li:hover .icon-sport,.navigation li.current .icon-sport{background-position:0 -1160px}
+
+.navigation li .icon-digital{background-position:0 -650px}
+.navigation li:hover .icon-digital,.navigation li.current .icon-digital{background-position:0 -1100px}
+
+.navigation li .icon-infantmon{background-position:0 -740px}
+.navigation li:hover .icon-infantmon,.navigation li.current .icon-infantmon{background-position:0 -1190px}
+
+.navigation li .icon-abroad{background-position:0 -800px}
+.navigation li:hover .icon-abroad,.navigation li.current .icon-abroad{background-position:0 -1250px}
+
+.navigation li .icon-other{background-position:0 -860px}
+.navigation li:hover .icon-other,.navigation li.current .icon-other{background-position:0 -1310px}
+
+
+
+
+
+
+
+

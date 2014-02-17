@@ -1,0 +1,49 @@
+//hover.less
+@import "hover.less";
+
+//nav
+@nav-background-color:          rgba(0,170,170,.85);     
+@nav-width:                     980px;
+@nav-color:                     #ffffff;
+@nav-spacing:                   10px;
+@nav-bottom-spacing:            10px;
+@nav-font-size:                 18px;
+@nav-hover-color:               #FAB788;
+
+.ms-nav-wapper{
+  width :100%;
+  background-color : @nav-background-color
+}
+
+.ms-nav{margin: 0 auto;width: @nav-width;.clearfix();}
+
+.ms-nav-ul{.clearfix();}
+
+//水平排列 ---导航条默认排列方式
+.ms-nav-ul li{float: left;}
+.ms-nav-ul li a{
+  padding: @nav-spacing;
+  display: block;
+  font-size: 18px;
+  color: @nav-color;
+  .transition(color 0.2s ease-in-out);
+}
+
+//下划线导航hover效果
+.ms-nav-ul.ms-hover-line{
+  padding:1px 0;
+}
+.ms-nav-ul.ms-hover-line li a:after{
+  .ms-hover-line(@nav-hover-color; @nav-bottom-spacing)
+}
+.ms-nav-ul.ms-hover-line li a:hover:after{
+  width:100%
+}
+.ms-nav-ul.ms-hover-line li a:hover{
+  color:@nav-hover-color
+}
+
+.ms-nav-ul{
+  float:left;
+}
+

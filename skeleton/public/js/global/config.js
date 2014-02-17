@@ -1,3 +1,25 @@
 
-//设置全局模板，标签不转
-nunjucks.configure({ autoescape: true });
+
+global={};
+
+global.config = {
+	requestType : 'get',//请求方式
+	
+	user:{
+		name: '',
+		nick: ''
+	},
+	
+	login:{
+		templateId:'js%ms-js%login',
+		checkUrl : '/mock/check-login.json',
+		url: '/mock/login.json'
+	},
+	
+	goods: {
+		//publisNowUrl : '/mock/goods-publish-now.josn',
+		publisNowUrl : 'sample/goods/insert'
+	}
+};
+
+

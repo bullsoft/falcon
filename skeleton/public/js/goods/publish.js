@@ -20,7 +20,7 @@
 			
 			var that = goods, template , str ='';
 			
-			template = $.MSspirit.template({id:'js-goods-detail'}).getHtml();
+			template = $.MSspirit.template({id:'js%goods%detail'}).getHtml();
 			str = nunjucks.renderString(template, {goods: data});
 			
 			return str;
@@ -107,19 +107,36 @@
 			that.submitDatas['from_url'] = data.from_url;
 		},
 		
+		checkParams : function(){
+			var that = this;
+			
+			that.submitDatas.description = $.trim($('#recommend-description').val());
+			
+			if(!that.submitDatas.description){
+				alert('推荐理由不能为空 ');
+				return false;
+			}
+			
+			return true;
+		},
+		
 		submit: function(){
 			
 			var that = goods;
-
+			
+			if(!that.checkParams()){
+				return false;
+			}
+			
+			
 			$.ajax({
-				url: '/mock/goods-publish-now.josn',
+				url: global.config.goods.publisNowUrl,
 				data:that.submitDatas,
 				dataType:'json',
 				success:function(res){
 					
 					if(res.status == 200){
 						
-						alert(res.msg);
 						res.data && res.data.forward && (window.location.href = res.data.forward);					
 					}else{
 						

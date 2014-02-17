@@ -1,0 +1,6 @@
+.ms-hover-line(@backgorund; @height){
+  width: 0;height: 3px;background: @backgorund; display: block;content: "";
+  position: relative;
+  top: @height;
+  .transition(width 0.2s ease-in-out);
+}

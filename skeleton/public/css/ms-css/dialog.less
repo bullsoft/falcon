@@ -1,0 +1,98 @@
+@import "variables.less";
+@import "mixins.less";
+@import "base.less";
+@import "button.less";
+@import "icon.less";
+
+@dialog-border: 			1px solid #e3e3e3;
+
+.ms-dialog-wapper{
+	position: fixed;
+	top: 0;
+	left: 0;
+//	bottom: 0;
+
+	width: 100%;
+	height:100%;
+	opacity: 0;
+
+	border : @dialog-border;
+	box-shadow: 0 0 5px #535658;
+	
+	.transition(all 0.15s linear);
+}
+
+.ms-dialog-wapper.ms-open{
+  opacity: 1;
+  z-index: 9
+}
+
+.ms-dialog-shadow{
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	height: 100%;
+
+	//opacity: 0.6;
+	//background-color: #000;
+	background-color: rgba(0,0,0,.2)
+}
+
+.ms-dialog-box{
+	position: absolute;
+	top: 100px;
+	left:30%;
+
+	min-width: 400px;
+
+	background-color: #fff;
+}
+
+.ms-dialog-box.ms-loading{
+  height:32px;
+  background:url(../../images/loading.gif) no-repeat center center;
+}
+
+.ms-dialog-titlebar{
+	padding: 5px 10px;
+	height : 30px;
+	line-height: 30px;
+	background-color: #f3f3f3
+}
+
+.ms-dialog-close-btn{
+	position: absolute;
+	top: 8px;
+	right: 6px
+}
+
+.ms-dialog-title-text{
+	font-size: 14px;
+	color: #4C4C4C
+}
+
+.ms-dailog-content{
+	margin: 8px 0 8px 10px;
+	padding-right: 10px;
+	color: #535353;
+	font-size: 12px;
+	
+	overflow: auto;
+}
+
+.ms-dialog-btns{
+	padding: 10px 10px 8px;
+	border-top : @dialog-border;
+	.clearfix()
+}
+
+.ms-dialog-btns button{
+	float: right;
+	margin-left: 6px;
+}
+
+.ms-dialog-page{
+  overflow: hidden !important;
+}

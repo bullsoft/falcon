@@ -1,0 +1,29 @@
+.login-submit,.other-login .image-txt,.other-login a{background:url(../../images/login/login_icon.png) no-repeat}
+
+
+
+.login-contanier{width:430px;margin: 20px 60px}
+
+.slogan{font-size: 24px;}
+
+.login-contanier .logo{width:318px;height: 51px;margin:0 auto;background: url(../../images/login/login_logo.png);}
+
+.login-box{margin-top: 20px}
+
+.other-login{padding-top: 20px;height: 50px;}
+.other-login .image-txt{width:139px;height: 18px;float: left;background-position: right 0;margin-top: 20px;text-indent: -999px;margin-right: 25px}
+.other-login a{float: left;width: 48px;height: 48px;margin-right: 24px;outline: none}
+.other-login a:last-child{margin-right: 0}
+.other-login .sina_wb{background-position:left bottom}
+.other-login .oicq{background-position:-73px bottom}
+.other-login .rr{background-position:-144px bottom}
+.other-login .qq_wb{background-position:-214px bottom}
+
+
+.login-box .line{float: left;background-color: #ffffff;}
+.login-box .line:first-child{margin-right: 20px}
+.login-box .psw{position: relative}
+.login-box .line input{width: 204px;height: 51px;padding:  0 20px;color: #a6ab97;background-color: rgba(0,170,170,.1);border:none;box-shadow: inset 0 0 3px 0 rgba(0,170,170,0.75);font-size: 14px}
+.login-box .psw input{padding-right: 50px}
+.login-submit{width: 29px;height: 29px;position: absolute;right: 15px;top: 11px;background-position:right -28px;outline: none}
+
