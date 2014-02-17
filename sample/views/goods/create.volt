@@ -24,7 +24,17 @@
 		<h1><span class="txt">推荐商品</span><span class="line"></span></h1>
 	</div>
 	<div id="publish-box">
-		<div class="loading">数据正在加载中...</div>
+		<div class="loading loading-animate">
+			<span class="animate-falldwon"><span class="animate-delay-1 animate-wave"><span class="rotate rotate-1">商</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-2 animate-wave"><span class="rotate rotate-2">品</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-3 animate-wave"><span class="rotate rotate-3">马</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-4 animate-wave"><span class="rotate rotate-4">上</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-5 animate-wave"><span class="rotate rotate-5">就</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-6 animate-wave"><span class="rotate rotate-6">来</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-7 animate-wave"><span class="rotate rotate-7">.</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-8 animate-wave"><span class="rotate rotate-8">.</span></span></span>
+			<span class="animate-falldwon"><span class="animate-delay-9 animate-wave"><span class="rotate rotate-9">.</span></span></span>
+		</div>
 		<div class="detail-container" id="detail-container"></div>
 		<div id="publish-container">
 			<div class="capture-link clearfix">
