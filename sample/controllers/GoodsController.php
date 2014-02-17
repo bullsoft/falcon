@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Fri Feb 14 17:12:48 2014 (+0800)
+ * Last-Updated: Mon Feb 17 19:03:12 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 98
+ *     Update #: 148
  * 
  */
 
@@ -30,6 +30,11 @@
 /* Code: */
 
 namespace BullSoft\Sample\Controllers;
+
+use Wrench\Protocol\Protocol;
+use Wrench\Client;
+use Wrench\Socket;
+use \InvalidArgumentException;
 
 class GoodsController extends ControllerBase
 {
@@ -54,21 +59,52 @@ class GoodsController extends ControllerBase
             $this->flash->error("URL不能为空！");
             exit(1);
         }
-        $host = 'tcp://115.28.175.32';
-        $port = 8080;
-        $client = new \BullSoft\WebSocket\Client($host, $port, '/');
-        $client->connect();
-        $goods = $client->send($url);
-        if($goods == false) {
-            // $this->flash->error("商品请求失败！");
-            $this->flashJson(500, array(), "商品请求失败！");
-        } else {
+        
+        $content = json_decode($this->fetchSocket($url), true);
+        // $content = json_decode($this->fetchHttp($url), true);
+
+        if(!$content) {
+            $this->flashJson(500, "商品请求失败：网络错误！");
+            exit(1);
+        }
+        if($content['status'] == 200) {
+            $goods = $content['data'];
             $goods['from_url'] = $url;
             $goods['from']     = "京东商城";
             $this->flashJson(200, $goods);
+        } else {
+            $this->flashJson(500, array(), "商品请求失败：商品下架或暂不提供销售");
         }
         exit(1);
-        // $this->view->setVar('goods', $goods);
+    }
+
+    public function fetchHttp($url)
+    {
+        $hosts = $this->di->get('config')->phantomjs->hosts->toArray();
+        shuffle($hosts);
+        $host = reset($hosts);
+        $post = 'url='.$url;
+        $browser = new \Buzz\Browser();
+        try {
+            $response = $browser->post($host, array(), $post);
+        } catch(\Buzz\Exception\ClientException $e) {
+            $this->flashJson(500, array(), $e->getMessage());
+            return false;
+        }
+        return $response->getContent();
+    }
+    
+    public function fetchSocket($url)
+    {
+        $hosts = $this->di->get('config')->websocketd->hosts->toArray();
+        shuffle($hosts);
+        $host = reset($hosts);        
+        $instance = new Client($host, 'http://www.shopbigbang.com/');
+        $success = $instance->connect();
+        $bytes = $instance->sendData($url, Protocol::TYPE_TEXT);
+        $responses = $instance->receive();
+        $instance->disconnect();
+        return (string) reset($responses);
     }
 }
 
