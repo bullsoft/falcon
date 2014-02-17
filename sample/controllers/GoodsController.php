@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Mon Feb 17 17:07:05 2014 (+0800)
+ * Last-Updated: Mon Feb 17 17:20:07 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 107
+ *     Update #: 108
  * 
  */
 
@@ -60,7 +60,7 @@ class GoodsController extends ControllerBase
         try {
             $response = $browser->post($host, array(), $post);
         } catch(\Buzz\Exception\ClientException $e) {
-            $this->flashJson(500, $e->getMessage());
+            $this->flashJson(500, array(), $e->getMessage());
             exit(1);
         }
         $content = json_decode($response->getContent(), true);
