@@ -3,7 +3,7 @@
 global={};
 
 global.config = {
-	requestType : 'get',//请求方式
+	requestType : 'post',//请求方式
 	
 	user:{
 		name: '',

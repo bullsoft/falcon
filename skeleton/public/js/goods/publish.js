@@ -132,6 +132,7 @@
 			$.ajax({
 				url: global.config.goods.publisNowUrl,
 				data:that.submitDatas,
+				type: global.config.requestType,
 				dataType:'json',
 				success:function(res){
 					
