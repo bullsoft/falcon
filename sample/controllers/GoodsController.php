@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Mon Feb 17 19:03:12 2014 (+0800)
+ * Last-Updated: Mon Feb 17 22:56:56 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 148
+ *     Update #: 167
  * 
  */
 
@@ -31,6 +31,7 @@
 
 namespace BullSoft\Sample\Controllers;
 
+use BullSoft\Sample\Models\Product as ProductModel;
 use Wrench\Protocol\Protocol;
 use Wrench\Client;
 use Wrench\Socket;
@@ -76,6 +77,38 @@ class GoodsController extends ControllerBase
             $this->flashJson(500, array(), "商品请求失败：商品下架或暂不提供销售");
         }
         exit(1);
+    }
+
+    public function insertAction()
+    {
+        $userId = 1;
+        $name = $this->request->getPost('name');
+        $price = $this->request->getPost('price');
+        $description = $this->request->getPost('description');
+        $from = $this->request->getPost('from');
+        $fromUrl = $this->request->getPost('from_url');
+        $lImgs = $this->request->getPost('l_imgs');
+
+        $model = new ProductModel();
+        $model->name = strval($name);
+        $model->image_url = reset($lImgs);
+        $model->more_image_urls = json_encode($lImgs);
+        $model->description = strval($description);
+        $model->price = floatval($price);
+        $model->from = strval($from);
+        $model->from_url = strval($fromUrl);
+        $model->user_id = $userId;
+        $model->like = 1;
+        $model->addtime = $model->modtime = date("Y-m-d H:i:s");
+        if($model->save() == false) {
+            $this->flashJson(500, array(), "暂时不能推荐商品！");
+            foreach ($model->getMessages() as $message) {
+                getDI()->get('logger')->error($message->__toString());
+            }
+        } else {
+            $this->flashJson(200, array('forward' => '/sample/index/detail/'.$model->id), "商品推荐成功！");
+        }
+        exit();
     }
 
     public function fetchHttp($url)
