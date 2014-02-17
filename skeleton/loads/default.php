@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:44:41 2013 (+0800)
  * Version: master
- * Last-Updated: Mon Feb 17 16:02:44 2014 (+0800)
+ * Last-Updated: Mon Feb 17 18:23:00 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 76
+ *     Update #: 77
  * 
  */
 
@@ -48,6 +48,7 @@ $loader->registerNamespaces(
         "BullSoft\Library" => $system.$config->application->libraryDir,
         "Imagine"          => $system."/vendors/Imagine/lib/Imagine/",
         "Buzz"             => $system."/vendors/Buzz/lib/Buzz/",
+        "Wrench"           => $system."/vendors/Wrench/lib/Wrench/",
     ))->register();
 
 // class autoloader
