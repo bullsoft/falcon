@@ -1,0 +1,202 @@
+/* Hooks
+ ========================================================================== */
+/* Common */
+/*
+ * Name:			Button
+ * Description:		Defines styles for buttons
+ *
+ * Component:		`ms-button`
+ *
+ * Sub-objects:		`ms-button-group`
+ *					`ms-button-dropdown`
+ *
+ * Modifiers:		`ms-button-primary`
+ *					`ms-button-success`
+ *					`ms-button-danger`
+ *					`ms-button-link`
+ *					`ms-button-mini`
+ *					`ms-button-small`
+ *					`ms-button-large`
+ *
+ * States:		 	`ms-active`
+ *
+ ========================================================================== */
+/* Component
+ ========================================================================== */
+/*
+ * 1. Required for `a` elements. Can't be moved to `a.button` selector because needs to be overwritable for `ms-button-link` and `ms-button-expand`
+ * 2. `min-height` is neccesary for `input` elments in Firefox and Opera because `line-height` is not working.
+ * 3. Required for `button` and `input` elements
+ * 4. `line-height` is used to create a height
+ * 5. Reset button group whitespace hack
+ */
+@import "../ms-css/variables.less";
+@import "../ms-css/mixins.less";
+@import "../ms-css/base.less";
+
+.ms-button {
+	display: inline-block;
+	/* 1 */
+
+	min-height: 30px;
+	/* 2 */
+
+	padding: 0 12px;
+	margin: 0;
+	border: none;
+	/* 3 */
+
+	background: #eeeeee;
+	line-height: 30px;
+	font-size: 13px;
+	/* 4 */
+
+	color: #444444;
+	letter-spacing: normal;
+	/* 5 */
+	
+	cursor:pointer;
+	.transition(all 0.2s ease-in-out);
+	
+
+}
+/* Required for `a` elements */
+a.ms-button {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	vertical-align: middle;
+	text-decoration: none;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.ms-button:hover, .ms-button:focus {
+	/* 1 */
+
+	background-color: #f5f5f5;
+	color: #444444;
+	outline: none;
+	/* 2 */
+
+}
+/* Active */
+.ms-button:active, .ms-button.ms-active {
+	background-color: #dddddd;
+	color: #444444;
+}
+/* Color modifiers
+ ========================================================================== */
+/*
+ * Modifier: `ms-button-primary`
+ */
+.ms-button-primary {
+	background-color: #00a8e6;
+	color: #ffffff;
+}
+/* Hover */
+.ms-button-primary:hover, .ms-button-primary:focus {
+	background-color: #35b3ee;
+	color: #ffffff;
+}
+/* Active */
+.ms-button-primary:active, .ms-button-primary.ms-active {
+	background-color: #0091ca;
+	color: #ffffff;
+}
+/*
+ * Modifier: `ms-button-success`
+ */
+.ms-button-success {
+	background-color: #8cc14c;
+	color: #ffffff;
+}
+/* Hover */
+.ms-button-success:hover, .ms-button-success:focus {
+	background-color: #8ec73b;
+	color: #ffffff;
+}
+/* Active */
+.ms-button-success:active, .ms-button-success.ms-active {
+	background-color: #72ae41;
+	color: #ffffff;
+}
+/*
+ * Modifier: `ms-button-danger`
+ */
+.ms-button-danger {
+	background-color: #da314b;
+	color: #ffffff;
+}
+/* Hover */
+.ms-button-danger:hover, .ms-button-danger:focus {
+	background-color: #e4354f;
+	color: #ffffff;
+}
+/* Active */
+.ms-button-danger:active, .ms-button-danger.ms-active {
+	background-color: #c91032;
+	color: #ffffff;
+}
+/* Disabled state
+ * Overrides also the color modifiers
+ ========================================================================== */
+/* Equal for all button types */
+.ms-button:disabled {
+	background-color: #f5f5f5;
+	color: #999999;
+}
+/* Modifier: `ms-button-link`
+ ========================================================================== */
+/* Reset */
+.ms-button-link, .ms-button-link:hover, .ms-button-link:focus, .ms-button-link:active, .ms-button-link.ms-active, .ms-button-link:disabled {
+	display: inline;
+	border: none;
+	background: none;
+}
+/* Color */
+.ms-button-link {
+	color: #0077dd;
+}
+.ms-button-link:hover, .ms-button-link:focus, .ms-button-link:active, .ms-button-link.ms-active {
+	color: #005599;
+	text-decoration: underline;
+}
+.ms-button-link:disabled {
+	color: #999999;
+}
+/* Focus */
+.ms-button-link:focus {
+	outline: 1px dotted;
+}
+/* Size modifiers
+ ========================================================================== */
+.ms-button-mini {
+	min-height: 20px;
+	padding: 0 6px;
+	line-height: 20px;
+	font-size: 11px;
+}
+.ms-button-small {
+	min-height: 25px;
+	padding: 0 10px;
+	line-height: 25px;
+	font-size: 12px;
+}
+.ms-button-large {
+	min-height: 40px;
+	padding: 0 15px;
+	line-height: 40px;
+	font-size: 16px;
+}
+
+
+
+/* border modifiers
+ *=============================================================
+ */
+
+.ms-button-conner{
+	border-radius: 3px;
+}

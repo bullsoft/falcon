@@ -11,10 +11,13 @@
 		<link href="/css/common/css3.css" rel="stylesheet" media="screen" />
 		<link href="/css/common/common.css" rel="stylesheet" media="screen" />
 		<link href="/css/common/nav.css" rel="stylesheet" media="screen" />
+		<link href="/css/login/login.css" rel="stylesheet" media="screen" />
+		<link rel="stylesheet/less" href="/css/ms-css/dialog.less"/>
 		{% endblock %}
 
 		{% block javascript %}
 		<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="/js/less-1.5.0.min.js"></script>
 		<script type="text/javascript" src="/js/uikit.js"></script>
 		{% endblock %}
 
@@ -39,10 +42,14 @@
 			</div>
 		</div>
 		{% block javascript_bottom %}
-		<script type="text/javascript" src="/js/global/ms.js"></script>
 		<script type="text/javascript" src="/js/plus/nunjucks.js"></script>
+		<script type="text/javascript" src="/js/global/ms.js"></script>
 		<script type="text/javascript" src="/js/global/config.js"></script>
-		<script type="text/javascript" src="/js/plus/ms-template.js"></script>
+		<script type="text/javascript" src="/js/ms-js/ms-storage.js"></script>
+		<script type="text/javascript" src="/js/ms-js/ms-login.js"></script>
+		<script type="text/javascript" src="/js/ms-js/ms-dialog.js"></script>
+		<script type="text/javascript" src="/js/ms-js/ms-template.js"></script>
+		<script type="text/javascript" src="/js/global/init.js"></script>
 		{% endblock %}
 	</body>
 </html>

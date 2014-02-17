@@ -20,7 +20,7 @@
 			
 			var that = goods, template , str ='';
 			
-			template = $.MSspirit.template({id:'js-goods-detail'}).getHtml();
+			template = $.MSspirit.template({id:'js%goods%detail'}).getHtml();
 			str = nunjucks.renderString(template, {goods: data});
 			
 			return str;
@@ -112,14 +112,13 @@
 			var that = goods;
 
 			$.ajax({
-				url: '/mock/goods-publish-now.josn',
+				url: global.config.goods.publisNowUrl,
 				data:that.submitDatas,
 				dataType:'json',
 				success:function(res){
 					
 					if(res.status == 200){
 						
-						alert(res.msg);
 						res.data && res.data.forward && (window.location.href = res.data.forward);					
 					}else{
 						
