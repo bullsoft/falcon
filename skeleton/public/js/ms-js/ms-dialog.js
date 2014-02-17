@@ -247,6 +247,8 @@
 			$dialogWapper.removeClass("ms-open").show();
 
 			active = self;
+			
+			console.log(1111);
 			self.$container.addClass("ms-dialog-page").height();
 			// force browser engine redraw
 
@@ -273,6 +275,8 @@
 		},
 		destroy : function() {
 			
+			console.log(333333333);
+			
 			this.hide();
 			
 			if (this.$orginEl) {
@@ -293,7 +297,8 @@
 
 			this.$target.data('modal', null);
 			this.$target.data('dialog', null);
-
+			
+			this.$container.removeClass("ms-dialog-page");
 			this.$dialogWapper.remove();
 			$(doc).off('keyup.ms.dialog.escape');
 			this.$target.off('click.ms.dialog.show');

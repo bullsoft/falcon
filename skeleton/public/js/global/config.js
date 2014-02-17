@@ -17,7 +17,8 @@ global.config = {
 	},
 	
 	goods: {
-		publisNowUrl : '/mock/goods-publish-now.josn'
+		//publisNowUrl : '/mock/goods-publish-now.josn',
+		publisNowUrl : 'sample/goods/insert'
 	}
 };
 

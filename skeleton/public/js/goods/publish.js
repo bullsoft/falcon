@@ -107,10 +107,28 @@
 			that.submitDatas['from_url'] = data.from_url;
 		},
 		
+		checkParams : function(){
+			var that = this;
+			
+			that.submitDatas.description = $.trim($('#recommend-description').val());
+			
+			if(!that.submitDatas.description){
+				alert('推荐理由不能为空 ');
+				return false;
+			}
+			
+			return true;
+		},
+		
 		submit: function(){
 			
 			var that = goods;
-
+			
+			if(!that.checkParams()){
+				return false;
+			}
+			
+			
 			$.ajax({
 				url: global.config.goods.publisNowUrl,
 				data:that.submitDatas,
