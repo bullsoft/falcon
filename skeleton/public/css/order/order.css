@@ -112,7 +112,9 @@
 .submit-order-box>div{float: right}
 .submit-order-box .price-box{display: block;float: left;margin-top: 12px}
 .submit-order-box .price{color: rgb(253,108,11);font-size: 24px;padding-left: 4px}
-.submit-order-box button{margin-left: 20px;float: left;font-size: 16px;font-weight: 700;padding:1px 20px 1px;background: rgba(253,108,11,.9)}
+.submit-order-box button{margin-left: 20px;float: left;font-size: 16px;padding:1px 20px 1px;background: rgba(253,108,11,.9);color: #FFFFFF}
+.submit-order-box button:hover{background: #FFA40D;color: #FFFFFF}
+
 
 .goods-info .num input{width: 50px;text-align: center;outline: none;margin: 0 6px}
 .goods-info .num a{color: #555555}
@@ -120,7 +122,7 @@
 
 
 /*加入购物车成功*/
-.success-box{width: 580px;margin: 0 auto}
+.success-box{width: 585px;margin: 0 auto}
 .success-text{float: left;padding-top: 5px}
 .success-text h3{font-size: 28px;color: #7ABD54;padding: 0}
 .success-text h3 span{padding-right: 8px}

@@ -4,6 +4,7 @@
 {% block style %}
 {{ super() }}
 <link href="/css/publish/publish.css" rel="stylesheet" media="screen" />
+<link href="/css/common/loading.css" rel="stylesheet" media="screen" />
 <style type="text/css">
 	.capture-link-btn button {
 		height: 38px;
@@ -19,12 +20,13 @@
 
 {% block main_content %}
 
+<div id="test1111"></div>
 <div class="content">
 	<div class="recom">
 		<h1><span class="txt">推荐商品</span><span class="line"></span></h1>
 	</div>
 	<div id="publish-box">
-		<div class="loading loading-animate">
+		<div class="loading loading-animate clearfix">
 			<span class="animate-falldwon"><span class="animate-delay-1 animate-wave"><span class="rotate rotate-1">商</span></span></span>
 			<span class="animate-falldwon"><span class="animate-delay-2 animate-wave"><span class="rotate rotate-2">品</span></span></span>
 			<span class="animate-falldwon"><span class="animate-delay-3 animate-wave"><span class="rotate rotate-3">马</span></span></span>
@@ -99,5 +101,8 @@
 		</div>
 	</div>
 </div>
+
+
+
 
 {% endblock %}

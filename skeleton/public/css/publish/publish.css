@@ -10,7 +10,7 @@
 .recom .back-step{font-size: 16px;position: absolute;top: -5px;right: 10px;}
 
 
-#publish-box .loading{display:none}
+#publish-box .loading{display:none;margin: 40px auto 0;width: 380px}
 .capture-link div{float: left}
 .capture-link-input input{width: 510px;height:28px;outline:none;border: 1px solid #ccc;padding: 4px 5px;
 box-sizing:content-box;
