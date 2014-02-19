@@ -135,7 +135,7 @@ class Item
         }
 
         //automatically resets object
-        $data = @ (array) json_decode($json);
+        $data = @ (array) json_decode($json, true);
         if (!isset($data['id']) || !isset($data['qty'])) {
             return false;
         }

@@ -51,35 +51,36 @@
 	      <div>数量</div>
 	    </div>
 	  </div>
-          {% for item in cart.getItemsAsArray() %}
-          <?php
-              $product = BullSoft\Sample\Models\Product::findFirst("id=".$item['id']);
-          ?>
+          {% for cart in carts %}
+              {% for item in cart.getItemsAsArray() %}
+              <?php
+                  $provider = BullSoft\Sample\Models\Provider::findFirst("user_id=".$item['provider']." AND product_id=".$item['id']);
+              ?>
 	  <div class="goods-info clearfix">
 	    <div class="product">
 	      <div class="p-img">
 		<a href="#" target="_blank">
-		  <img src="{{product.image_url}}"/>
+		  <img src="{{provider.product.image_url}}"/>
 		</a>
 	      </div>
 	      <div class="p-detail">
 		<p class="name">
 		  <a href="#">
-		    {{item["name"]}}
+		    {{ item['name'] }}
 		  </a> 
 		</p>
 	      </div>
 	    </div>
 	    <div class="merchant">
-	      <div><a href="#">{{product.user.nickname}}</a></div>
+	      <div><a href="#">{{ provider.user.nickname }}</a></div>
 	    </div>
 	    <div class="price">
-	      <div>{{item['price']}}</div>
+	      <div>{{ item['price'] }}</div>
 	    </div>
 	    <div class="num">
 	      <div>
 		<a class="uk-icon-minus subtract" href="#"></a>
-		<input class="num-input" type="text" value="1"/>
+		<input class="num-input" type="text" value="{{item['qty']}}"/>
 		<a class="uk-icon-plus add" href="#"></a>
 	      </div>
 	    </div>
@@ -89,11 +90,11 @@
 	      </div>
 	    </div>
 	  </div>
+              {% endfor %}
           {% endfor %}
-          {% set total = cart.getTotals() %}
 	  <div class="close-accounts">
 	    <div class="item clearfix">
-	      <span>{{total['items']}}</span>
+	      <span>{{ array_sum(totals) }}</span>
 	      <span class="label">商品总额:</span>
 	    </div>
 	    <div class="item clearfix">
@@ -103,8 +104,8 @@
 	  </div>
 	  <div class="submit-order-box">
 	    <div>
-	      <span class="price-box">总计：<span class="price">{{total['items']}}</span></span>
-	      <button class="ms-button ms-button-normal settle-accounts">去结算</button>
+	      <span class="price-box">总计：<span class="price">{{ array_sum(totals) }}</span></span>
+	      <button class="ms-button ms-button-normal settle-accounts"><a href="{{ url("sample/cart/order") }}">去结算</a></button>
 	    </div>
 	  </div>
         </div>

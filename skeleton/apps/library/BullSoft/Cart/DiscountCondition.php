@@ -130,7 +130,7 @@ class DiscountCondition
             $this->reset();
         }
 
-        $data = @ (array) json_decode($json);
+        $data = @ (array) json_decode($json, true);
         
         $name = isset($data['name']) ? $data['name'] : '';
         $compareType = isset($data['compare_type']) ? $data['compare_type'] : '';

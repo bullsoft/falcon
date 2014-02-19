@@ -103,7 +103,7 @@ class Shipment
             $this->reset();
         }
 
-        $data = @ (array) json_decode($json);
+        $data = @ (array) json_decode($json, true);
 
         $id = isset($data['id']) ? $data['id'] : '';
         $price = isset($data['price']) ? $data['price'] : 0;

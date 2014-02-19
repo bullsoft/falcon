@@ -54,7 +54,6 @@ abstract class AbstractCurl extends AbstractClient
     protected static function populateResponse($curl, $raw, MessageInterface $response)
     {
         $pos = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-
         $response->setHeaders(static::getLastHeaders(rtrim(substr($raw, 0, $pos))));
         $response->setContent(substr($raw, $pos));
     }
