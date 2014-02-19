@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Wed Feb 19 17:57:32 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 19 21:24:32 2014 (+0800)
+ * Last-Updated: Wed Feb 19 21:27:54 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 39
+ *     Update #: 40
  * 
  */
 
@@ -49,7 +49,7 @@ class SocialOAuthController extends ControllerBase
         $response = new \Buzz\Message\Response();
         $client = new \Buzz\Client\Curl();
         $client->setTimeout(5);
-        // $client->setVerifyPeer($request->isSecure());
+        $client->setVerifyPeer(false);
         $client->setMaxRedirects(0);
         $client->setOption(\CURLOPT_CONNECTTIMEOUT, 3);
         $client->setOption(\CURLOPT_USERAGENT, "baidu-apiclient-php-2.0");
