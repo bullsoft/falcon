@@ -1,0 +1,45 @@
+.goods-comment {border: 1px solid #DFDFDF;margin-top: 30px}
+.goods-comment .hd{background-color: #fbfbfb;height: 60px;padding-left: 20px;line-height: 60px;color: #535353;border-bottom: 1px solid #DFDFDF;}
+
+.goods-comment-box{padding: 40px 40px 20px 40px;background-color: #FFFFFF}
+.goods-comment-box textarea{width: 588px;resize:none;color:#787878; outline: 1px solid #ccc;border: 0;border-top: 3px solid #f2f2f2;padding: 4px 5px;vertical-align: middle;margin: 1px;height: 100px}
+
+.goods-comment-btn-box{padding:15px 0 0 0}
+.goods-comment-btn-box .tip{float: left;background: none;padding:8px 0 0 0;}
+.goods-comment-btn-box button{border: none;float: right}
+
+
+.goods-comment-list{padding-top: 30px}
+.goods-comment-el{padding:15px 20px;background: #FFFFFF}
+.goods-comment-el .user-img{float: left}
+.goods-comment-el .user-img img{border-radius: 50%;width: 50px;height: 50px}
+.goods-comment-el .info{float: left;font-size: 14px;padding-left: 20px;  }
+.goods-comment-el .user-nick{color: #FFA40D;text-decoration: none;padding-right: 4px}
+.goods-comment-el .user-nick:hover{color: #ff5200;}
+
+.goods-comment-el .user-type{background: #a5cf4e;border-radius: 2px;color: #fff;padding: 3px 4px 4px 6px;font-size:12px;position: relative;}
+.goods-comment-el .user-type:before {content: "";position: absolute;top: 9px;left: -6px;width: 0;height: 0;overflow: hidden;border: 3px solid transparent;border-right-color: #a5cf4e;}
+
+.goods-comment-el .time{font-size: 12px;color: #c3c3c3;padding-left: 4px}
+.goods-comment-el .content{padding-top: 15px;width: 540px}
+.goods-comment-el .content{color: #222}
+.goods-comment-el .content i{color: #C3C3C3}
+
+
+.goods-comment-el .oprate{padding-top: 10px;text-align: right}
+.goods-comment-el .oprate a{color: #FFA40D;text-decoration: none}
+.goods-comment-el .oprate a:hover{color: #ff5200}
+.goods-comment-el .oprate .count{color: #999}
+
+.respond-list{background-color: #fafafa;}
+.goods-comment-el .respond-box{padding: 20px;background-color: #fafafa;margin-top: 15px}
+.goods-comment-el .respond-box textarea{width: 400px;height: 15px;box-sizing: content-box;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;}
+.goods-comment-el .respond-box button{border: none;font-size: 14px;float: right}
+
+
+.respond-el{padding: 10px 20px;border-bottom: 1px solid #efefef}
+.respond-el .user-img img{width: 36px;height: 36px}
+.respond-el .content{padding: 0 0 4px 15px;font-size: 12px}
+.respond-el .other-color{color: #999}
+.respond-el .respond-text{color: #333}
+.respond-el .time{padding: 4px 0 0 0;margin: 0;}

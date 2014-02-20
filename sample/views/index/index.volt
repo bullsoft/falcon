@@ -21,7 +21,7 @@
 			<div class="goods-show">
 				<div class="goods-info">
 					<div class="img">
-						<img src="{{product.image_url}}" style="margin-top: -20px"/>
+						<img src="{{product.image_url}}"/>
 					</div>
 					<div class="shadow transition-all">
 						<a class="name transition-all" title="" href="{{ url('sample/index/detail/') }}{{product.id}}"> {{product.name}}</a>
@@ -72,5 +72,5 @@
 
 	</div>
 </div>
-  
+
 {% endblock %}

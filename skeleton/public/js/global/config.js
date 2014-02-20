@@ -3,7 +3,7 @@
 global={};
 
 global.config = {
-	requestType : 'post',//请求方式
+	requestType : 'get',//请求方式
 	
 	user:{
 		name: '',
@@ -19,6 +19,11 @@ global.config = {
 	goods: {
 		//publisNowUrl : '/mock/goods-publish-now.josn',
 		publisNowUrl : '/sample/goods/insert'
+	},
+	
+	order: {
+		carChangeUrl: '/mock/car-change.json',
+		deleteUrl:'/mock/car-change.json'
 	}
 };
 

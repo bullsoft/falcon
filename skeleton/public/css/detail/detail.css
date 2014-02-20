@@ -32,7 +32,7 @@
 
 
 .merchant{border: 1px solid #e8e8e8;margin: 30px 0 70px;background-color: #FFFFFF}
-.merchant .hd{background-color: #fbfbfb;height: 60px;padding-left: 20px;line-height: 60px;color: #444444;font-weight: 700}
+.merchant .hd{background-color: #fbfbfb;height: 60px;padding-left: 20px;line-height: 60px;color: #444444;}
 .merchant .hd .count{color: #fff;font-size:22px;background-color: #363636;display: block;height: 60px;float: right;width: 60px;text-align: center}
 
 .merchant-list li{border-top: 1px solid #e8e8e8;height: 50px;line-height: 50px;padding: 0 20px;}
@@ -41,15 +41,9 @@
 .merchant-list li .price{padding-left: 20px}
 .merchant-list li .buy{float: right}
 
-.hot-goods{width: 255px;border:1px solid #e8e8e8 }
+.hot-goods{width: 280px;border:1px solid #e8e8e8;overflow: hidden}
 .hot-goods .hd{background-color:#fbfbfb;height: 40px;line-height:40px;padding-left: 10px;}
-.hot-goods-list li{background-color: #ffffff;border-top:1px solid #e8e8e8;cursor: pointer}
-.hot-goods-list li:hover{background-color:#FBFBFB}
-.hot-goods-list .img{float: left;height: 70px;line-height: 70px;width:70px;text-align: center}
-.hot-goods-list .img img{width: 50px;height: 50px}
-.hot-goods-list .info{font-size: 12px}
-.hot-goods-list .info p{width: 150px;max-height: 20px;overflow: hidden}
-.hot-goods-list .name{color: #565656;text-decoration: none}
-.hot-goods-list .price{color: #999}
-.hot-goods-list .info{padding-top:15px;float: left}
-.hot-goods-list .info p{margin:0;padding-bottom: 5px}
+.hot-goods-list{background-color: #FFFFFF;padding: 15px 20px 0;width: 280px}
+.hot-goods-list li{float: left;border: 1px solid #DFDFDF;margin: 0 10px 10px 0}
+.hot-goods-list .goods-img{width: 70px;height: 70px;opacity: .8}
+.hot-goods-list a:hover .goods-img{opacity:1}

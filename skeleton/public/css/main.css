@@ -21,6 +21,7 @@ textarea {
 html {
     font-size: 1em;
     line-height: 1.4;
+     -webkit-text-size-adjust:none
 }
 
 /*
