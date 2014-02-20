@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 19 20:29:06 2014 (+0800)
+ * Last-Updated: Thu Feb 20 20:00:57 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 39
+ *     Update #: 41
  * 
  */
 
@@ -42,6 +42,18 @@ $di->set('view', function() use ($system, $config) {
     $view = new \Phalcon\Mvc\View();
     $view->setViewsDir($system.$config->application->viewsDir);
     return $view;
+});
+
+$di->set('cookie', function(){
+    $cookie = new \Phalcon\Http\Response\Cookies();
+    $cookie->useEncryption(false);
+    return $cookie;
+});
+
+$di->set('crypt', function() {
+    $crypt = new Phalcon\Crypt();
+    $crypt->setKey('#1dj8$=dp?.ak//j1V$'); //Use your own key!
+    return $crypt;
 });
 
 $di->setShared('session', function(){

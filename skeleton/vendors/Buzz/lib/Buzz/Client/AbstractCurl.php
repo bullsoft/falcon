@@ -198,7 +198,6 @@ abstract class AbstractCurl extends AbstractClient
         curl_setopt($curl, CURLOPT_MAXREDIRS, $canFollow ? $this->getMaxRedirects() : 0);
         curl_setopt($curl, CURLOPT_FAILONERROR, !$this->getIgnoreErrors());
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->getVerifyPeer());
-        // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
 
         // apply additional options
         curl_setopt_array($curl, $options + $this->options);
