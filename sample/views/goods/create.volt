@@ -4,6 +4,7 @@
 {% block style %}
 {{ super() }}
 <link href="/css/publish/publish.css" rel="stylesheet" media="screen" />
+<link href="/css/common/loading.css" rel="stylesheet" media="screen" />
 <style type="text/css">
 	.capture-link-btn button {
 		height: 38px;
