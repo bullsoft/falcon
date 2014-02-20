@@ -383,7 +383,11 @@
 		});
 
 		self.destroy = function() {
+			
 			self.modal['destroy']();
+			if(options.loading === true){
+				$element.data('loading',null);
+			}
 			self.modal = null;
 			delete self.modal;
 		};
