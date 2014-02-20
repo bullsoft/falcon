@@ -56,6 +56,12 @@
 .save-adress-box{margin-top:15px;}
 
 
+.goods-list-contanier .no-goods{text-align: center;font-size: 24px;padding: 20px}
+.goods-list-contanier .no-goods a{color: #FFA40D;padding-left: 10px;text-decoration: none}
+.goods-list-contanier .no-goods a:hover{color: #FF5200}
+
+.goods-list-box{padding-top: 10px}
+
 .goods-list{margin-top:30px}
 .goods-list .title-line{width: 905px}
 .goods-list .head>div, .goods-list .goods-info>div{
@@ -81,7 +87,7 @@
 .goods-info .p-img a{display: block;height:50px;width: 50px;border: 1px solid #ddd}
 .goods-info .p-img img{width: 50px;height: 50px}
 .goods-info .p-detail{padding: 0 10px 0 65px;font-size: 12px}
-.goods-info .p-detail .name{text-align: left;height: 36px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
+.goods-info .p-detail .name{text-align: left;height: 36px;width:280px;padding-left:10px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
 
 .goods-shop-info{margin-top: 2px;background:#fff4d3;}
 .goods-shop-info .message-box{width: 50%;float: left;padding-top: 10px}
@@ -112,7 +118,9 @@
 .submit-order-box>div{float: right}
 .submit-order-box .price-box{display: block;float: left;margin-top: 12px}
 .submit-order-box .price{color: rgb(253,108,11);font-size: 24px;padding-left: 4px}
-.submit-order-box button{margin-left: 20px;float: left;font-size: 16px;font-weight: 700;padding:1px 20px 1px;background: rgba(253,108,11,.9)}
+.submit-order-box button{margin-left: 20px;float: left;font-size: 16px;padding:1px 20px 1px;background: rgba(253,108,11,.9);color: #FFFFFF}
+.submit-order-box button:hover{background: #FFA40D;color: #FFFFFF}
+
 
 .goods-info .num input{width: 50px;text-align: center;outline: none;margin: 0 6px}
 .goods-info .num a{color: #555555}
@@ -120,7 +128,7 @@
 
 
 /*加入购物车成功*/
-.success-box{width: 580px;margin: 0 auto}
+.success-box{width: 585px;margin: 0 auto}
 .success-text{float: left;padding-top: 5px}
 .success-text h3{font-size: 28px;color: #7ABD54;padding: 0}
 .success-text h3 span{padding-right: 8px}

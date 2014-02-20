@@ -79,13 +79,30 @@
 				decorate :false,
 			});
 			
+			$('body').data('dialog').modal.modifyClosePosition({top:10,right:20});
+			
 			that.bindEvents();
 		},
 		bindEvents: function(){
 			var that = this, $dialog;
 			$dialog = that.$dialog = $('body').data('dialog') && $('body').data('dialog').modal.$dialog;
 			
-			$dialog.find('.login-submit').on('click',function(){
+			$dialog.find('.is-auto-check').iCheck({
+				checkboxClass : 'icheckbox_square-yellow',
+				radioClass : 'iradio_square-yellow',
+				increaseArea : '20%' // optional
+			});
+			
+			$dialog.find('.unite-login').click(function(){
+				
+				var url = $(this).attr('href');
+				if(!win.openWin)win.openWin = {};
+				if(win.openWin['unite-login'])win.openWin['unite-login'].close();
+				win.openWin['unite-login'] = window.open (url,'newwindow','height=400,width=600,top=100,left=100,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no'); 
+
+				return false;
+			});
+						$dialog.find('.login-submit').on('click',function(){
 				that.doLogin();
 			});
 			

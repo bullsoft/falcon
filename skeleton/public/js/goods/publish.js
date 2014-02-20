@@ -137,7 +137,7 @@
 				success:function(res){
 					
 					if(res.status == 200){
-						
+
 						res.data && res.data.forward && (window.location.href = res.data.forward);					
 					}else{
 						

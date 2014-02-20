@@ -11,7 +11,8 @@ body{height: 1000px}
 .single-goods{width:300px;height: 410px;border-radius: 2px;box-shadow: 2px 2px 2px #ccc;float: left;background: #FFFFFF;position: relative;margin:0 37px 30px 0}
 .goods-show{width: 100%;height: 260px;position: relative;overflow: hidden}
 .goods-show .shadow{position: absolute;bottom: 0;left: 0;background:rgba(255,255,255,0.85);width: 100%;height: 56px}
-.goods-show .img{position: absolute;bottom: 0;left: 0;height: 260px;overflow: hidden}
+.goods-show .img{position: absolute;width:100%;top: 10px;left: 0;overflow: hidden;height: 250px}
+.goods-show .img img{display: block;width: 96%;margin: 0 auto}
 .goods-show .shadow .name{width: 180px;height: 36px;display: block;font-size: 13px;color: rgba(238,145,42,1);text-decoration: none;overflow: hidden;float: left;margin: 10px 0 0 10px;cursor: pointer}
 .goods-show .shadow .price{color: #444;margin: 20px 10px 0 0;float:right;display: block}
 
@@ -45,7 +46,8 @@ body{height: 1000px}
 .merchant-box{font-size: 14px;padding: 15px 20px 0 20px}
 .merchant-box .line{margin-bottom: 8px}
 .merchant-box span{float: left;margin-right: 10px}
-.merchant-box a{float: right}
+.merchant-box a{float: right;color: #0077dd}
+.merchant-box a:hover{color: #005599}
 .merchant-box .star,.merchant-box .star-level{width: 75px;height: 16px;display: block}
 .merchant-box .star-level{margin-top: 3px;}
 .merchant-box .star{background: url('../../images/star.png') no-repeat}
