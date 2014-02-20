@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Fri Feb 14 12:23:07 2014 (+0800)
+ * Last-Updated: Wed Feb 19 17:21:15 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 52
+ *     Update #: 81
  * 
  */
 
@@ -37,17 +37,54 @@ use BullSoft\Sample\Models\Provider as ProviderModel;
 
 class CartController extends ControllerBase
 {
+    const BULL_CART_KEY = "shop-cart";
     public function indexAction()
     {
-        $cart = array();
-        if ($this->session->has("shop-cart")) {
-            $cart = new Cart\Cart();
-            $cart->importJson($this->session->get("shop-cart"));
-            $this->view->setVar('cart', $cart);
+        $sessionCart = array();
+        $displayCart = array();
+        
+        if ($this->session->has(self::BULL_CART_KEY)) {
+            $sessionCart = json_decode($this->session->get(self::BULL_CART_KEY), true);
+            $totals = array();
+            foreach($sessionCart as $providerId => $cartArray) {
+                $cart = new Cart\Cart();
+                $cart->importJson(json_encode($cartArray));
+                $displayCart[$providerId] = $cart;
+                $_total = $cart->getTotals();
+                $totals[$providerId] = $_total['items'];
+            }
+            // var_dump($displayCart);
+            // exit;
+            $this->view->setVar('carts', $displayCart);
+            $this->view->setVar('totals', $totals);
         } else {
             $this->flash->error('抱歉，您的购物车为空！');
             exit(1);
         }
+    }
+
+    public function orderAction()
+    {
+        $sessionCart = array();
+        $displayCart = array();
+        
+        if ($this->session->has("shop-cart")) {
+            $sessionCart = json_decode($this->session->get("shop-cart"), true);
+            $totals = array();
+            foreach($sessionCart as $providerId => $cartArray) {
+                $cart = new Cart\Cart();
+                $cart->importJson(json_encode($cartArray));
+                $displayCart[$providerId] = $cart;
+                
+                $_total = $cart->getTotals();
+                $totals[$providerId] = $_total['items'];
+            }
+            $this->view->setVar('carts', $displayCart);
+            $this->view->setVar('totals', $totals);
+        } else {
+            $this->flash->error('抱歉，您的购物车为空！');
+            exit(1);
+        }        
     }
     
     public function insertItemAction($productId, $providerId)
@@ -60,26 +97,35 @@ class CartController extends ControllerBase
             $this->flash->error('抱歉，该商品不存在');
             exit(1);
         }
-        
         $item = new Cart\Item();
-        
         $item->setId($productId)
              ->setProvider($providerId)
              ->setName($product->name)
+             ->setCustom("image_url", $product->image_url)
              ->setSku('')
-             ->setQty(1)
+             ->setQty(rand(1, 5))
              ->setPrice($provider->price)
              ->setIsTaxable(true)
              ->setIsDiscountable(true);
 
         $cart = new Cart\Cart();
-
+        $sessionCart = array();
+        
         if($this->session->has('shop-cart')) {
-            $cart->importJson($this->session->get("shop-cart"));
+            $sessionCart = json_decode($this->session->get("shop-cart"),  true);
+            if(isset($sessionCart[$providerId])) {
+                $cart->importJson(json_encode($sessionCart[$providerId]));
+            }
+            // $cart->importJson($this->session->get("shop-cart"));
         }
         
-        $cart->setItem($item);
-        $this->session->set('shop-cart', $cart->toJson());
+        if($cart->hasItem($item)) {
+            $cart->unsetItem($item);
+        }
+        $cart->setItem($item);                
+        
+        $sessionCart[$providerId] = $cart->toArray();
+        $this->session->set('shop-cart', json_encode($sessionCart));
         
         if($this->request->isAjax()) {
             exit;

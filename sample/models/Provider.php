@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Mon Feb 10 16:18:56 2014 (+0800)
- * Version: 
- * Last-Updated: Mon Feb 10 17:09:25 2014 (+0800)
+ * Version: master
+ * Last-Updated: Wed Feb 19 15:35:09 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 5
+ *     Update #: 6
  * 
  */
 
@@ -46,7 +46,8 @@ class Provider extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setConnectionService('db');
-        $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));        
+        $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
+        $this->hasOne("product_id", "\BullSoft\Sample\Models\Product", "id", array("alias" => "product"));
     }
 
     public function getSource()

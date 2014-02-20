@@ -1,29 +1,75 @@
-.login-submit,.other-login .image-txt,.other-login a{background:url(../../images/login/login_icon.png) no-repeat}
+
+.wapper-login{margin: 50px auto 0;width: 650px;
+}
+
+.login-contanier{
+	float:left;
+	width: 620px;
+	overflow:hidden;
+	background-color: #f2fcff;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #DFDFDF;
+	-webkit-box-shadow: 0 0 9px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 0 9px rgba(0,0,0,0.1);
+	-ms-box-shadow: 0 0 9px rgba(0,0,0,0.1);
+	box-shadow: 0 0 9px rgba(0,0,0,0.1);
+}
+
+.login-box .label{background: url(../../images/login/login-icon-s.png) no-repeat}
+.other-login-el .icon{background: url(../../images/login/other-login-icon.png) no-repeat}
+
+.login-left { float: left; width: 285px; height:370px; padding: 37px 28px 0 34px; background-color: #FFFFFF;
+border-top-left-radius: 3px;
+border-bottom-left-radius: 3px;
+}
+
+.login-right { float: left; width: 226px;height:370px; padding: 37px 18px 0 24px; background-color:#f2fcff;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+position: relative;
+}
 
 
-
-.login-contanier{width:430px;margin: 20px 60px}
-
-.slogan{font-size: 24px;}
-
-.login-contanier .logo{width:318px;height: 51px;margin:0 auto;background: url(../../images/login/login_logo.png);}
-
-.login-box{margin-top: 20px}
-
-.other-login{padding-top: 20px;height: 50px;}
-.other-login .image-txt{width:139px;height: 18px;float: left;background-position: right 0;margin-top: 20px;text-indent: -999px;margin-right: 25px}
-.other-login a{float: left;width: 48px;height: 48px;margin-right: 24px;outline: none}
-.other-login a:last-child{margin-right: 0}
-.other-login .sina_wb{background-position:left bottom}
-.other-login .oicq{background-position:-73px bottom}
-.other-login .rr{background-position:-144px bottom}
-.other-login .qq_wb{background-position:-214px bottom}
+.login-bingbang h1{font-size: 18px;color: #535353;height: 22px;line-height: 22px;padding-bottom: 25px}
+.login-bingbang a{text-decoration: none;color: #535353}
 
 
-.login-box .line{float: left;background-color: #ffffff;}
-.login-box .line:first-child{margin-right: 20px}
-.login-box .psw{position: relative}
-.login-box .line input{width: 204px;height: 51px;padding:  0 20px;color: #a6ab97;background-color: rgba(0,170,170,.1);border:none;box-shadow: inset 0 0 3px 0 rgba(0,170,170,0.75);font-size: 14px}
-.login-box .psw input{padding-right: 50px}
-.login-submit{width: 29px;height: 29px;position: absolute;right: 15px;top: 11px;background-position:right -28px;outline: none}
+.login-error-msg{margin-top:-30px;margin-bottom: 10px;font-size: 14px;padding: 6px 0 6px 15px}
+.login-box .line { margin-bottom:20px; border: 1px solid #e9e9e9;}
+.login-box .label{display:block;width:16px;height:16px; float: left; margin:12px; text-indent: -999px;overflow: hidden}
+.login-box .input{float: left;border-left: 1px solid #e9e9e9;height: 40px}
+.login-box .input input{width: 242px;height: 40px;padding: 5px 12px;color: #787878;border: none}
+.login-box .email{background-position: 0 0}
+.login-box .psw{background-position: 3px -24px}
+.login-box .is-forgot{padding-top: 15px;font-size: 14px;color: #535353;}
+.login-box .is-auto-check{width: 10px;height: 10px}
+.login-box .is-auto-text{position: relative;top: 2px}
+.login-box .forgot-psw{float: right;margin-top: 4px}
+
+.login-submit-box{margin-top: 40px}
+.login-submit-btn{border: none}
+
+.other-login{}
+.other-login-tip{font-size: 12px;color: #666}
+.other-login-el{float:left; border: 1px solid #dfdfdf;margin-top: 10px;font-size: 14px;cursor: pointer}
+.other-login-el a{color: #888;text-decoration: none;display: block;opacity: .8;padding:6px 8px 8px 8px;width:90px; }
+.other-login-el a:hover{opacity: 1}
+.other-login-el:nth-of-type(2n+1){margin-right: 10px}
+.other-login-el .icon{float: left;width:21px;height: 20px;margin-right: 8px}
+.other-login-el .qq-icon{background-position:0 -31px}
+.other-login-el .bd-icon{background-position:-2px -117px}
+.other-login-el .rr-icon{background-position:-1px -61px}
+.other-login-el .qq-wb-icon{background-position:-1px -89px}
+.other-login-el:hover a{color: #535353}
+
+
+.login-register-box{position: absolute;bottom: 0;width: 100%;padding-bottom: 60px}
+.login-register-box .tip{font-size: 12px;color: #787878}
+.login-register-box .btn-box{margin-top:10px;padding:6px 8px 8px 8px;border: 1px solid #dfdfdf;text-align: center;width: 80px}
+.login-register-box .btn-box a{font-size: 14px;color: #888;text-decoration: none}
+.login-register-box .btn-box a:hover{color: #535353}
+
 

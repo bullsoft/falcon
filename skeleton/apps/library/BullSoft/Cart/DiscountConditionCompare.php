@@ -108,7 +108,7 @@ class DiscountConditionCompare
             $this->reset();
         }
 
-        $data = @ (array) json_decode($json);
+        $data = @ (array) json_decode($json, true);
         
         $op = isset($data['op']) ? $data['op'] : '';
         $isNot = (bool) isset($data['is_not']) ? $data['is_not'] : false;

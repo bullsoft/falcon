@@ -12,6 +12,7 @@
 		<link href="/css/common/common.css" rel="stylesheet" media="screen" />
 		<link href="/css/common/nav.css" rel="stylesheet" media="screen" />
 		<link href="/css/login/login.css" rel="stylesheet" media="screen" />
+		<link href="/css/check-skins/all.css" rel="stylesheet" media="screen" />
 		<link rel="stylesheet/less" href="/css/ms-css/dialog.less"/>
 		{% endblock %}
 
@@ -50,6 +51,7 @@
 		<script type="text/javascript" src="/js/ms-js/ms-dialog.js"></script>
 		<script type="text/javascript" src="/js/ms-js/ms-template.js"></script>
 		<script type="text/javascript" src="/js/global/init.js"></script>
+		<script type="text/javascript" src="/js/plus/icheck.js"></script>
 		{% endblock %}
 	</body>
 </html>

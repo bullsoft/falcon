@@ -134,7 +134,7 @@ class Customer
      */
     public function importJson($json)
     {
-        $data = @ (array) json_decode($json);
+        $data = @ (array) json_decode($json, true);
 
         $id = isset($data['id']) ? $data['id'] : '';
         $group = isset($data['group']) ? $data['group'] : '';

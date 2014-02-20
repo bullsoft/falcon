@@ -56,6 +56,12 @@
 .save-adress-box{margin-top:15px;}
 
 
+.goods-list-contanier .no-goods{text-align: center;font-size: 24px;padding: 20px}
+.goods-list-contanier .no-goods a{color: #FFA40D;padding-left: 10px;text-decoration: none}
+.goods-list-contanier .no-goods a:hover{color: #FF5200}
+
+.goods-list-box{padding-top: 10px}
+
 .goods-list{margin-top:30px}
 .goods-list .title-line{width: 905px}
 .goods-list .head>div, .goods-list .goods-info>div{
@@ -81,7 +87,7 @@
 .goods-info .p-img a{display: block;height:50px;width: 50px;border: 1px solid #ddd}
 .goods-info .p-img img{width: 50px;height: 50px}
 .goods-info .p-detail{padding: 0 10px 0 65px;font-size: 12px}
-.goods-info .p-detail .name{text-align: left;height: 36px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
+.goods-info .p-detail .name{text-align: left;height: 36px;width:280px;padding-left:10px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
 
 .goods-shop-info{margin-top: 2px;background:#fff4d3;}
 .goods-shop-info .message-box{width: 50%;float: left;padding-top: 10px}

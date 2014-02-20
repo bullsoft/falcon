@@ -179,12 +179,17 @@
 			});
 
 		},
-
+		
+		modifyClosePosition: function(options){
+			
+			this._modifyCloseBtn(options.top,options.right);
+		},
+		
 		//修改关闭按钮的位置
-		_modifyCloseBtn : function() {
+		_modifyCloseBtn : function(top,right) {
 			this.$close && this.$close.css({
-				top : 0,
-				right : 0
+				top : top || 0,
+				right :right|| 0
 			});
 		},
 		//创建遮罩
@@ -263,7 +268,6 @@
 				return;
 
 			if (!force && this.transition) {
-
 				$dialogWapper.one(this.transition.end, function() {
 					self._hide();
 				}).removeClass("ms-open");
@@ -275,9 +279,7 @@
 		},
 		destroy : function() {
 			
-			console.log(333333333);
-			
-			this.hide();
+			this.hide(true);
 			
 			if (this.$orginEl) {
 				
@@ -338,6 +340,7 @@
 			$dialogWapper.hide().removeClass("ms-open");
 			
 			//是否修正滚动条，造成的页面抖动
+
 			if (this.paddingFixed) {
 				this.$container.css({
 					'padding-right' : '0'

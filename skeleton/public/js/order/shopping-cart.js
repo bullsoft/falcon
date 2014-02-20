@@ -39,7 +39,9 @@
 				$goodsInfo = $('#goods-sequence-'+data.id),
 				$price = $goods.find('.price-text'),
 				$num = $goods.find('.num-text'),
-				$total = $('#total-price-text');
+				$total = $('#total-price-text'),
+				$totalMin = $('#total-price-txt');
+				
 				
 			if($goods.length == 0){
 				alert('您的购物车中没有该商品，请全新页面重新尝试');
@@ -49,6 +51,7 @@
 			$price.text(data.price);
 			$num.val(data.count);
 			$total.text(data['total-price']);
+			$totalMin.text(data['total-price']);
 			
 			$goodsInfo.find('input[name="price"]').val(data.price);
 			$goodsInfo.find('input[name="count"]').val(data.count);
@@ -60,7 +63,7 @@
 				$this = (options && options.el) ? $(options.el) : $(this),
 				$input = $this.parent().find('input'),
 				val	= parseInt($input.val(),10) || 0;
-			
+				
 			id = parseInt($this.attr('data-id'),10) || 0;
 			
 			that.countRecord['goods'+id] = that.countRecord['goods'+id] ? that.countRecord['goods'+id] : val;
@@ -98,10 +101,9 @@
 		},
 		
 		delelteGoods: function(envent,options){
-			var that = goods,
+			var that = goods,params ={},
 				$this = (options && options.el) ? $(options.el) : $(this),
 				id = $this.attr('data-id');
-			
 			$('#' + that.goodsListPre + id).fadeOut();
 			
 			$.ajax({
@@ -110,9 +112,13 @@
 				data:params,
 				dataType:'json',
 				success: function(res){
-					var data = res.data;
+					var data = res.data, html = '';
 					if(res.status == 200){
 						$('#' + that.goodsListPre + data.id).remove();
+						if($('.goods-info').length == 0){
+							html = '<div class="uk-alert uk-alert-warning no-goods">请前往挑选商品,<a href="">go>></a></div>';
+							$('#goods-list-contanier').html(html);
+						}
 					}else{
 						$('#' + that.goodsListPre + data.id).fadeIn();
 						alert('商品删除失败');
@@ -141,9 +147,11 @@
 		init : function(){
 			var self = this;
 			self.$goodsList =  $('#goods-list');
+			$('#shopping-cart-form').html($('#goods-sequence-box').html());
 			self.bindEvent();
 		}
 	};
+	
 	goods.init();
 	
 })(jQuery, window, document);

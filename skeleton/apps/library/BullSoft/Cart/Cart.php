@@ -224,7 +224,7 @@ class Cart
             $this->reset();
         }
         
-        $cart = @ (array) json_decode($json); // just gimme an array
+        $cart = @ (array) json_decode($json, true); // just gimme an array
 
         if (isset($cart['id'])) {
             $this->setId($cart['id']);

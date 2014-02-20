@@ -28,7 +28,6 @@ class Curl extends AbstractCurl
 
             throw new ClientException($errorMsg, $errorNo);
         }
-
         static::populateResponse($this->lastCurl, $data, $response);
     }
 
