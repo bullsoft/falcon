@@ -5,7 +5,7 @@
 }
 .nav-stance{height: 50px;background-color:rgb(0,170,170)}
 .nav{width: 980px;height:50px;margin: 0 auto}
-.nav-ul li{float: left;line-height: 50px;margin-right: 20px;font-size: 18px;}
+.nav-ul li{float: left;line-height: 50px;margin-right: 20px;font-size: 16px;}
 .nav-ul li a{color:#fff;text-decoration: none;height: 50px;display: block;position: relative}
 .nav-ul li span{display: block;position: absolute;bottom: 0;left: 0;height: 6px;}
 .nav-ul li a:hover{color:#FAB788}

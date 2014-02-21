@@ -10,15 +10,24 @@
 	
 	function rewriteUrl(options){
 		var url, urlPostfix, urlPrefix;
-		urlPostfix = options.urlPostfix ? options.urlPostfix : 'html';
+		
+		
+		if(options.urlPostfix === false){
+			urlPostfix = '';
+		}else{
+			urlPostfix = options.urlPostfix ? options.urlPostfix : '.html';
+		}
+		
 		urlPrefix	= options.urlPrefix ? options.urlPrefix  : '/';
 		url = options.id.replace(/%/g,'/');
-		url = urlPrefix + url + '.' +  urlPostfix;
+		url = urlPrefix + url +  urlPostfix;
 		return url;
 	};
 	
 	Template = function(element, options){
+		
 		var html='', url='', _options, id;
+
 		_options = options = $.isPlainObject(element) ? element : options;
 		
 		if($.trim(options.id) === ''){

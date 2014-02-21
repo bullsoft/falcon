@@ -28,8 +28,11 @@
 							<a class="prefer transition-all" href="#"><span class="uk-icon-heart-empty"></span><i> 35</i></a>
 						</div>
 					</div>
-					<div class="orgin">
-						<span>来自:<a href="{{product.from_url}}" target="_blank"}>{{product.from}}</a></span>
+					<div class="">
+						
+						<div class="orgin">
+							<span>来自:<a href="{{product.from_url}}" target="_blank"}>{{product.from}}</a></span>
+						</div>
 					</div>
 				</div>
 			</div>
