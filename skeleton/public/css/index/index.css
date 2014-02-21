@@ -73,8 +73,28 @@ body{height: 1000px}
 .oprate-box .oprate span{}
 .oprate-box .oprate a{float: right;text-decoration:none;color:#999999;}
 .oprate-box .oprate .star{margin-right: 15px}
+
 .oprate-box .oprate .star:hover{color:#ffbb4d}
+.oprate-box .oprate .star.hover:hover{color: #ffbb4d}
+.oprate-box .oprate .star.hover:hover span:before{content:"\f006";opacity: .8}
+.oprate-box .oprate .collected{color:#FFBB4D}
+.oprate-box .oprate .collected span:before{content:"\f005";opacity: 1;}
+.oprate-box .oprate .collected:hover{color: #FFBB4D}
+.oprate-box .oprate .hover.collected:hover{color: #999999;}
+.oprate-box .oprate .hover.collected:hover span:before{content:"\f005";}
+.oprate-box .oprate .collected:hover span:before{content:"\f005";}
+
+
 .oprate-box .oprate .prefer:hover{color:#e74c3c}
+.oprate-box .oprate .prefer:hover span:before{content:"\f08a";opacity: .8}
+.oprate-box .oprate .prefer.hover:hover{color:#e74c3c}
+.oprate-box .oprate .prefer.hover:hover span:before{content:"\f08a";opacity: .8}
+.oprate-box .oprate .loved{color:#e74c3c}
+.oprate-box .oprate .loved span:before{content:"\f004";opacity: 1;}
+.oprate-box .oprate .loved:hover{color: #e74c3c}
+.oprate-box .oprate .hover.loved:hover{color: #999999;}
+.oprate-box .oprate .hover.loved:hover span:before{content:"\f004";}
+.oprate-box .oprate .loved:hover span:before{content:"\f004";opacity:1}
 
 
 .single-goods .cont{height: 100px;overflow: hidden;font-size: 14px;margin-top: 10px;padding: 0 20px}

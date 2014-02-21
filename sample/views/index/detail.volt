@@ -24,8 +24,8 @@
 					</p>
 					<div class="oprate-box">
 						<div class="oprate clearfix">
-							<a class="star transition-all" href="#"><span class="uk-icon-star-empty"></span><i> 42</i></a>
-							<a class="prefer transition-all" href="#"><span class="uk-icon-heart-empty"></span><i> 35</i></a>
+							<a class="star goods-collect transition-all" href="#"><span class="uk-icon-star-empty"></span><i> 42</i></a>
+							<a class="prefer  goods-love transition-all" href="#"><span class="uk-icon-heart-empty"></span><i> 35</i></a>
 						</div>
 					</div>
 					<div class="">
