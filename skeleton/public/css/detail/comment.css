@@ -2,7 +2,7 @@
 .goods-comment .hd{background-color: #fbfbfb;height: 60px;padding-left: 20px;line-height: 60px;color: #535353;border-bottom: 1px solid #DFDFDF;}
 
 .goods-comment-box{padding: 40px 40px 20px 40px;background-color: #FFFFFF}
-.goods-comment-box textarea{width: 588px;resize:none;color:#787878; outline: 1px solid #ccc;border: 0;border-top: 3px solid #f2f2f2;padding: 4px 5px;vertical-align: middle;margin: 1px;height: 100px}
+.goods-comment-box textarea{width: 575px;resize:none;color:#787878; outline: 1px solid #ccc;border: 0;border-top: 3px solid #f2f2f2;padding: 4px 5px;vertical-align: middle;margin: 1px;height: 100px}
 
 .goods-comment-btn-box{padding:15px 0 0 0}
 .goods-comment-btn-box .tip{float: left;background: none;padding:8px 0 0 0;}
