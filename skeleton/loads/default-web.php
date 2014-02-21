@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 20 20:00:57 2014 (+0800)
+ * Last-Updated: Sat Feb 22 01:14:41 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 41
+ *     Update #: 42
  * 
  */
 
@@ -44,7 +44,7 @@ $di->set('view', function() use ($system, $config) {
     return $view;
 });
 
-$di->set('cookie', function(){
+$di->setShared('cookie', function(){
     $cookie = new \Phalcon\Http\Response\Cookies();
     $cookie->useEncryption(false);
     return $cookie;
