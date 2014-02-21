@@ -3,7 +3,7 @@ body{height: 1000px}
 
 
 
-.main-wapper{padding-top: 20px}
+.main-wapper{padding-top: 40px}
 .main{width: 980px;margin: 0 auto;position: relative}
 
 .goods-box{width: 980px;overflow: hidden}
@@ -88,7 +88,7 @@ body{height: 1000px}
 	background:#fcfcfc;
 	box-shadow: 1px 1px 2px #00A9A9;
 }
-.navigation-fixed{position: fixed;top:70px}
+.navigation-fixed{position: fixed;top:90px}
 .navigation li{padding: 5px 10px;font-size: 14px;}
 .navigation li .nav-icon{float: left;display:block;width:20px;height: 20px;}
 .navigation li a{color: #a3a3a3;padding-left: 10px;text-decoration: none}

@@ -3,6 +3,7 @@
 		navigtionPosition: function(){
 			var that = Index, top;
 			top = $('html').scrollTop();
+			top = top ? top : $('body').scrollTop();
 			if(top>10){
 				that.$navigation.addClass('navigation-fixed');
 			}else{
