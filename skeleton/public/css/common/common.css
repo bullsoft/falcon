@@ -57,8 +57,8 @@ q:before, q:after{content:"\00200B";}
 box-sizing: content-box;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;
 padding: 4px 5px;vertical-align: middle;margin: 1px;resize: none;overflow: hidden}
 .ms-textarea:focus{
-	outline:1px solid #ccc;border: 0;border-top: 3px solid #f2f2f2;
-	box-sizing: content-box;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;
+	outline: 1px solid #ccc;
+	outline-offset: 0
 }
 
 

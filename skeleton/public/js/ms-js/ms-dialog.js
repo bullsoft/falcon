@@ -253,7 +253,6 @@
 
 			active = self;
 			
-			console.log(1111);
 			self.$container.addClass("ms-dialog-page").height();
 			// force browser engine redraw
 

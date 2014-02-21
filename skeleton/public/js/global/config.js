@@ -12,6 +12,7 @@ global.config = {
 	
 	login:{
 		templateId:'js%ms-js%login',
+		//templateId:'sample%user%loginform',
 		checkUrl : '/mock/check-login.json',
 		url: '/mock/login.json'
 	},
