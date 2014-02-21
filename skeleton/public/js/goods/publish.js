@@ -56,11 +56,10 @@
 						url : url,
 						type : 'post',
 						data: {url: $.trim(that.$inputUrl.val())},
-						dataType: 'text',
+						dataType: 'josn',
 						success: function(res){
 							
 							var html = '';
-							res = $.parseJSON(res);
 							
 							if(res.status == 200){
 								
@@ -78,7 +77,7 @@
 							}
 						},
 						error: function(){
-							
+							alert('网络错误，请稍后重试');
 							that.$publishContainer.show();
 							that.$publishLoading.hide();
 						}
@@ -128,7 +127,6 @@
 				return false;
 			}
 			
-			
 			$.ajax({
 				url: global.config.goods.publisNowUrl,
 				data:that.submitDatas,
@@ -141,10 +139,12 @@
 						res.data && res.data.forward && (window.location.href = res.data.forward);					
 					}else{
 						
-						alert(res.msg);
+						alert(res.msg || '未知错误');
 					}
 				},
-				error:function(){}
+				error:function(){
+					alert('网络错误，请稍后重试');
+				}
 				
 			});
 		},

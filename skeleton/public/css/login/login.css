@@ -50,7 +50,7 @@ position: relative;
 .login-box .forgot-psw{float: right;margin-top: 4px}
 
 .login-submit-box{margin-top: 40px}
-.login-submit-btn{border: none}
+.login-submit-btn{border: none;font-size: 16px}
 
 .other-login{}
 .other-login-tip{font-size: 12px;color: #666}
