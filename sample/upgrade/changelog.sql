@@ -1,0 +1,1 @@
+ALTER TABLE user ADD COLUMN social_uid BIGINT(20) UNIQUE COMMENT "社会化统一用户ID" AFTER email;

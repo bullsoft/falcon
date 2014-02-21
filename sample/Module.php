@@ -11,6 +11,7 @@ class Module
             'BullSoft\Sample\Controllers' => __DIR__.'/controllers/',
             'BullSoft\Sample\Models'      => __DIR__.'/models/',
             'BullSoft\Sample\Logics'      => __DIR__.'/logics/',
+            'BullSoft\Sample\Plugins'     => __DIR__.'/plugins',
         ))->register();
     }
 
@@ -33,6 +34,29 @@ class Module
             return $dispatcher;
         });
 
+        // Registering a dispatcher
+        $di->set('dispatcher', function () use ($di) {
+            $evtManager = $di->getShared('eventsManager');
+            $evtManager->attach("dispatch:beforeException", function ($event, $dispatcher, $exception) {
+                switch ($exception->getCode()) {
+                    case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                    case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                        $dispatcher->forward(array(
+                            'module' => 'sample',
+                            'controller' => 'error',
+                            'action' => 'show404'
+                        ));
+                        return false;
+                }
+            });
+            $acl = new \BullSoft\Sample\Plugins\Acl($di, $evtManager);
+            $evtManager->attach('dispatch', $acl);
+            $dispatcher = new \Phalcon\Mvc\Dispatcher();
+            $dispatcher->setEventsManager($evtManager);
+            $dispatcher->setDefaultNamespace("BullSoft\Sample\Controllers\\");
+            return $dispatcher;
+        });
+        
         $di->set('view', function()  {
             $view = new \Phalcon\Mvc\View();
             $view->setViewsDir(__DIR__.'/views/');

@@ -1,14 +1,14 @@
 <?php
-/* User.php --- 
+/* SocailUser.php --- 
  * 
- * Filename: User.php
+ * Filename: SocailUser.php
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
- * Created: Mon Feb 10 16:29:55 2014 (+0800)
- * Version: master
- * Last-Updated: Fri Feb 21 18:26:47 2014 (+0800)
+ * Created: Fri Feb 21 15:10:03 2014 (+0800)
+ * Version: 
+ * Last-Updated: Fri Feb 21 23:17:13 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 8
+ *     Update #: 9
  * 
  */
 
@@ -31,31 +31,37 @@
 
 namespace BullSoft\Sample\Models;
 
-class User extends \Phalcon\Mvc\Model
+class SocialUser extends \Phalcon\Mvc\Model
 {
     public $id;
+    public $user_id = 0;
+    public $social_id;
+    public $media_type;
+    public $media_uid;
     public $username;
-    public $password;
-    public $nickname;
-    public $photo;
-    public $email;
-    public $level = 0;
-    public $is_active = 'N';
-    public $active_code;
-    public $addtime;
-    public $acttime;
-    public $modtime;
+    public $sex;
+    public $birthday;
+    public $tinyurl;
+    public $headurl;
+    public $mainurl;
+    public $hometown_location;
+    public $work_history;
+    public $university_history;
+    public $hs_history;
+    public $province;
+    public $city;
+    public $is_verified;
 
     public function initialize()
     {
         $this->setConnectionService('db');
+        $this->hasOne('user_id', "\BullSoft\Sample\Models\User", "id", array('alias' => 'user'));
     }
 
     public function getSource()
     {
-        return "user";
-    }                        
+        return "social_user";
+    }                 
 }
 
-
-/* User.php ends here */
+/* SocailUser.php ends here */

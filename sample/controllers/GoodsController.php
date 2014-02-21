@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 19 19:31:42 2014 (+0800)
+ * Last-Updated: Fri Feb 21 23:52:44 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 168
+ *     Update #: 170
  * 
  */
 
@@ -81,7 +81,11 @@ class GoodsController extends ControllerBase
 
     public function insertAction()
     {
-        $userId = 1;
+        if(!$this->user) {
+            $this->flashJson(500, array(), "请先登陆！");
+            exit;
+        }
+        $userId = $this->user->id ;
         $name = $this->request->getPost('name');
         $price = $this->request->getPost('price');
         $description = $this->request->getPost('description');
@@ -106,7 +110,7 @@ class GoodsController extends ControllerBase
                 getDI()->get('logger')->error($message->__toString());
             }
         } else {
-            $this->flashJson(200, array('forward' => $this->url('sample/index/detail/').$model->id), "商品推荐成功！");
+            $this->flashJson(200, array('forward' => $this->url->get('sample/index/detail/').$model->id), "商品推荐成功！");
         }
         exit();
     }

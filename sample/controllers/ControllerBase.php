@@ -3,8 +3,18 @@ namespace BullSoft\Sample\Controllers;
 
 class ControllerBase extends \Phalcon\Mvc\Controller
 {
+    protected $config;
+    protected $user;
+    
     protected function initialize()
     {
+        $this->config = $this->getDI()->get('config');
+        if($this->di->has('user')) {
+            $this->user = $this->di->get('user');
+        } else {
+            $this->user = null;
+        }
+        $this->view->setVar('login_user', $this->user);
     }
 
     protected function forward($uri)

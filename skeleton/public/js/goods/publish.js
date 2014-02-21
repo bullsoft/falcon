@@ -56,7 +56,7 @@
 						url : url,
 						type : 'post',
 						data: {url: $.trim(that.$inputUrl.val())},
-						dataType: 'josn',
+						dataType: 'json',
 						success: function(res){
 							
 							var html = '';

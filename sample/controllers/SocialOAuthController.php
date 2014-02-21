@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Wed Feb 19 17:57:32 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 20 20:54:44 2014 (+0800)
+ * Last-Updated: Sat Feb 22 00:27:17 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 81
+ *     Update #: 134
  * 
  */
 
@@ -30,6 +30,8 @@
 /* Code: */
 
 namespace BullSoft\Sample\Controllers;
+use BullSoft\Sample\Models\User as UserModel;
+use BullSoft\Sample\Models\SocialUser as SocialUserModel;
 
 class SocialOAuthController extends ControllerBase
 {
@@ -48,7 +50,7 @@ class SocialOAuthController extends ControllerBase
         return $client;
     }
 
-    protected function getSocialCookie()
+    public function getSocialCookie()
     {
         if(!$this->cookie->has(self::BULL_SOCIAL_COOKIE_KEY)) {
             return false;
@@ -75,12 +77,9 @@ class SocialOAuthController extends ControllerBase
         $client->send($request, $response);
         if($response->isOk()) {
             $this->cookie->set(self::BULL_SOCIAL_COOKIE_KEY, $response->getContent(), time()+15*86400);
-            setcookie(self::BULL_SOCIAL_COOKIE_KEY, $response->getContent(), time()+15*86400);
             $socialAccount = json_decode($response->getContent(), true);
-            foreach($socialAccount as $key => $val) {
-                echo "$key = $val <br />";
-            }
-            echo "OK";
+            $this->userInfoAction();
+            $this->response->redirect('sample/index/index')->sendHeaders();
         } else {
             echo "error";
         }
@@ -99,12 +98,61 @@ class SocialOAuthController extends ControllerBase
             $client = $this->getCurlClient();
             $client->send($request, $response);
             if($response->isOk()) {
-                var_dump($response->getContent());
+                $socialUser = json_decode($response->getContent(), true);
+                var_dump($socialUser);
+                $socialUserModel = SocialUserModel::findFirst('social_uid='.intval($socialUser['social_uid']));
+                $time = date('Y-m-d H:i:s');
+                if(empty($socialUserModel)) {
+                    $socialUserModel = new SocialUserModel();
+                    $socialUserModel->assign($socialUser);
+                    if($socialUserModel->save() == false) {
+                        // foreach ($socialUserModel->getMessages() as $message) {
+                        // echo $message. "<br />";
+                        // }
+                        return false;
+                    }
+                }
+                if($socialUserModel->user_id > 0) {
+                    $this->session->set('identity', $socialUserModel->user_id);
+                    return false;
+                }
+                try {
+                    $this->db->begin();
+                    $userModel = new UserModel();
+                    $userModel->username = 'shopbigbang_'.\BullSoft\Utility::generateRandomString(8);
+                    $userModel->nickname = $socialUser['username'];
+                    $userModel->password = \BullSoft\Utility::generateRandomString();
+                    $userModel->photo    = $socialUser['tinyurl'];
+                    $userModel->email    = \BullSoft\Utility::generateRandomString(32)."@";
+                    $userModel->level    = 1;
+                    $userModel->is_active = 'N';
+                    $userModel->active_code = \BullSoft\Utility::generateRandomString(32);
+                    $userModel->addtime = $time;
+                    $userModel->modtime = $time;
+                    if($userModel->save() == false) {
+                        foreach ($userModel->getMessages() as $message) {
+                            echo $message. "<br />";
+                        }
+                        $this->db->rollback("不能保存用户！");
+                    }
+                    $socialUserModel->user_id = $userModel->id;
+                    if($socialUserModel->save() == false) {
+                        foreach ($socialUserModel->getMessages() as $message) {
+                            echo $message. "<br />";
+                        }
+                        $this->db->rollback("不能保存用户！");
+                    }
+                    $this->session->set('identity', $userModel->id);
+                    $this->db->commit();
+                } catch(\Exception $e) {
+                    $this->db->rollback();
+                }
+                return true;
             } else {
-                echo "connection error";
+                return false;
             }
         } else {
-            echo "login social first";
+            return false;
         }
         exit;
     }

@@ -1,14 +1,14 @@
 <?php
-/* User.php --- 
+/* Comment.php --- 
  * 
- * Filename: User.php
+ * Filename: Comment.php
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
- * Created: Mon Feb 10 16:29:55 2014 (+0800)
- * Version: master
- * Last-Updated: Fri Feb 21 18:26:47 2014 (+0800)
+ * Created: Thu Feb 20 22:04:56 2014 (+0800)
+ * Version: 
+ * Last-Updated: Fri Feb 21 00:18:31 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 8
+ *     Update #: 7
  * 
  */
 
@@ -31,31 +31,27 @@
 
 namespace BullSoft\Sample\Models;
 
-class User extends \Phalcon\Mvc\Model
+class Comment extends \Phalcon\Mvc\Model
 {
     public $id;
-    public $username;
-    public $password;
-    public $nickname;
-    public $photo;
-    public $email;
-    public $level = 0;
-    public $is_active = 'N';
-    public $active_code;
+    public $content;
+    public $reply_to_comment_id;
+    public $reply_to_user_id;
+    public $user_id;
     public $addtime;
-    public $acttime;
     public $modtime;
 
     public function initialize()
     {
         $this->setConnectionService('db');
+        $this->hasMany("id", "\BullSoft\Sample\Models\Comment", "reply_to_comment_id", array("alias" => "reply")); 
+        $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
     }
 
     public function getSource()
     {
-        return "user";
-    }                        
+        return "comment";
+    }                            
 }
 
-
-/* User.php ends here */
+/* Comment.php ends here */
