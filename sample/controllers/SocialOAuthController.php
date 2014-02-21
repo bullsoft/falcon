@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Wed Feb 19 17:57:32 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Feb 22 00:27:17 2014 (+0800)
+ * Last-Updated: Sat Feb 22 01:21:05 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 134
+ *     Update #: 143
  * 
  */
 
@@ -52,10 +52,10 @@ class SocialOAuthController extends ControllerBase
 
     public function getSocialCookie()
     {
-        if(!$this->cookie->has(self::BULL_SOCIAL_COOKIE_KEY)) {
+        if(!$this->session->has(self::BULL_SOCIAL_COOKIE_KEY)) {
             return false;
         }
-        $socialCookie = $this->cookie->get(self::BULL_SOCIAL_COOKIE_KEY);
+        $socialCookie = $this->session->get(self::BULL_SOCIAL_COOKIE_KEY);
         return json_decode($socialCookie->getValue(), true);        
     }
     
@@ -76,7 +76,7 @@ class SocialOAuthController extends ControllerBase
         $client = $this->getCurlClient();
         $client->send($request, $response);
         if($response->isOk()) {
-            $this->cookie->set(self::BULL_SOCIAL_COOKIE_KEY, $response->getContent(), time()+15*86400);
+            $this->session->set(self::BULL_SOCIAL_COOKIE_KEY, $response->getContent());
             $socialAccount = json_decode($response->getContent(), true);
             $this->userInfoAction();
             $this->response->redirect('sample/index/index')->sendHeaders();
@@ -88,9 +88,9 @@ class SocialOAuthController extends ControllerBase
     
     public function userInfoAction()
     {
-        if($this->cookie->has(self::BULL_SOCIAL_COOKIE_KEY)) {
-            $socialCookie = $this->cookie->get(self::BULL_SOCIAL_COOKIE_KEY);
-            $socialOAuth = json_decode($socialCookie->getValue(), true);
+        if($this->session->has(self::BULL_SOCIAL_COOKIE_KEY)) {
+            $socialCookie = $this->session->get(self::BULL_SOCIAL_COOKIE_KEY);
+            $socialOAuth = json_decode($socialCookie, true);
             $request = new \Buzz\Message\Request();
             $request->setHost("https://openapi.baidu.com");
             $request->setResource("/social/api/2.0/user/info?access_token=".$socialOAuth['access_token']);
