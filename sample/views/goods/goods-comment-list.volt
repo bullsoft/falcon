@@ -24,9 +24,9 @@
 			</div>	
 		</div>
 		<div class="respond-list">
-			<div class="respond-box">
-				<textarea class="ms-textarea"></textarea>
+			<div class="respond-box clearfix">
 				<button class="ck-btn">发布</button>
+				<textarea class="ms-textarea"></textarea>
 			</div>
 			<div class="respond-el clearfix">
 				<div class="user-img">

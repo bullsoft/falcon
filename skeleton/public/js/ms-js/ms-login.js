@@ -18,7 +18,7 @@
 			return this;
 		}
 		
-		if(this.options.templateId) this.template = $.MSspirit.template({id:this.options.templateId}).getHtml();
+		if(this.options.templateId) this.template = $.MSspirit.template({id:this.options.templateId,urlPostfix:false}).getHtml();
 		
 		$('body').data('login',this);
 	};

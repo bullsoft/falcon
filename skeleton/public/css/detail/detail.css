@@ -1,5 +1,7 @@
 .main-wapper{margin-top: 40px}
 .main{width: 980px;margin: 0 auto;color: #535353}
+
+.goods-content .left{width: 670px}
 .goods-detail{width:670px;border:1px solid #dfdfdf;padding-bottom: 40px;background: #FFFFFF}
 .goods-detail-inner{min-height: 100px;border-bottom:1px solid #dfdfdf;}
 .goods-detail-inner .img{width: 290px;height: 290px;float: left}
