@@ -3,7 +3,7 @@
 global={};
 
 global.config = {
-	requestType : 'get',//请求方式
+	requestType : 'post',//请求方式
 	
 	user:{
 		name: '',
@@ -11,8 +11,8 @@ global.config = {
 	},
 	
 	login:{
-		templateId:'js%ms-js%login',
-		//templateId:'sample%user%loginform',
+		// templateId:'js%ms-js%login',
+	        templateId:'sample%user%loginform',
 		checkUrl : '/mock/check-login.json',
 		url: '/mock/login.json'
 	},

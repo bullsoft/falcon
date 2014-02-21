@@ -10,8 +10,8 @@ $('body').ms('login.paramsInit', {
 //设置全局模板，标签不转
 nunjucks.configure({ autoescape: true });
 
-//$.MSspirit.template({id:global.config.login.templateId,urlPostfix:false});
-$.MSspirit.template({id:global.config.login.templateId});
+$.MSspirit.template({id:global.config.login.templateId,urlPostfix:false});
+// $.MSspirit.template({id:global.config.login.templateId});
 
 window.onbeforeunload = function(){
 	if(window.openWin){
