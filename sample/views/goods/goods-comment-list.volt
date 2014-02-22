@@ -25,7 +25,7 @@
       </div>	
     </div>
     <div class="respond-list">
-      <div class="respond-box">
+      <div class="respond-box clearfix">
 	<textarea class="ms-textarea"></textarea>
 	<button class="ck-btn">发布</button>
       </div>
@@ -38,7 +38,7 @@
 	  
 	  <a class="user-nick transition-all" href="#">{{ reply.user.nickname }}</a>
 	  <span class="respond-text">{{reply.content}}</span>
-	  <p class="time">{{ reply.addtime }}</p>
+	  <p class="time" data-time="{{ strtotime(reply.addtime) * 1000 }}">{{ reply.addtime }}</p>
 	</div>
       </div>	
       {% endfor %}

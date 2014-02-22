@@ -48,6 +48,9 @@ body{height: 1000px}
 .merchant-box span{float: left;margin-right: 10px}
 .merchant-box a{float: right;color: #0077dd}
 .merchant-box a:hover{color: #005599}
+.merchant-box .no-merchant{padding: 0 0 20px;color: #222}
+.merchant-box .merchant-provider{color: #fff;float: none;margin: 0 auto;width: 60px;display: block}
+.merchant-box .merchant-provider:hover{color: #fff}
 .merchant-box .star,.merchant-box .star-level{width: 75px;height: 16px;display: block}
 .merchant-box .star-level{margin-top: 3px;}
 .merchant-box .star{background: url('../../images/star.png') no-repeat}

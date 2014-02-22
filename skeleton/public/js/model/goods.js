@@ -48,7 +48,6 @@
 		
 		var that = this;
 		
-		console.log(that.$container);
 		that.$container.on('click', '.goods-love', function() {
 
 			var $this = $(this), $span = $this.find('span');

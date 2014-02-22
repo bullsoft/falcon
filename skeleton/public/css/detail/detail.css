@@ -7,7 +7,7 @@
 .goods-detail-inner .img{width: 290px;height: 290px;float: left}
 .goods-detail-inner .img img{width: 290px;height: 290px;padding: 10px}
 .goods-detail-inner .right{padding: 40px 40px 0 20px}
-.goods-detail-inner .goods-name{width: 300px;max-height: 40px;margin: 0}
+.goods-detail-inner .goods-name{width: 300px;max-height: 40px;margin: 0;overflow: hidden}
 .goods-detail-inner .goods-pt{color: #999;font-size: 14px;margin-top: 10px}
 
 .oprate-box{padding-top:30px;}

@@ -39,7 +39,9 @@
 						<div class="orgin">
 							<span>来自:<a href="{{product.from_url}}" target="_blank"}>{{product.from}}</a></span>
 						</div>
+						
 					</div>
+					{% include "layouts/share.volt" %}
 				</div>
 			</div>
 			<div class="recom">
@@ -56,8 +58,10 @@
 				</div>
 			</div>
 		</div>
+
 		{% include "goods/goods-comment-list.volt" %}
 		{% include "goods/goods-comment.volt" %}
+
 		<div class="merchant">
 			<div class="hd">
 				商家信息
