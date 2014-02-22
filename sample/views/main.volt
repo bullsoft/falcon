@@ -50,6 +50,7 @@
 		<script type="text/javascript" src="/js/ms-js/ms-login.js"></script>
 		<script type="text/javascript" src="/js/ms-js/ms-dialog.js"></script>
 		<script type="text/javascript" src="/js/ms-js/ms-template.js"></script>
+		<script type="text/javascript" src="/js/model/goods.js"></script>
 		<script type="text/javascript" src="/js/global/init.js"></script>
 		<script type="text/javascript" src="/js/plus/icheck.js"></script>
 		{% endblock %}

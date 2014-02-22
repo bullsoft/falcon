@@ -3,6 +3,7 @@
 		navigtionPosition: function(){
 			var that = Index, top;
 			top = $('html').scrollTop();
+			top = top ? top : $('body').scrollTop();
 			if(top>10){
 				that.$navigation.addClass('navigation-fixed');
 			}else{
@@ -21,6 +22,7 @@
 			var that = Index;
 			that.objectInit();
 			that.bindEvents();
+			if(win.GoodsEntity)win.GoodsEntity.init({container: '.goods-box'});
 		}
 	};
 	

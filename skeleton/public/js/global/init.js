@@ -13,8 +13,6 @@ nunjucks.configure({ autoescape: true });
 $.MSspirit.template({id:global.config.login.templateId,urlPostfix:false});
 // $.MSspirit.template({id:global.config.login.templateId});
 
-
-
 window.onbeforeunload = function(){
 	if(window.openWin){
 		for(var p in window.openWin){
@@ -22,3 +20,4 @@ window.onbeforeunload = function(){
 		}
 	}
 };
+
