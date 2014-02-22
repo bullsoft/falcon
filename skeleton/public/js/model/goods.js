@@ -1,72 +1,101 @@
-$('.goods-collect').on('click',function(){
-	
-	var $this = $(this), $span = $this.find('span');
+(function($, win, doc) {
 
-	if($this.hasClass('collected')){
+	var Goods = {};
+
+	Goods.Case = {};
+
+	Goods.collectInit = function() {
+
+		var that = this;
+
+		that.$container.on('click', '.goods-collect', function() {
+
+			var $this = $(this), $span = $this.find('span');
+
+			if ($this.hasClass('collected')) {
+
+				$this.removeClass('collected');
+			} else {
+
+				$this.addClass('collected').removeClass('hover');
+			}
+
+		});
+
+		that.$container.on('mouseenter', '.goods-collect', function() {
+
+			var $this = $(this), $span = $this.find('span');
+
+			if ($this.hasClass('collected')) {
+
+				$this.addClass('hover');
+			} else {
+
+				$this.removeClass('hover');
+			}
+
+		});
+
+		that.$container.on('mouseleave', '.goods-collect', function() {
+
+			var $this = $(this), $span = $this.find('span');
+
+			$this.removeClass('hover');
+		});
+	};
+
+	Goods.loveInit = function() {
 		
-		$this.removeClass('collected');
-	}else{
+		var that = this;
 		
-		$this.addClass('collected').removeClass('hover');;
-	}
-	
-});
+		console.log(that.$container);
+		that.$container.on('click', '.goods-love', function() {
 
-$('.goods-collect').on('mouseenter',function(){
-	
-	var $this = $(this), $span = $this.find('span');
+			var $this = $(this), $span = $this.find('span');
 
-	if($this.hasClass('collected')){
+			if ($this.hasClass('loved')) {
+
+				$this.removeClass('loved');
+			} else {
+
+				$this.addClass('loved').removeClass('hover');
+				;
+			}
+
+		});
+
+		that.$container.on('mouseenter', '.goods-love', function() {
+
+			var $this = $(this), $span = $this.find('span');
+
+			if ($this.hasClass('loved')) {
+
+				$this.addClass('hover');
+			} else {
+
+				$this.removeClass('hover');
+			}
+
+		});
+
+		that.$container.on('mouseleave', '.goods-love', function() {
+
+			var $this = $(this), $span = $this.find('span');
+
+			$this.removeClass('hover');
+
+		});
+	};
+
+	Goods.init = function(options) {
+
+		this.$container = $(options.container);
 		
-		$this.addClass('hover');
-	}else{
-		
-		$this.removeClass('hover');
-	}
-	
-});
+		Goods.collectInit();
+		Goods.loveInit();
 
-$('.goods-collect').on('mouseleave',function(){
-	
-	var $this = $(this), $span = $this.find('span');
-	
-	$this.removeClass('hover');
-});
+	};
 
+	win.GoodsEntity = Goods;
 
-$('.goods-love').on('click',function(){
-	
-	var $this = $(this), $span = $this.find('span');
-
-	if($this.hasClass('loved')){
-		
-		$this.removeClass('loved');
-	}else{
-		
-		$this.addClass('loved').removeClass('hover');;
-	}
-	
-	
-});
-
-$('.goods-love').on('mouseenter',function(){
-	
-	var $this = $(this), $span = $this.find('span');
-
-	if($this.hasClass('loved')){
-		
-		$this.addClass('hover');
-	}else{
-		
-		$this.removeClass('hover');
-	}
-	
-});
-
-$('.goods-love').on('mouseleave',function(){
-	
-	var $this = $(this), $span = $this.find('span');
-	
-	$this.removeClass('hover');
-	
-});
+})(jQuery, window, document);

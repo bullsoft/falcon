@@ -7,6 +7,12 @@
 <link href="/css/detail/comment.css" rel="stylesheet" media="screen" />
 {% endblock %}
 
+{% block javascript_bottom %}
+{{ super() }}
+<script src="/js/detail/index.js"></script>
+{% endblock %}
+
+
 {% block main_content %}
 <div class="goods-content">
 	<div class="left">

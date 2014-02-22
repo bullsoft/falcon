@@ -22,6 +22,7 @@
 			var that = Index;
 			that.objectInit();
 			that.bindEvents();
+			if(win.GoodsEntity)win.GoodsEntity.init({container: '.goods-box'});
 		}
 	};
 	
