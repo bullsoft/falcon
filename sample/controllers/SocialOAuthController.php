@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Wed Feb 19 17:57:32 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Feb 22 01:21:05 2014 (+0800)
+ * Last-Updated: Sat Feb 22 20:30:37 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 143
+ *     Update #: 156
  * 
  */
 
@@ -35,7 +35,7 @@ use BullSoft\Sample\Models\SocialUser as SocialUserModel;
 
 class SocialOAuthController extends ControllerBase
 {
-    const BULL_SOCIAL_COOKIE_KEY = "social_oauth";
+    const BULL_SOCIAL_SESSION_KEY = "social_oauth";
 
     protected function getCurlClient()
     {
@@ -52,10 +52,10 @@ class SocialOAuthController extends ControllerBase
 
     public function getSocialCookie()
     {
-        if(!$this->session->has(self::BULL_SOCIAL_COOKIE_KEY)) {
+        if(!$this->session->has(self::BULL_SOCIAL_SESSION_KEY)) {
             return false;
         }
-        $socialCookie = $this->session->get(self::BULL_SOCIAL_COOKIE_KEY);
+        $socialCookie = $this->session->get(self::BULL_SOCIAL_SESSION_KEY);
         return json_decode($socialCookie->getValue(), true);        
     }
     
@@ -76,86 +76,85 @@ class SocialOAuthController extends ControllerBase
         $client = $this->getCurlClient();
         $client->send($request, $response);
         if($response->isOk()) {
-            $this->session->set(self::BULL_SOCIAL_COOKIE_KEY, $response->getContent());
-            $socialAccount = json_decode($response->getContent(), true);
-            $this->userInfoAction();
-            $this->response->redirect('sample/index/index')->sendHeaders();
-        } else {
-            echo "error";
+            $this->session->set(self::BULL_SOCIAL_SESSION_KEY, $response->getContent());
+            if($this->userInfo()) {
+                $this->response->redirect('sample/index/index')->sendHeaders();
+                return;
+            }
         }
+        echo "error";
         exit;
     }
     
-    public function userInfoAction()
+    public function userInfo()
     {
-        if($this->session->has(self::BULL_SOCIAL_COOKIE_KEY)) {
-            $socialCookie = $this->session->get(self::BULL_SOCIAL_COOKIE_KEY);
-            $socialOAuth = json_decode($socialCookie, true);
-            $request = new \Buzz\Message\Request();
-            $request->setHost("https://openapi.baidu.com");
-            $request->setResource("/social/api/2.0/user/info?access_token=".$socialOAuth['access_token']);
-            $response = new \Buzz\Message\Response();
-            $client = $this->getCurlClient();
-            $client->send($request, $response);
-            if($response->isOk()) {
-                $socialUser = json_decode($response->getContent(), true);
-                var_dump($socialUser);
-                $socialUserModel = SocialUserModel::findFirst('social_uid='.intval($socialUser['social_uid']));
-                $time = date('Y-m-d H:i:s');
-                if(empty($socialUserModel)) {
-                    $socialUserModel = new SocialUserModel();
-                    $socialUserModel->assign($socialUser);
-                    if($socialUserModel->save() == false) {
-                        // foreach ($socialUserModel->getMessages() as $message) {
-                        // echo $message. "<br />";
-                        // }
-                        return false;
-                    }
-                }
-                if($socialUserModel->user_id > 0) {
-                    $this->session->set('identity', $socialUserModel->user_id);
-                    return false;
-                }
-                try {
-                    $this->db->begin();
-                    $userModel = new UserModel();
-                    $userModel->username = 'shopbigbang_'.\BullSoft\Utility::generateRandomString(8);
-                    $userModel->nickname = $socialUser['username'];
-                    $userModel->password = \BullSoft\Utility::generateRandomString();
-                    $userModel->photo    = $socialUser['tinyurl'];
-                    $userModel->email    = \BullSoft\Utility::generateRandomString(32)."@";
-                    $userModel->level    = 1;
-                    $userModel->is_active = 'N';
-                    $userModel->active_code = \BullSoft\Utility::generateRandomString(32);
-                    $userModel->addtime = $time;
-                    $userModel->modtime = $time;
-                    if($userModel->save() == false) {
-                        foreach ($userModel->getMessages() as $message) {
-                            echo $message. "<br />";
-                        }
-                        $this->db->rollback("不能保存用户！");
-                    }
-                    $socialUserModel->user_id = $userModel->id;
-                    if($socialUserModel->save() == false) {
-                        foreach ($socialUserModel->getMessages() as $message) {
-                            echo $message. "<br />";
-                        }
-                        $this->db->rollback("不能保存用户！");
-                    }
-                    $this->session->set('identity', $userModel->id);
-                    $this->db->commit();
-                } catch(\Exception $e) {
-                    $this->db->rollback();
-                }
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+        if(!$this->session->has(self::BULL_SOCIAL_SESSION_KEY)) {
             return false;
         }
-        exit;
-    }
+        $socialCookie = $this->session->get(self::BULL_SOCIAL_SESSION_KEY);
+        $socialOAuth = json_decode($socialCookie, true);
+        $request = new \Buzz\Message\Request();
+        $request->setHost("https://openapi.baidu.com");
+        $request->setResource("/social/api/2.0/user/info?access_token=".$socialOAuth['access_token']);
+        $response = new \Buzz\Message\Response();
+        $client = $this->getCurlClient();
+        $client->send($request, $response);
+        if(!$response->isOk()) {
+            return false;
+        }
+        $socialUser = json_decode($response->getContent(), true);
+        if(count($socialUser) < 3) {
+            return false;
+        }
+        $socialUserModel = SocialUserModel::findFirst('social_uid='.intval($socialUser['social_uid']));
+        $time = date('Y-m-d H:i:s');
+        if(empty($socialUserModel)) {
+            $socialUserModel = new SocialUserModel();
+            $socialUserModel->assign($socialUser);
+            if($socialUserModel->save() == false) {
+                // foreach ($socialUserModel->getMessages() as $message) {
+                // echo $message. "<br />";
+                // }
+                return false;
+            }
+        }
+        if($socialUserModel->user_id > 0) {
+            $this->session->set('identity', $socialUserModel->user_id);
+            return true;
+        }
+        try {
+            $this->db->begin();
+            $userModel = new UserModel();
+            $userModel->username = 'shopbigbang_'.\BullSoft\Utility::generateRandomString(8);
+            $userModel->nickname = $socialUser['username'];
+            $userModel->password = \BullSoft\Utility::generateRandomString();
+            $userModel->photo    = $socialUser['tinyurl'];
+            $userModel->email    = \BullSoft\Utility::generateRandomString(32)."@";
+            $userModel->level    = 1;
+            $userModel->is_active = 'N';
+            $userModel->active_code = \BullSoft\Utility::generateRandomString(32);
+            $userModel->addtime = $time;
+            $userModel->modtime = $time;
+            if($userModel->save() == false) {
+                /* foreach ($userModel->getMessages() as $message) { */
+                /*     echo $message. "<br />"; */
+                /* } */
+                $this->db->rollback("不能保存用户！");
+            }
+            $socialUserModel->user_id = $userModel->id;
+            if($socialUserModel->save() == false) {
+                /* foreach ($socialUserModel->getMessages() as $message) { */
+                /*     echo $message. "<br />"; */
+                /* } */
+                $this->db->rollback("不能保存用户！");
+            }
+            $this->session->set('identity', $userModel->id);
+            $this->db->commit();
+        } catch(\Exception $e) {
+            $this->db->rollback();
+        }
+        return true;
+    } 
 
     public function bindUserAction()
     {
