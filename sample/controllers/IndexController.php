@@ -2,6 +2,7 @@
 namespace BullSoft\Sample\Controllers;
 
 use BullSoft\Sample\Models\Product as ProductModel;
+use BullSoft\Sample\Models\Comment as CommentModel;
 
 class IndexController extends ControllerBase
 {
@@ -24,6 +25,13 @@ class IndexController extends ControllerBase
             $this->flash->error("抱歉，您请求的产品不存在！");
             exit(1);
         }
+        
+        $comments = CommentModel::find(array(
+            "product_id={$productId} AND reply_to_comment_id=0",
+            'order' => "addtime DESC",
+            'limit' => 10,
+        ));
+        $this->view->setVar("comments", $comments);
         $this->view->setVar("product", $product);
     }
 }

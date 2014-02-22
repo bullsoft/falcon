@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 20 22:04:41 2014 (+0800)
- * Version: 
- * Last-Updated: Fri Feb 21 00:18:57 2014 (+0800)
+ * Version: master
+ * Last-Updated: Sat Feb 22 21:19:52 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 41
+ *     Update #: 42
  * 
  */
 
@@ -42,12 +42,6 @@ class CommentController extends ControllerBase
             'order' => "addtime DESC",
             'limit' => 10,
         ));
-        /* foreach($comments as $comment) { */
-        /*     foreach($comment->reply as $reply) { */
-        /*         var_dump($reply->user); */
-        /*     } */
-        /* } */
-        /* exit; */
         $this->view->setVar('comments', $comments);
     }
 
