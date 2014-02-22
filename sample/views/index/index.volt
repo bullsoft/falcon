@@ -58,6 +58,12 @@
 					</div>
 				</div>
 				{% endfor %}
+				{% if count(product.provider) == 0 %}
+				<div class="no-merchant">
+					<div class="no-merchant">期待您提供宝贝，方便更多拼友...</div>
+					<div><a class="merchant-provider ck-btn" href="#">我有宝贝</a></div>
+				</div>
+				{% endif %}
 			</div>
 			<div class="oprate-box ">
 				<div class="inner clearfix">

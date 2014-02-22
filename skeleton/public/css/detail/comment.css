@@ -39,7 +39,7 @@
 
 .respond-el{padding: 10px 20px;border-bottom: 1px solid #efefef}
 .respond-el .user-img img{width: 36px;height: 36px}
-.respond-el .content{padding: 0 0 4px 15px;font-size: 12px}
+.respond-el .content{padding: 0 0 4px 15px;font-size: 12px;width: 536px}
 .respond-el .other-color{color: #999}
 .respond-el .respond-text{color: #333}
 .respond-el .time{padding: 4px 0 0 0;margin: 0;}

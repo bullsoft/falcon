@@ -39,7 +39,7 @@
       </div>	
     </div>
     <div class="respond-list">
-      <div class="respond-box">
+      <div class="respond-box clearfix">
 	<textarea class="ms-textarea"></textarea>
 	<button class="ck-btn">发布</button>
       </div>
