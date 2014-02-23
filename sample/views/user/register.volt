@@ -4,11 +4,13 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="description" content="" />
-		<link rel="stylesheet/less" href="public/ms-css/base.less"/>
-		<link rel="stylesheet/less" href="public/css/common/common.css"/>
-		<link rel="stylesheet/less" href="public/css/login/register.css"/>
 		<title>index</title>
-		<script type="text/javascript" src="public/js/less-1.5.0.min.js"></script>
+		<link href="/css/uikit.css" rel="stylesheet" media="screen" />
+		<link href="/css/main.css" rel="stylesheet" media="screen" />
+		<link href="/css/common/css3.css" rel="stylesheet" media="screen" />
+		<link href="/css/common/common.css" rel="stylesheet" media="screen" />
+		<link href="/css/login/register.css" rel="stylesheet" media="screen" />
+		
 	</head>
 	<body>
 		<div class="wapper">
