@@ -44,6 +44,43 @@
 	transform:rotate(45deg)}
 .nav-user .publish{font-size: 30px;text-align: center;line-height: 50px;color: #ffa40d}
 .nav-user .publish:hover{color: #ffaf26}
+
+.nav-user .shopping-cart-icon{font-size: 30px;text-align: center;line-height: 50px;color: #ffa40d;display: block}
+.nav-user .shopping-cart-icon:hover{color: #ffaf26;background: #FFFFFF}
+.nav-user .shopping-cart-icon.hover{background: #FFFFFF}
+.nav-user .shopping-cart-count{position: absolute;top: 2px;right: 2px;display: block;width: 18px;height: 18px;line-height:18px;border-radius: 50%;text-align: center;background-color: #C91032;color: #FFFFFF;font-size: 12px}
+
+
 .nav-user .uk-dropdown{background-color:rgba(0,170,170,.8)}
-.nav-user .uk-dropdown a{color: #ffffff}
-.nav-user .uk-dropdown a:hover{background-color: rgba(11,11,11,.2)}
+.nav-user .uk-dropdown a{color: #FFFFFF}
+.nav-user .uk-dropdown a:hover{background-color:rgba(240,240,240,.3)}
+.nav-user .shopping-cart-dropdown a{color: #535353}
+.nav-user .shopping-cart-dropdown a:hover{background:none}
+
+
+.shopping-cart:hover .shopping-cart-icon{background: #FFFFFF}
+.shopping-cart-dropdown{width: 400px;border: 1px solid #009f9f;border-top:none;margin-right: -1px}
+.nav-shopping-cart-list{border-top: 1px solid #c3c3c3;padding-top: 10px;margin-top: 10px;max-height: 315px;overflow: auto}
+.nav-user .shopping-cart-dropdown{background: none;padding: 0}
+
+.nav-shopping-cart-box{background: #FFFFFF;}
+.nav-shopping-cart-box .tit{padding: 15px 0 5px 15px}
+.shopping-cart-el{padding: 10px 15px 15px 15px;border-bottom: 1px dotted #c3c3c3;}
+.shopping-cart-el:first-child{padding-top: 0}
+.shopping-cart-el:last-child{border-bottom: none}
+.shopping-cart-el .img{float: left;}
+.shopping-cart-el .name{height: 60px; overflow: hidden;}
+.shopping-cart-el .img img{width: 60px;height: 60px}
+.shopping-cart-el .info{font-size: 12px;color: #535353;width: 180px;height:60px;overflow:hidden; padding-left: 10px;float: left}
+.shopping-cart-el .price-div{float: right;font-size: 12px;}
+.shopping-cart-dropdown .shopping-cart-el .price{color: #C91032;font-size: 14px;}
+.shopping-cart-dropdown .del-goods{float: right}
+
+.shopping-cart-total-box{background-color: #DFDFDF;padding:15px}
+.shopping-cart-total{float: right}
+.shopping-cart-total-tip{font-size: 14px;color: #535353;padding-bottom: 15px}
+.shopping-cart-total-tip .total-count{color: #C91032;padding:0 2px}
+.shopping-cart-total-tip .total-price{color: #C91032;padding-left: 4px;}
+.shopping-cart-total-box .shopping-cart-total .ck-btn{font-size: 12px;float: right;color: #FFFFFF}
+.shopping-cart-total-box .shopping-cart-total .ck-btn:hover{background-color:#ffad26}
+
