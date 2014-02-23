@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 20 22:04:41 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Feb 22 21:19:52 2014 (+0800)
+ * Last-Updated: Sun Feb 23 23:22:35 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 42
+ *     Update #: 53
  * 
  */
 
@@ -47,12 +47,30 @@ class CommentController extends ControllerBase
 
     public function createAction()
     {
-        
+        $comment = array();
+        $comment['product_id'] = $this->request->getPost('product_id', 'int');
+        $comment['content'] = $content = $this->request->getPost('content');
+        $comment['reply_to_comment_id'] = $reply2C = $this->request->getPost('reply_to_comment_id', 'int');
+        $comment['reply_to_user_id'] = $this->request->getPost('reply_to_user_id', 'int');
+        $comment['user_id']  = $this->user->id;
+        $time = date('Y-m-d H:i:s');
+        $comment['addtime'] = $time;
+        $comment['modtime'] = $time;
+
+        $model = new CommentModel();
+        $model->assign($comment);
+        if($model->save() == false) {
+            // error log here
+            $this->flashJson(500, array(),'评论插入失败');
+        } else {
+            $this->flashJson(200);
+        }
+        exit;
     }
 
     public function removeAction()
     {
-
+        
     }
 
     

@@ -15,7 +15,7 @@
 				<li><a href="#">资料修改</a></li>
 				<li><a href="#">商家认证</a></li>
 				<li class="uk-nav-divider"> </li>
-				<li><a href="#">退出</a></li>
+				<li><a href="{{url('sample/user/logout')}}">退出</a></li>
 	  		</ul>
 		</div>
 	</div>

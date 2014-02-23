@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Fri Feb 21 23:52:44 2014 (+0800)
+ * Last-Updated: Sun Feb 23 23:28:05 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 170
+ *     Update #: 176
  * 
  */
 
@@ -32,6 +32,7 @@
 namespace BullSoft\Sample\Controllers;
 
 use BullSoft\Sample\Models\Product as ProductModel;
+use BullSoft\Sample\Models\Comment as CommentModel;
 use Wrench\Protocol\Protocol;
 use Wrench\Client;
 use Wrench\Socket;
@@ -142,6 +143,36 @@ class GoodsController extends ControllerBase
         $responses = $instance->receive();
         $instance->disconnect();
         return (string) reset($responses);
+    }
+
+    public function detailAction($productId)
+    {
+        $productId = intval($productId);
+        if($productId <= 0) {
+            $this->flash->error("产品ID必须大于0！");
+            exit(1);
+        }
+
+        $product = ProductModel::findFirst('id='.$productId);
+        if(empty($product)) {
+            $this->flash->error("抱歉，您请求的产品不存在！");
+            exit(1);
+        }
+        
+        $comments = CommentModel::find(array(
+            "product_id={$productId} AND reply_to_comment_id=0",
+            'order' => "addtime DESC",
+            'limit' => 10,
+        ));
+
+        $otherProducts = ProductModel::find(array(
+            'id != ' . $productId,
+            'order' => 'likeit DESC', 
+            'limit' => 9
+        ));
+        $this->view->setVar("other_products", $otherProducts);
+        $this->view->setVar("comments", $comments);
+        $this->view->setVar("product", $product);        
     }
 }
 

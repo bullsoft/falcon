@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
- * Version: 
- * Last-Updated: Fri Feb 21 22:38:00 2014 (+0800)
+ * Version: master
+ * Last-Updated: Sun Feb 23 22:47:56 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 21
+ *     Update #: 27
  * 
  */
 
@@ -62,6 +62,23 @@ class UserController extends ControllerBase
         }
         $this->view->setVar('social_urls', $socialUrls);
         $this->view->setVar('social_sites', $socialSites);
+    }
+
+    public function logoutAction()
+    {
+        $this->session->destroy();
+        $this->response->redirect('sample/index/index')->sendHeaders();
+        return ;
+    }
+
+    public function registerAction()
+    {
+        
+    }
+
+    public function loginAction()
+    {
+        
     }
 }
 

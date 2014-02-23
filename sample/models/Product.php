@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Mon Feb 10 16:05:29 2014 (+0800)
- * Version: 
- * Last-Updated: Mon Feb 10 17:24:52 2014 (+0800)
+ * Version: master
+ * Last-Updated: Sun Feb 23 23:07:40 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 4
+ *     Update #: 5
  * 
  */
 
@@ -41,7 +41,7 @@ class Product extends \Phalcon\Mvc\Model
     public $price;
     public $from;
     public $user_id;
-    public $like;
+    public $likeit;
     public $addtime;
     public $modtime;
     

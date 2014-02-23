@@ -31,6 +31,13 @@ class IndexController extends ControllerBase
             'order' => "addtime DESC",
             'limit' => 10,
         ));
+
+        $otherProducts = ProductModel::find(array(
+            'id != ' . $productId,
+            'order' => 'likeit DESC', 
+            'limit' => 9
+        ));
+        $this->view->setVar("other_products", $otherProducts);
         $this->view->setVar("comments", $comments);
         $this->view->setVar("product", $product);
     }
