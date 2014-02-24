@@ -133,7 +133,7 @@
 	    <div class="submit-order-box">
 	      <div>
 		<span class="price-box">总计：<span class="price" id="total-price-text">{{ array_sum(totals) }}</span></span>
-		<a class="ms-button ms-button-normal settle-accounts" href="{{url('sample/cart/order')}}">
+		<a class="ck-btn settle-accounts" href="{{url('sample/cart/order')}}">
 		  去结算
 		</a>
 	      </div>
