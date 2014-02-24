@@ -10,7 +10,7 @@
 .goods-detail-inner .goods-name{width: 300px;max-height: 40px;margin: 0;overflow: hidden}
 .goods-detail-inner .goods-pt{color: #999;font-size: 14px;margin-top: 10px}
 
-.oprate-box{padding-top:30px;}
+.oprate-box{padding-top:10px;}
 .oprate-box .oprate{font-size: 20px}
 .oprate-box .oprate i{font-style: normal;font-size: 16px}
 .oprate-box .oprate a{float: left;text-decoration:none;color:#999999;}
@@ -38,8 +38,12 @@
 .oprate-box .oprate .loved:hover span:before{content:"\f004";opacity:1}
 
 
+.goods-oprate .unit{float: left;margin-right: 10px;font-size: 12px;padding: 20px 0 0 0}
+.goods-oprate .shopping-limitation{background-color: #C91032;opacity: .8}
+.goods-oprate .shopping-limitation:hover{opacity: 1}
 
-.goods-detail-inner .orgin{padding-top: 40px;font-size: 12px;color: #999}
+
+.goods-detail-inner .orgin{padding-top: 25px;font-size: 12px;color: #999}
 .goods-detail-inner .orgin a{padding-left: 10px}
 
 .recom{padding: 20px 30px 0}
