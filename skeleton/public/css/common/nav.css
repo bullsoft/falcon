@@ -6,6 +6,11 @@
 .nav-stance{height: 50px;background-color:rgb(0,170,170)}
 .nav{width: 980px;height:50px;margin: 0 auto}
 .nav-ul li{float: left;line-height: 50px;margin-right: 20px;font-size: 16px;}
+
+
+.logo-icon-box{width: 107px;height: 48px;position: absolute;left: 50%;margin-left: -53px;}
+.logo-icon-box .logo-icon{display:block; width:107px; height:48px; background: url(../../images/bigbang-logo-icon.png) no-repeat; text-indent: -999px;overflow: hidden}
+/*
 .nav-ul li a{color:#fff;text-decoration: none;height: 50px;display: block;position: relative}
 .nav-ul li span{display: block;position: absolute;bottom: 0;left: 0;height: 6px;}
 .nav-ul li a:hover{color:#FAB788}
@@ -20,10 +25,12 @@
 	transition: width 0.2s ease-in-out;
 }
 .nav-ul li a:hover:after{width: 100%}
+*/
 
 /*搜索框*/
-.uk-navbar-content{margin-top: 5px;width: 240px}
-.uk-search-field{border: 1px solid #e7e8e2;border-radius: 3px;background: #ffffff;width: 150px;font-size: 14px;}
+.uk-navbar-content{margin-top: 5px;width: 240px;padding: 0}
+.uk-search-field{border: 1px solid #e7e8e2;background: #ffffff;width: 150px;font-size: 14px;}
+
 
 /*发布按钮*/
 /*.nav .publish{float: left;padding-top: 11px}*/
@@ -77,12 +84,11 @@
 .shopping-cart-dropdown .del-goods{float: right}
 
 .shopping-cart-total-box{background-color: #DFDFDF;padding:15px}
-.shopping-cart-total{float: right}
-.shopping-cart-total-tip{font-size: 14px;color: #535353;padding-bottom: 15px}
+.shopping-cart-total-tip{font-size: 14px;color: #535353;float: left}
 .shopping-cart-total-tip .total-count{color: #C91032;padding:0 2px}
 .shopping-cart-total-tip .total-price{color: #C91032;padding-left: 4px;}
-.shopping-cart-total-box .shopping-cart-total .ck-btn{font-size: 12px;float: right;color: #FFFFFF}
-.shopping-cart-total-box .shopping-cart-total .ck-btn:hover{background-color:#ffad26}
+.shopping-cart-total-box .shopping-cart-total a{font-size: 14px;float: right;color: rgba(238,145,42,.9)}
+.shopping-cart-total-box .shopping-cart-total a:hover{color: rgba(238,145,42,1)}
 
 
 /*未登录购物车*/

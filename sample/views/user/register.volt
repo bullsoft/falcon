@@ -16,12 +16,12 @@
 		<div class="wapper">
 			<div class="register-wapper">
 				<div class="register-main">
-					<div class="logo"><h1>血拼大爆炸</h1></div>
+					<div class="logo"><h1><a href="{{url('')}}">血拼大爆炸</a></h1></div>
 					<div><div class="ck-line"> </div></div>
 					<div class="slogan">血拼到底，更低价、更简单、更便捷；加入我们，更多惊喜等着你...</div>
 					<div class="register-box">
 						<div class="line">
-							<p class="tag">登陆名</p>
+							<p class="tag">邮箱</p>
 							<input type="text"/>
 						</div>
 						<div class="line">
@@ -29,7 +29,7 @@
 							<input type="text"/>
 						</div>
 						<div class="register-submit-box">
-							<button class="ck-btn register-submit-btn">立即加入</button>
+							<a class="ck-btn register-submit-btn" href="#">立即加入</a>
 						</div>
 					</div>
 				</div>

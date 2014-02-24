@@ -1,17 +1,10 @@
-<ul class="nav-ul">
+<!-- <ul class="nav-ul">
 	<li>
-		<a class="transition-all" href="/">首页</a><span></span>
 	</li>
-	<li>
-		<a class="transition-all" href="javascript">商品分类 ∨</a><span></span>
-	</li>
-	<li>
-		<a class="transition-all" href="javascript">失血过多</a><span></span>
-	</li>
-	<li>
-		<a class="transition-all" href="javascript">关于我们</a><span></span>
-	</li>
-</ul>
+</ul> -->
+<div class="logo-icon-box">
+	<a class="transition-all logo-icon" href="{{url('')}}">首页</a>
+</div>
 <div class="uk-navbar-content uk-hidden-small">
 	<form class="uk-search" data-uk-search="{flipDropdown:true, source:'../vendor/searchresults.json'}">
 		<input class="uk-search-field" type="text" placeholder="从这里开始..." autocomplete="off">

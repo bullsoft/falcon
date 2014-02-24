@@ -89,10 +89,10 @@
 .goods-info .p-detail{padding: 0 10px 0 65px;font-size: 12px}
 .goods-info .p-detail .name{text-align: left;height: 36px;width:280px;padding-left:10px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
 
-.goods-shop-info{margin-top: 2px;background:#fff4d3;}
+.goods-shop-info{padding-top: 2px;background:#fff4d3;}
 .goods-shop-info .message-box{width: 50%;float: left;padding-top: 10px}
 .goods-shop-info .message-box .inner{padding-left: 10px}
-.goods-shop-info .message-box textarea{resize: none;height: 50px;width: 380px;outline: none;border-color:#e3e3e3}
+.goods-shop-info .message-box textarea{resize: none;height: 110px;width: 380px;outline: none;border-color:#e3e3e3}
 .goods-shop-info .message-box textarea:focus{border-color:#FFAD26}
 .goods-shop-cost-box{width: 50%;float: right}
 .goods-shop-cost-box .inner-box{border-left: 1px solid #ffffff}
@@ -102,7 +102,7 @@
 .goods-shop-cost-price{display: block;width: 100px;text-align: right}
 
 
-.goods-subtotal-box{background:#fff4d3;border-top: 1px solid #FFFFFF;padding-right: 10px;height: 45px;line-height: 45px}
+.goods-subtotal-box{background:#fff4d3;border-top: 1px solid #FFFFFF;border-left:1px solid #FFFFFF; padding-right: 10px;height: 45px;line-height: 45px}
 .goods-subtotal-box span{float: right;display: block;}
 .goods-subtotal-box .goods-subtotal-label{line-height: 49px}
 .goods-subtotal-box .goods-subtotal-price{font-size: 22px;color: rgb(253,108,11);padding-left: 8px}
@@ -116,10 +116,9 @@
 
 .submit-order-box{padding-top: 15px}
 .submit-order-box>div{float: right}
-.submit-order-box .price-box{display: block;float: left;margin-top: 12px}
+.submit-order-box .price-box{display: block;float: left;margin-top: 8px}
 .submit-order-box .price{color: rgb(253,108,11);font-size: 24px;padding-left: 4px}
-.submit-order-box button{margin-left: 20px;float: left;font-size: 16px;padding:1px 20px 1px;background: rgba(253,108,11,.9);color: #FFFFFF}
-.submit-order-box button:hover{background: #FFA40D;color: #FFFFFF}
+.submit-order-box a{margin-left: 20px;float: left;font-size: 16px;}
 
 
 .goods-info .num input{width: 50px;text-align: center;outline: none;margin: 0 6px}

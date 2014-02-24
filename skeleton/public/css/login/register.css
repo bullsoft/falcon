@@ -4,7 +4,8 @@ html{background-color: rgba(0,170,170,.8)}
 
 .register-wapper{padding-top: 20px}
 .register-main { width:100%;height:400px;margin: 0 auto }
-.register-main h1 { text-align: center }
+.register-main h1 {width:420px;height:120px;margin:0 auto;padding-bottom:20px;text-align: center;text-indent: -999px;background: url(../../images/bigbang-logo.png) no-repeat;overflow: hidden;}
+.register-main h1 a{width: 100%;height: 100%;display: block}
 .register-main .ck-line:after{background: #ce3d00}
 .register-main .slogan{padding-top: 20px;margin:0 auto; color: #FFFFFF; text-align:center; font-size: 20px;}
 
@@ -15,4 +16,4 @@ html{background-color: rgba(0,170,170,.8)}
 .register-box .tag { padding-bottom: 4px }
 
 .register-submit-box{padding-top: 30px}
-.register-submit-btn{border: none;font-size: 16px;}
+.register-submit-btn{border: none;font-size: 16px;padding: 10px 20px}
