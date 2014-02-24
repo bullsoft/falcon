@@ -1,5 +1,6 @@
 <?php 
 namespace BullSoft\Sample\Controllers;
+use BullSoft\Cart;
 
 class ControllerBase extends \Phalcon\Mvc\Controller
 {
@@ -14,6 +15,26 @@ class ControllerBase extends \Phalcon\Mvc\Controller
         } else {
             $this->user = null;
         }
+
+        $displayCart = array();
+        $totals      = array();
+        $num         = 0;
+        if ($this->session->has(CartController::BULL_CART_KEY)) {
+            $sessionCart = json_decode($this->session->get(CartController::BULL_CART_KEY), true);
+            $totals = array();
+            foreach($sessionCart as $providerId => $cartArray) {
+                $cart = new Cart\Cart();
+                $cart->importJson(json_encode($cartArray));
+                $num += count($cartArray['items']);
+                $displayCart[$providerId] = $cart;
+                $_total = $cart->getTotals();
+                $totals[$providerId] = $_total['items'];
+            }
+        }
+        
+        $this->view->setVar('global_carts', $displayCart);
+        $this->view->setVar('global_cart_totals', $totals);
+        $this->view->setVar('global_cart_num', $num);        
         $this->view->setVar('login_user', $this->user);
     }
 
