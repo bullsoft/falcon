@@ -68,8 +68,18 @@
       <div class="oprate-box ">
 	<div class="inner clearfix">
 	  <div class="oprate clearfix">
-	    <a class="prefer goods-love transition-all" href="#"><span class="uk-icon-heart-empty"></span><i> {{product.wishlist.count()}} </i></a>
-	    <a class="star goods-collect transition-all" href="#"><span class="uk-icon-star-empty"></span><i> {{product.likeit}}</i></a>
+	    <a class="prefer goods-love transition-all" data-id="{{product.id}}" href="#">
+	    	<span class="uk-icon-heart-empty"></span>
+	    	<i class="count"> {{product.likeit}} </i>
+	    </a>
+	    <?php if(isset($wishlist[$product->id])) { ?>
+	    <a class="star goods-collect collected transition-all" data-id="{{product.id}}" href="#">
+	    <?php } else { ?>
+	    <a class="star goods-collect transition-all" data-id="{{product.id}}" href="#">
+	    <?php } ?>	
+	    	<span class="uk-icon-star-empty"></span>
+	    	<i class="count"> {{product.wishlist.count()}} </i>
+	    </a>
 	  </div>
 	</div>
       </div>

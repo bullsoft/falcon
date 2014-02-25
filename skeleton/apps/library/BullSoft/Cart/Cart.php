@@ -525,7 +525,11 @@ class Cart
     public function hasItem($key, $isKey = true)
     {
         if (!$isKey) {
-            $key = Item::getKey($key);
+        	if($key instanceof Item) {
+        		$key = Item::getKey($key->getId());
+        	} else {
+            	$key = Item::getKey($key);
+			}
         }
         return isset($this->_items[$key]);
     }

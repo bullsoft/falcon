@@ -45,7 +45,9 @@
 		{% block javascript_bottom %}
 		<script type="text/javascript" src="/js/plus/nunjucks.js"></script>
 		<script type="text/javascript" src="/js/global/ms.js"></script>
-		<script type="text/javascript" src="/js/global/config.js"></script>
+		<script type="text/javascript">
+			{% include "layouts/config.js" %}
+		</script>
 		<script type="text/javascript" src="/js/ms-js/ms-storage.js"></script>
 		<script type="text/javascript" src="/js/ms-js/ms-login.js"></script>
 		<script type="text/javascript" src="/js/ms-js/ms-dialog.js"></script>

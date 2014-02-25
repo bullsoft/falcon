@@ -87,10 +87,13 @@ class CartController extends ControllerBase
         }        
     }
     
-    public function insertItemAction($productId, $providerId)
+    public function insertItemAction($productId = 0, $providerId = 0)
     {
-        $productId = intval($productId);
-        $providerId = intval($providerId);
+    	$productId = $productId > 0 ? $productId : $this->request->getPost("product_id", "int");
+        $providerId = $providerId > 0 ? $providerId : $this->request->getPost("provider_id", "int");
+		$qty = $this->request->getPost("qty", "int");
+		if($qty < 1) $qty = 1;
+		
         $product = ProductModel::findFirst($productId);
         $provider = ProviderModel::findFirst("user_id={$providerId} AND product_id={$productId}");
         if(empty($product)) {
@@ -100,10 +103,10 @@ class CartController extends ControllerBase
         $item = new Cart\Item();
         $item->setId($productId)
              ->setProvider($providerId)
+			 ->setQty($qty)
              ->setName($product->name)
              ->setCustom("image_url", $product->image_url)
              ->setSku('')
-             ->setQty(rand(1, 5))
              ->setPrice($provider->price)
              ->setIsTaxable(true)
              ->setIsDiscountable(true);
@@ -116,10 +119,9 @@ class CartController extends ControllerBase
             if(isset($sessionCart[$providerId])) {
                 $cart->importJson(json_encode($sessionCart[$providerId]));
             }
-            // $cart->importJson($this->session->get("shop-cart"));
         }
         
-        if($cart->hasItem($item)) {
+        if($cart->hasItem($item, false)) {
             $cart->unsetItem($item);
         }
         $cart->setItem($item);                
@@ -128,7 +130,10 @@ class CartController extends ControllerBase
         $this->session->set('shop-cart', json_encode($sessionCart));
         
         if($this->request->isAjax()) {
-            exit;
+        	$ajaxRet = $item->toArray();
+			$ajaxRet['totals'] = $cart->getTotals();
+            $this->flashJson(200, $ajaxRet);
+			return ;
         } else {
             $this->response->redirect('sample/cart/index')->sendHeaders();
             return;
