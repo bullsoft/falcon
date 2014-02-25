@@ -1,100 +1,178 @@
 (function($, win, doc) {
 
-	var Goods = {};
+    var Goods = {};
 
-	Goods.Case = {};
+    Goods.Case = {};
 
-	Goods.collectInit = function() {
+    Goods.emotionAction = function(params, callback, url) {
 
-		var that = this;
+        $.ajax({
+            url : url,
+            type : global.config.requestType,
+            data : params,
+            dataType : 'json',
+            success : function(res) {
 
-		that.$container.on('click', '.goods-collect', function() {
+                var data = res.data ,Login;
 
-			var $this = $(this), $span = $this.find('span');
+                if (res.status == 200) {
+                    if ( typeof callback == 'function') {
+                        callback(data);
+                    }
+                } else if (res.status == 403) {
+                    //todo
+                    
+                    Login = $('body').data('login');
+                    if (Login) {
 
-			if ($this.hasClass('collected')) {
+                         Login.showDialog();
 
-				$this.removeClass('collected');
-			} else {
+                    } else {
 
-				$this.addClass('collected').removeClass('hover');
-			}
+                        new $.MSspirit.login($('body'), {}).showDialog();
+                    }
+                }
+                
+                callback(data);
+            },
+            error : function() {
+                alert('网络错误');
+            }
+        });
 
-		});
+    };
 
-		that.$container.on('mouseenter', '.goods-collect', function() {
+    Goods.collectInit = function() {
 
-			var $this = $(this), $span = $this.find('span');
+        var that = this;
 
-			if ($this.hasClass('collected')) {
+        that.$container.on('click', '.goods-collect', function() {
 
-				$this.addClass('hover');
-			} else {
+            var $this = $(this), $span = $this.find('span'), fun, params, url, Login, loginFlag;
 
-				$this.removeClass('hover');
-			}
+            //todo
+            Login = $('body').data('login');
+            if (Login) {
 
-		});
+                loginFlag = Login.check();
 
-		that.$container.on('mouseleave', '.goods-collect', function() {
+            } else {
 
-			var $this = $(this), $span = $this.find('span');
+                loginFlag = new $.MSspirit.login($('body'), {}).check();
+                //  new InitLogin($('body'), {}).check();
+            }
 
-			$this.removeClass('hover');
-		});
-	};
+            if (!loginFlag)
+                return false;
 
-	Goods.loveInit = function() {
-		
-		var that = this;
-		
-		that.$container.on('click', '.goods-love', function() {
+            if ($this.hasClass('collected')) {
 
-			var $this = $(this), $span = $this.find('span');
+                url = global.config.goods.wishRemoveUrl;
+                $this.removeClass('collected');
+            } else {
 
-			if ($this.hasClass('loved')) {
+                url = global.config.goods.wishCreateUrl;
+                $this.addClass('collected').removeClass('hover');
+            }
 
-				$this.removeClass('loved');
-			} else {
+            params = {
+                product_id : $this.attr('data-id')
+            };
 
-				$this.addClass('loved').removeClass('hover');
-				;
-			}
+            Goods.emotionAction(params, function(data) {
 
-		});
+                var $count = $this.find('.count');
 
-		that.$container.on('mouseenter', '.goods-love', function() {
+                if (data.type == 'create') {
 
-			var $this = $(this), $span = $this.find('span');
+                    if(data.count && data.count != 0)$count.text(data.count);
+                    $this.addClass('collected');
+                } else {
 
-			if ($this.hasClass('loved')) {
+                    if(data.count && data.count != 0)$count.text(data.count);
+                    $this.removeClass('collected');
+                }
 
-				$this.addClass('hover');
-			} else {
+            }, url);
 
-				$this.removeClass('hover');
-			}
+        });
 
-		});
+        that.$container.on('mouseenter', '.goods-collect', function() {
 
-		that.$container.on('mouseleave', '.goods-love', function() {
+            var $this = $(this), $span = $this.find('span');
 
-			var $this = $(this), $span = $this.find('span');
+            if ($this.hasClass('collected')) {
 
-			$this.removeClass('hover');
+                $this.addClass('hover');
+            } else {
 
-		});
-	};
+                $this.removeClass('hover');
+            }
 
-	Goods.init = function(options) {
+        });
 
-		this.$container = $(options.container);
-		
-		Goods.collectInit();
-		Goods.loveInit();
+        that.$container.on('mouseleave', '.goods-collect', function() {
 
-	};
+            var $this = $(this), $span = $this.find('span');
 
-	win.GoodsEntity = Goods;
+            $this.removeClass('hover');
+        });
+    };
+
+    Goods.loveInit = function() {
+
+        var that = this;
+
+        that.$container.on('click', '.goods-love', function() {
+
+            var $this = $(this), $span = $this.find('span');
+
+            if ($this.hasClass('loved')) {
+
+                $this.removeClass('loved');
+            } else {
+
+                $this.addClass('loved').removeClass('hover');
+            }
+
+            Goods.loveAction({}, function() {
+
+            });
+
+        });
+
+        that.$container.on('mouseenter', '.goods-love', function() {
+
+            var $this = $(this), $span = $this.find('span');
+
+            if ($this.hasClass('loved')) {
+
+                $this.addClass('hover');
+            } else {
+
+                $this.removeClass('hover');
+            }
+
+        });
+
+        that.$container.on('mouseleave', '.goods-love', function() {
+
+            var $this = $(this), $span = $this.find('span');
+
+            $this.removeClass('hover');
+
+        });
+    };
+
+    Goods.init = function(options) {
+
+        this.$container = $(options.container);
+
+        Goods.collectInit();
+        Goods.loveInit();
+
+    };
+
+    win.GoodsEntity = Goods;
 
 })(jQuery, window, document);

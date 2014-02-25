@@ -6,8 +6,10 @@ global.config = {
 	requestType : 'post',//请求方式
 	
 	user:{
-		name: '',
-		nick: ''
+	    {% if login_user %}
+		name: '{{login_user.username}}',
+		nick: '{{login_user.nickname}}'
+		{% endif %}
 	},
 	
 	login:{
@@ -26,7 +28,7 @@ global.config = {
 	},
 	
 	order: {
-		carChangeUrl: '/mock/car-change.json',
+		carChangeUrl: '/cart/insertitem',
 		deleteUrl:'/mock/car-change.json'
 	}
 };

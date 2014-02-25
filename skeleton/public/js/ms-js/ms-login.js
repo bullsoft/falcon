@@ -42,33 +42,41 @@
 			$('body').data('login',null);
 		},
 		check: function(){
-			var that = this, now = new Date().getTime(), isCheck,
-				isCheck = (!that.options.user) || (!that.lastCheck) || ((now - that.lastCheck) > that.options.loginLoseTime);
+			var that = this, now = new Date().getTime(), isCheck;
+			
+			//isCheck = (!that.options.user) || (!that.lastCheck) || ((now - that.lastCheck) > that.options.loginLoseTime);
+			isCheck = (!that.options.user);
+			
+			console.log(that.options.user);
 			
 			if(isCheck){
-				$.ajax({
-					url : that.options.checkUrl,
-					data:{},
-					dataType:'json',
-					success: function(data){
-						
-						var now = new Date().getTime();
-						$.MSspirit.storage({nameSpace: 'bingbang'}).ini('lastLoginTime', now);
-						
-						that.lastCheck = now;
-						
-						if(data.status == 200){
-							that.showDialog();
-						}
-					},
-					error: function(){
-						alert('网络错误');
-					}
-				});
+				// $.ajax({
+					// url : that.options.checkUrl,
+					// data:{},
+					// dataType:'json',
+					// success: function(data){
+// 						
+						// var now = new Date().getTime();
+						// $.MSspirit.storage({nameSpace: 'bingbang'}).ini('lastLoginTime', now);
+// 						
+						// that.lastCheck = now;
+// 						
+						// if(data.status == 200){
+							// that.showDialog();
+						// }
+					// },
+					// error: function(){
+						// alert('网络错误');
+					// }
+				// });
+				that.showDialog();
+				return false;
 			}else{
 
-				that.showDialog();
+				//that.showDialog();
 			}
+			
+			return true;
 		},
 		showDialog:function(){
 			

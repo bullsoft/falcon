@@ -7,17 +7,23 @@
 		
 		goodsListPre:'goods-list-',
 		
-		changeAjax: function(id){
+		getIndex: function(id, providerId){
+		    
+		    return  id + '-' + providerId;
+		},
+		
+		changeAjax: function(id, providerId){
 			
-			var that = goods;
+			var that = goods, index = that.getIndex(id, providerId);
 			
 			params = {};
-			params.id = id;
-			params.number = that.countRecord['goods'+id];
+			params['product_id'] = id;
+			params['provider_id'] = providerId;
+			params['qty'] = that.countRecord['goods'+index];
 			
-			if(that.changeXHR['goods'+id])that.changeXHR['goods'+id].abort();
+			if(that.changeXHR['goods'+index])that.changeXHR['goods'+index].abort();
 
-			that.changeXHR['goods'+id] = $.ajax({
+			that.changeXHR['goods'+index] = $.ajax({
 				url : global.config.order.carChangeUrl,
 				type: global.config.requestType,
 				data:params,
@@ -28,15 +34,19 @@
 					}
 				},
 				error: function(data){
-					alert('网络错误');
+
+				    if(data.readyState != 0){
+				        
+    					alert('网络错误');
+				    }
 				}
 			});
 		},
 		
 		changeParam: function(data){
-			var that = goods,
-				$goods = $('#goods-list-'+data.id),
-				$goodsInfo = $('#goods-sequence-'+data.id),
+			var that = goods, index = that.getIndex(data.id, data.provider),
+				$goods = $('#goods-list-' + index),
+				$goodsInfo = $('#goods-sequence-' + index),
 				$price = $goods.find('.price-text'),
 				$num = $goods.find('.num-text'),
 				$total = $('#total-price-text'),
@@ -49,44 +59,53 @@
 			}
 			
 			$price.text(data.price);
-			$num.val(data.count);
-			$total.text(data['total-price']);
-			$totalMin.text(data['total-price']);
+			$num.val(data.qty);
+			$total.text(data.totals.items);
+			$totalMin.text(data.totals.items);
 			
 			$goodsInfo.find('input[name="price"]').val(data.price);
-			$goodsInfo.find('input[name="count"]').val(data.count);
+			$goodsInfo.find('input[name="count"]').val($.trim(data.qty));
+			$goodsInfo.find('input[name="provider"]').val(data.provider);
 			
 		},
 		
 		changePiece : function(event,options){
-			var that = goods, id = 0,
+			var that = goods, id = 0, providerId, index = 0, elType ='', val ='',
 				$this = (options && options.el) ? $(options.el) : $(this),
-				$input = $this.parent().find('input'),
-				val	= parseInt($input.val(),10) || 0;
+				$input = $this.parent().find('input');
 				
-			id = parseInt($this.attr('data-id'),10) || 0;
+				
+		    elType = $this[0].tagName;
+		     
+			id = parseInt($this.parent().attr('data-id'),10) || 0;
+			providerId = parseInt($this.parent().attr('data-providerid'),10) || 0;
+			index = that.getIndex(id, providerId);
+
+		    if(elType == 'INPUT'){
+		        
+		        $input = $this;
+		    }
+		    
+		    val   = parseInt($input.val(),10) || 1;
+		    
+		    val = val > 999 ? 999 : val;
+				
 			
-			that.countRecord['goods'+id] = that.countRecord['goods'+id] ? that.countRecord['goods'+id] : val;
-			
-			that.countRecord['goods'+id] = $this.hasClass('add') ? (that.countRecord['goods'+id] + 1) : (that.countRecord['goods'+id] -1);
+			if(elType != 'INPUT'){
+    			that.countRecord['goods'+index] = that.countRecord['goods'+index] ? that.countRecord['goods'+index] : val;
+			    that.countRecord['goods'+index] = $this.hasClass('add') ? (that.countRecord['goods'+index] + 1) : (that.countRecord['goods'+index] -1);
+			}else{
+
+			    that.countRecord['goods'+index] = val;
+			}
 			//val = $this.hasClass('add') ? (val + 1) : val -1;
 			
-			that.countRecord['goods'+id] = that.countRecord['goods'+id] < 0 ? 0 : that.countRecord['goods'+id];
-			that.countRecord['goods'+id] = that.countRecord['goods'+id] > 1000 ? 1000 : that.countRecord['goods'+id];
+			that.countRecord['goods'+index] = that.countRecord['goods'+index] < 0 ? 0 : that.countRecord['goods'+index];
+			that.countRecord['goods'+index] = that.countRecord['goods'+index] > 1000 ? 1000 : that.countRecord['goods'+index];
 			
-			that.changeAjax(id);
+			that.changeAjax(id, providerId);
 			
-			$input.val(that.countRecord['goods'+id]);
-			
-			event.preventDefault();
-			event.stopPropagation();
-		},
-		
-		modifyPrice: function(event,options){
-			var $this = (options && options.el) ? $(options.el) : $(this),
-				val = parseInt($this.val(),10) || 0;
-			val = val > 1000 ? 1000 : val;
-			$this.val(val);
+			$input.val(that.countRecord['goods'+index]);
 			
 			event.preventDefault();
 			event.stopPropagation();
@@ -103,8 +122,11 @@
 		delelteGoods: function(envent,options){
 			var that = goods,params ={},
 				$this = (options && options.el) ? $(options.el) : $(this),
-				id = $this.attr('data-id');
-			$('#' + that.goodsListPre + id).fadeOut();
+				id = $this.attr('data-id'),
+				providerId = $this.attr('data-providerid'),
+				index = that.getIndex(id, providerId);
+
+			$('#' + that.goodsListPre + index).fadeOut();
 			
 			$.ajax({
 				url : global.config.order.deleteUrl,
@@ -112,21 +134,29 @@
 				data:params,
 				dataType:'json',
 				success: function(res){
-					var data = res.data, html = '';
+					var data = res.data, html = '', index;
+					
+					index = that.getIndex(data.id, data.provider);
+					
 					if(res.status == 200){
-						$('#' + that.goodsListPre + data.id).remove();
+						$('#' + that.goodsListPre + index).remove();
+
 						if($('.goods-info').length == 0){
 							html = '<div class="uk-alert uk-alert-warning no-goods">请前往挑选商品,<a href="">go>></a></div>';
 							$('#goods-list-contanier').html(html);
 						}
 					}else{
-						$('#' + that.goodsListPre + data.id).fadeIn();
+						$('#' + that.goodsListPre + index).fadeIn();
 						alert('商品删除失败');
 					}
 				},
 				error: function(data){
-					$('#' + that.goodsListPre + data.id).fadeIn();
-					alert('网络错误，商品删除失败');
+					$('#' + that.goodsListPre + index).fadeIn();
+					
+					if(data.readyState != 0){
+					    
+                        alert('网络错误');
+                    }
 					
 				}
 			});
@@ -139,15 +169,21 @@
 		bindEvent : function(){
 			var self = this;
 			self.$goodsList.on('click','.subtract, .add',self.changePiece);
-			self.$goodsList.on('keyup','.num-input',self.modifyPrice);
+		//	self.$goodsList.on('keyup','.num-input',self.modifyPrice);
+			self.$goodsList.on('keyup','.num-input',self.changePiece);
 			self.$goodsList.on('click','.del-goods',self.delelteGoods);
 			$('body').on('click','.settle-accounts',self.settleAccounts);
 		},
 		
 		init : function(){
-			var self = this;
+			var self = this, html = '';
 			self.$goodsList =  $('#goods-list');
-			$('#shopping-cart-form').html($('#goods-sequence-box').html());
+			
+			
+			$('.goods-sequence-box').each(function(){
+			    html += $(this).html();
+			});
+			$('#shopping-cart-form').html(html);
 			self.bindEvent();
 		}
 	};

@@ -36,7 +36,7 @@ class WishlistController extends ControllerBase
 {
     public function createAction()
     {
-        $productId = 2;
+		$productId = $this->request->getPost("product_id", "int");
         if(!$this->user) {
             $this->flashJson(403);
             return ;
@@ -50,11 +50,34 @@ class WishlistController extends ControllerBase
             $model->addtime = $time;
             $model->modtime = $time;
             if($model->save() == false) {
-                $this->flashJson(500, array(), "数据库插入失败");
+                $this->flashJson(500, array('type' => 'create'), "数据库插入失败");
                 return;
             }
         }
-        $this->flashJson(200);
+		$model2 = WishlistModel::find("product_id=".$productId);
+        $this->flashJson(200, array('type' => 'create', 'count'=> $model2->count()));
+		return;
+    }
+
+    public function removeAction()
+    {
+        // $productId = 2;
+		$productId = $this->request->getPost("product_id", "int");
+		
+        if(!$this->user) {
+            $this->flashJson(403);
+            return ;
+        }
+        $model = WishlistModel::findFirst("user_id=".$this->user->id." AND product_id=".$productId);
+        if(!empty($model)) {
+            if($model->delete() == false) {
+                $this->flashJson(500, array('type' => 'remove'), "数据库delete失败");
+                return;
+            }
+        }
+		$model2 = WishlistModel::find("product_id=".$productId);
+        $this->flashJson(200, array('type' => 'remove', 'count'=> $model2->count()));
+		return ;
     }
 }
 

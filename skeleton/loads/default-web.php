@@ -102,7 +102,14 @@ $di->set('router', function() {
                        "controller" => "wishlist",
                        "action"     => 1,
                        "params"     => 2
-                 ));        
+                 ));  
+				 
+    $router->add("/cart/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "cart",
+                       "action"     => 1,
+                       "params"     => 2
+                 )); 			      
     
     return $router;
 });
