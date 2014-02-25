@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Sun Feb 23 23:28:05 2014 (+0800)
+ * Last-Updated: Tue Feb 25 21:44:40 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 176
+ *     Update #: 191
  * 
  */
 
@@ -50,6 +50,23 @@ class GoodsController extends ControllerBase
 
     }
 
+    public function likeAction()
+    {
+        $productId = $this->request->getPost("product_id", "int");
+        $productId = 1;
+        $model = ProductModel::findFirst($productId);
+        if(empty($model)) {
+            $this->flashJson(500, array(), "抱歉，该商品不存在！");
+        } else {
+            $model->likeit = $model->likeit + 1;
+            if($model->save() == false) {
+            } else {
+                $this->flashJson(200);
+            }
+        }
+        exit;
+    }
+    
     public function fetchAction()
     {
         if(!$this->request->isPost()) {
@@ -103,7 +120,7 @@ class GoodsController extends ControllerBase
         $model->from = strval($from);
         $model->from_url = strval($fromUrl);
         $model->user_id = $userId;
-        $model->like = 1;
+        $model->likeit = 1;
         $model->addtime = $model->modtime = date("Y-m-d H:i:s");
         if($model->save() == false) {
             $this->flashJson(500, array(), "暂时不能推荐商品！");
@@ -111,7 +128,7 @@ class GoodsController extends ControllerBase
                 getDI()->get('logger')->error($message->__toString());
             }
         } else {
-            $this->flashJson(200, array('forward' => $this->url->get('sample/index/detail/').$model->id), "商品推荐成功！");
+            $this->flashJson(200, array('forward' => $this->url->get('goods/detail/').$model->id), "商品推荐成功！");
         }
         exit();
     }

@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Sun Feb 23 22:47:56 2014 (+0800)
+ * Last-Updated: Tue Feb 25 21:15:25 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 27
+ *     Update #: 47
  * 
  */
 
@@ -31,7 +31,8 @@
 
 namespace BullSoft\Sample\Controllers;
 use BullSoft\Sample\Models\Comment as CommentModel;
-
+use BullSoft\Sample\Models\Wishlist as WishlistModel;
+    
 class UserController extends ControllerBase
 {
     const BULL_SOCIAL_URL_PREFIX = 'http://openapi.baidu.com/social/oauth/2.0/authorize?';
@@ -67,7 +68,7 @@ class UserController extends ControllerBase
     public function logoutAction()
     {
         $this->session->destroy();
-        $this->response->redirect('sample/index/index')->sendHeaders();
+        $this->response->redirect('')->sendHeaders();
         return ;
     }
 

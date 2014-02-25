@@ -27,7 +27,7 @@
 				</li>
 				<li class="uk-nav-divider"></li>
 				<li>
-					<a href="{{url('sample/user/logout')}}">退出</a>
+					<a href="{{url('user/logout')}}">退出</a>
 				</li>
 			</ul>
 		</div>

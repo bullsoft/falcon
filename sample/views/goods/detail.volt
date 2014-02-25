@@ -25,9 +25,10 @@
 						{{product.name}}
 					</p>
 					<p class="goods-pt">
-						<span>￥{{product.price}}</span> / <span class="type">食品</span>
-						{{date("Y-m-d", strtotime(product.addtime))}} 更新
+						<span>￥{{product.price}}</span> (
+						{{date("Y-m-d", strtotime(product.addtime))}} 更新 )
 					</p>
+                                        <span class="type">食品</span>
 					<div class="oprate-box">
 						<div class="oprate clearfix">
 							<a class="star goods-collect transition-all" href="#"><span class="uk-icon-star-empty"></span><i> {{product.likeit}}</i></a>
@@ -63,14 +64,15 @@
 				</div>
 			</div>
 		</div>
-
+                {% if comments.count() != 0 %}
 		{% include "goods/goods-comment-list.volt" %}
+                {% endif %}
 		{% include "goods/goods-comment.volt" %}
 
 		<div class="merchant" id="merchant-info-list-box">
 			<div class="hd">
 				商家信息
-				<span class="count">{{product.provider|length}}</span>
+				<span class="count">{{product.provider.count()}}</span>
 			</div>
 			<ul class="merchant-list">
 				{% for provider in product.provider %}

@@ -1,14 +1,14 @@
 <?php
-/* Product.php --- 
+/* Wishlist.php --- 
  * 
- * Filename: Product.php
+ * Filename: Wishlist.php
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
- * Created: Mon Feb 10 16:05:29 2014 (+0800)
- * Version: master
- * Last-Updated: Tue Feb 25 21:30:12 2014 (+0800)
+ * Created: Tue Feb 25 20:59:52 2014 (+0800)
+ * Version: 
+ * Last-Updated: Tue Feb 25 21:01:44 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 7
+ *     Update #: 4
  * 
  */
 
@@ -28,20 +28,13 @@
  */
 
 /* Code: */
-
 namespace BullSoft\Sample\Models;
 
-class Product extends \Phalcon\Mvc\Model
+class Wishlist extends \Phalcon\Mvc\Model
 {
     public $id;
-    public $name;
-    public $image_url;
-    public $more_image_urls;
-    public $description;
-    public $price;
-    public $from;
     public $user_id;
-    public $likeit;
+    public $product_id;
     public $addtime;
     public $modtime;
     
@@ -49,16 +42,14 @@ class Product extends \Phalcon\Mvc\Model
     {
         $this->setConnectionService('db');
         $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
-        $this->hasMany("id", "\BullSoft\Sample\Models\Comment",  "product_id", array("alias" => "comment"));        
-        $this->hasMany("id", "\BullSoft\Sample\Models\Provider", "product_id", array("alias" => "provider"));
-        $this->hasMany("id", "\BullSoft\Sample\Models\Wishlist", "product_id", array("alias" => "wishlist"));        
+        $this->hasOne("product_id", "\BullSoft\Sample\Models\Product", "id", array("alias" => "product"));
     }
 
     public function getSource()
     {
-        return "product";
-    }                    
+        return "wishlist";
+    }                        
 }
-    
 
-/* Product.php ends here */
+
+/* Wishlist.php ends here */

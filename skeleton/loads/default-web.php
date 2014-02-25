@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Sat Feb 22 01:14:41 2014 (+0800)
+ * Last-Updated: Tue Feb 25 21:12:22 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 42
+ *     Update #: 54
  * 
  */
 
@@ -46,7 +46,7 @@ $di->set('view', function() use ($system, $config) {
 
 $di->setShared('cookie', function(){
     $cookie = new \Phalcon\Http\Response\Cookies();
-    $cookie->useEncryption(false);
+    $cookie->useEncryption(true);
     return $cookie;
 });
 
@@ -75,13 +75,35 @@ $di->set('flash', function(){
 $di->set('router', function() {
     $router = new \Phalcon\Mvc\Router();
     $router->setDefaultModule("sample");
-    
+
     $router->add("/:module/:controller/:action/:params",
                  array("module"     => 1,
                        "controller" => 2,
                        "action"     => 3,
                        "params"     => 4
                  ));
+
+    $router->add("/goods/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "goods",
+                       "action"     => 1,
+                       "params"     => 2
+                 ));
+
+    $router->add("/user/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "user",
+                       "action"     => 1,
+                       "params"     => 2
+                 ));
+
+    $router->add("/wishlist/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "wishlist",
+                       "action"     => 1,
+                       "params"     => 2
+                 ));        
+    
     return $router;
 });
 

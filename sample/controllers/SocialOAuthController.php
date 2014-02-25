@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Wed Feb 19 17:57:32 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Feb 22 20:53:36 2014 (+0800)
+ * Last-Updated: Tue Feb 25 21:15:20 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 158
+ *     Update #: 159
  * 
  */
 
@@ -78,7 +78,7 @@ class SocialOAuthController extends ControllerBase
         if($response->isOk()) {
             $this->session->set(self::BULL_SOCIAL_SESSION_KEY, $response->getContent());
             if($this->userInfo()) {
-                $this->response->redirect('sample/index/index')->sendHeaders();
+                $this->response->redirect('')->sendHeaders();
                 return;
             }
         }
