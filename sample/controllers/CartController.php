@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 26 22:00:17 2014 (+0800)
+ * Last-Updated: Wed Feb 26 23:04:56 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 128
+ *     Update #: 130
  * 
  */
 
@@ -55,6 +55,7 @@ class CartController extends ControllerBase
             }
             $this->view->setVar('carts', $displayCart);
             $this->view->setVar('totals', $totals);
+            $this->view->setVar('msg', null);
         } else {
             $this->view->setVar('msg', '抱歉，您的购物车为空！');
         }
@@ -78,6 +79,7 @@ class CartController extends ControllerBase
             }
             $this->view->setVar('carts', $displayCart);
             $this->view->setVar('totals', $totals);
+            $this->view->setVar('msg', null);            
         } else {
             $this->view->setVar('msg', '抱歉，您的购物车为空！');
         }        

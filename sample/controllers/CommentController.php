@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 20 22:04:41 2014 (+0800)
  * Version: master
- * Last-Updated: Sun Feb 23 23:22:35 2014 (+0800)
+ * Last-Updated: Wed Feb 26 23:02:19 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 53
+ *     Update #: 57
  * 
  */
 
@@ -34,11 +34,19 @@ use BullSoft\Sample\Models\Comment as CommentModel;
 
 class CommentController extends ControllerBase
 {
-    public function listAction($productId)
+    public function listAction($productId, $commentId = 0)
     {
         $productId = intval($productId);
+        $commentId = intval($commentId);
+        $productId = $productId > 0 ? $productId: $this->request->getPost("product_id", "int");
+        $commentId = $commentId > 0 ? $commentId: $this->request->getPost("comment_id", "int");
+
+        if($productId < 1 || $commentId < 0) {
+            $this->flashJson(500, array(), "非法主求");
+            return ;
+        }
         $comments = CommentModel::find(array(
-            "product_id={$productId} AND reply_to_comment_id=0",
+            "product_id={$productId} AND reply_to_comment_id={$commentId}",
             'order' => "addtime DESC",
             'limit' => 10,
         ));
