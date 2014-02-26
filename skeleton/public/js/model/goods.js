@@ -22,15 +22,9 @@
                 } else if (res.status == 403) {
                     //todo
                     
-                    Login = $('body').data('login');
-                    if (Login) {
-
-                         Login.showDialog();
-
-                    } else {
-
-                        new $.MSspirit.login($('body'), {}).showDialog();
-                    }
+                    new $.MSspirit.login($('body'), {}).showDialog();
+                    
+                    
                 }
                 
                 callback(data);
@@ -50,17 +44,7 @@
 
             var $this = $(this), $span = $this.find('span'), fun, params, url, Login, loginFlag;
 
-            //todo
-            Login = $('body').data('login');
-            if (Login) {
-
-                loginFlag = Login.check();
-
-            } else {
-
-                loginFlag = new $.MSspirit.login($('body'), {}).check();
-                //  new InitLogin($('body'), {}).check();
-            }
+            new $.MSspirit.login($('body'), {}).check();
 
             if (!loginFlag)
                 return false;

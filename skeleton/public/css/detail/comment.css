@@ -31,8 +31,8 @@
 .goods-comment-el .oprate a:hover{color: #ff5200}
 .goods-comment-el .oprate .count{color: #999}
 
-.respond-list{background-color: #fafafa;}
-.goods-comment-el .respond-box{padding: 20px;background-color: #fafafa;margin-top: 15px}
+.respond-list{background-color: #fafafa;margin-top: 15px;display: none}
+.goods-comment-el .respond-box{padding: 20px;background-color: #fafafa;}
 .goods-comment-el .respond-box textarea{width: 460px;height: 18px;float: left;font-size: 12px}
 .goods-comment-el .respond-box button{border: none;font-size: 14px;float: right;margin-left: 20px}
 

@@ -27,6 +27,13 @@ global.config = {
 		wishRemoveUrl : '/wishlist/remove'
 	},
 	
+	comment: {
+	    
+	    showRespondUrl:'/comment/list',
+	    doRespondUrl:'/comment/create'
+	    
+	},
+	
 	order: {
 		carChangeUrl: '/cart/insertitem',
 		deleteUrl:'/mock/car-change.json'
