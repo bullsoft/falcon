@@ -58,6 +58,7 @@
                 
                 var $this = $(this),  id = $this.attr('data-id'), $list;
                 
+                
                 $list = $(self.options.respondIdPre + id);
                 
                 if($.trim($list.html()) != ''){
