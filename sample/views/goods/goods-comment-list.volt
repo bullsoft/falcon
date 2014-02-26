@@ -19,7 +19,7 @@
 				<div class="oprate">
 					<div>
 						<span class="count" >({{comment.reply|length}})</span>
-						<a class="doRespond" data-id="{{comment.id}}" href="#">回应</a>
+						<a class="showRespond" data-id="{{comment.id}}" href="#">回应</a>
 					</div>
 				</div>
 			</div>
