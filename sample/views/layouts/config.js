@@ -29,7 +29,8 @@ global.config = {
 	
 	comment: {
 	    
-	    showRespondUrl:'',
+	    showRespondUrl:'/comment/list',
+	    doRespondUrl:'/comment/create'
 	    
 	},
 	

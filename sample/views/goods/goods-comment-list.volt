@@ -19,33 +19,22 @@
 				<div class="oprate">
 					<div>
 						<span class="count" >({{comment.reply|length}})</span>
-						<a class="showRespond" data-id="{{comment.id}}" href="#">回应</a>
+						<a class="showRespond" data-productid="{{product.id}}" data-id="{{comment.id}}" href="#">回应</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="respond-list" id="respond-list-{{comment.id}}">
+		<div class="respond-list" id="respond-list-box-{{comment.id}}">
 			<div class="respond-box clearfix">
 				<textarea class="ms-textarea"></textarea>
-				<button class="ck-btn">
+				<button class="ck-btn doRespond" data-productid="{{product.id}}" data-id="{{comment.id}}">
 					发布
 				</button>
 			</div>
-			{% for reply in comment.reply %}
-			<div class="respond-el clearfix">
-				<div class="user-img">
-					<a href="#"><img src="{{ reply.user.photo }}"/></a>
-				</div>
-				<div class="info content">
-
-					<a class="user-nick transition-all" href="#">{{ reply.user.nickname }}</a>
-					<span class="respond-text">{{reply.content}}</span>
-					<p class="time" data-time="{{ strtotime(reply.addtime) * 1000 }}">
-						{{ reply.addtime }}
-					</p>
-				</div>
+			<div>
+				<div id="respond-list-{{comment.id}}"></div>
+				<div class="ajax-loading">数据正在加载中....</div>
 			</div>
-			{% endfor %}
 		</div>
 	</div>
 	{% endfor %}

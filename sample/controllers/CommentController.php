@@ -31,6 +31,7 @@
 
 namespace BullSoft\Sample\Controllers;
 use BullSoft\Sample\Models\Comment as CommentModel;
+use BullSoft\Sample\Models\Product as ProductModel;
 
 class CommentController extends ControllerBase
 {
@@ -38,8 +39,11 @@ class CommentController extends ControllerBase
     {
         $productId = intval($productId);
         $commentId = intval($commentId);
-        $productId = $productId > 0 ? $productId: $this->request->getPost("product_id", "int");
-        $commentId = $commentId > 0 ? $commentId: $this->request->getPost("comment_id", "int");
+        $productId = $productId > 0  ? $productId: $this->request->getPost("product_id", "int");
+        if($commentId == 0) {
+        	$commentId = intval($this->request->getPost("comment_id", "int"));
+			
+        }
 
         if($productId < 1 || $commentId < 0) {
             $this->flashJson(500, array(), "非法主求");
@@ -55,11 +59,24 @@ class CommentController extends ControllerBase
 
     public function createAction()
     {
+    	if(!$this->user) {
+			$this->flashJson(403);
+			return ;
+    	}
         $comment = array();
-        $comment['product_id'] = $this->request->getPost('product_id', 'int');
-        $comment['content'] = $content = $this->request->getPost('content');
-        $comment['reply_to_comment_id'] = $reply2C = $this->request->getPost('reply_to_comment_id', 'int');
-        $comment['reply_to_user_id'] = $this->request->getPost('reply_to_user_id', 'int');
+        $comment['product_id'] = intval($this->request->getPost('product_id', 'int'));
+		if($comment['product_id'] < 1) {
+			$this->flashJson(500, array(), "非法请求");
+			return; 
+		}
+		$productModel = ProductModel::findFirst($comment['product_id']);
+		if(empty($productModel)) {
+			$this->flashJson(500, array(), "商品不存在");
+			return; 
+		}
+        $comment['content'] = $content = $this->request->getPost('comment');
+        $comment['reply_to_comment_id'] = $reply2C = intval($this->request->getPost('comment_id', 'int'));
+        $comment['reply_to_user_id'] = intval($this->request->getPost('reply_to_user_id', 'int'));
         $comment['user_id']  = $this->user->id;
         $time = date('Y-m-d H:i:s');
         $comment['addtime'] = $time;
@@ -73,7 +90,7 @@ class CommentController extends ControllerBase
         } else {
             $this->flashJson(200);
         }
-        exit;
+        return;
     }
 
     public function removeAction()

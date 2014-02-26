@@ -46,6 +46,7 @@ class Comment extends \Phalcon\Mvc\Model
         $this->setConnectionService('db');
         $this->hasMany("id", "\BullSoft\Sample\Models\Comment", "reply_to_comment_id", array("alias" => "reply")); 
         $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
+		$this->hasOne("reply_to_user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "replyto"));
     }
 
     public function getSource()
