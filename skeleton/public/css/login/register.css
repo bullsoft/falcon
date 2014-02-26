@@ -11,7 +11,7 @@ html{background-color: rgba(0,170,170,.8)}
 
 .register-box{width: 300px;margin: 0 auto;}
 .register-box .line{padding-top: 30px;color: #333;font-size: 18px}
-.register-box input {border: 1px solid #DFDFDF;box-shadow: 0 0 3px 0 #efefef inset;padding: 8px 10px;width:100%;font-size: 16px;color: #787878;border-radius: 4px}
+.register-box input {border: 1px solid #DFDFDF;box-shadow: 0 0 3px 0 #efefef inset;padding: 8px 10px;width:100%;font-size: 16px;color: #787878}
 .register-box input:focus { box-shadow: 0 0 3px 0 #dfdfdf inset}
 .register-box .tag { padding-bottom: 4px }
 

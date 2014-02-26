@@ -113,7 +113,7 @@ body{height: 1000px}
 }
 .navigation-fixed{position: fixed;top:90px}
 .navigation li{padding: 5px 10px;font-size: 14px;}
-.navigation li .nav-icon{float: left;display:block;width:20px;height: 20px;}
+.navigation li .nav-icon{float: left;display:block;width:20px;height: 20px;background-position: 3px 5px}
 .navigation li a{color: #a3a3a3;padding-left: 10px;text-decoration: none}
 .navigation li:hover a,.navigation li.current a{color: #59B8E1}
 
