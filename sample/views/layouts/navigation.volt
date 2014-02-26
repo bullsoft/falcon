@@ -12,7 +12,7 @@
               <li>
               {% endif %}
 		<span class="nav-icon icon-{{cat.ck}}"> </span>
-		<a href="#">{{cat.name}}</a>
+		<a href="{{url('?catid=')}}{{cat.id}}">{{cat.name}}</a>
 	      </li>
           {% endfor %}
 	</ul>

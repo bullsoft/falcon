@@ -80,7 +80,7 @@
 					<span><a href="" class="name">{{provider.user.nickname}}</a></span>
 					<span> <i class="ev-star star-one"> <i class="star-light"></i> </i> </span>
 					<span class="price">￥{{provider.price}}</span>
-					<span class="buy"> <a href="{{ url('sample/cart/insertitem/') }}{{product.id}}/{{provider.user_id}}">加入购物车 >></a> </span>
+					<span class="buy"> <a href="{{ url('cart/insertitem/') }}{{product.id}}/{{provider.user_id}}">加入购物车 >></a> </span>
 				</li>
 				{% endfor %}
 			</ul>

@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Wed Feb 19 17:57:32 2014 (+0800)
  * Version: master
- * Last-Updated: Tue Feb 25 21:15:20 2014 (+0800)
+ * Last-Updated: Wed Feb 26 22:19:43 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 159
+ *     Update #: 162
  * 
  */
 
@@ -68,7 +68,7 @@ class SocialOAuthController extends ControllerBase
             "grant_type"    => "authorization_code",
             "client_id"     => $this->getDI()->get('config')->bcs->ak,
             "client_secret" => $this->getDI()->get('config')->bcs->sk,
-            "redirect_uri"  => $this->url->get('sample/social-o-auth/callback'),
+            "redirect_uri"  => $this->url->get('social-oauth/callback'),
             "code"          => $code,
         );
         $request->setResource('/social/oauth/2.0/token?'. http_build_query($params));
@@ -158,7 +158,8 @@ class SocialOAuthController extends ControllerBase
 
     public function bindUserAction()
     {
-        
+        echo "hello";
+        exit;
     }
 
     public function unbindUserAction()
