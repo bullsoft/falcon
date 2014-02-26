@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 25 21:08:15 2014 (+0800)
- * Version: 
- * Last-Updated: Tue Feb 25 21:23:33 2014 (+0800)
+ * Version: master
+ * Last-Updated: Wed Feb 26 21:31:02 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 7
+ *     Update #: 29
  * 
  */
 
@@ -31,16 +31,29 @@
 
 namespace BullSoft\Sample\Controllers;
 use BullSoft\Sample\Models\Wishlist as WishlistModel;
-    
+use BullSoft\Sample\Models\Product  as ProductModel;
+
 class WishlistController extends ControllerBase
 {
     public function createAction()
     {
-		$productId = $this->request->getPost("product_id", "int");
         if(!$this->user) {
             $this->flashJson(403);
             return ;
         }
+        
+		$productId = $this->request->getPost("product_id", "int");
+        if($productId < 1) {
+            $this->flashJson(500, array(), "非法请求");
+            return ;     
+        }
+        
+        $productModel = ProductModel::findFirst($productId);
+        if(empty($productModel)) {
+            $this->flashJson(500, array(), "商品不存在");
+            return ;
+        }
+        
         $model = WishlistModel::findFirst("user_id=".$this->user->id." AND product_id=".$productId);
         if(empty($model)) {
             $model = new WishlistModel();
@@ -54,18 +67,27 @@ class WishlistController extends ControllerBase
                 return;
             }
         }
-		$model2 = WishlistModel::find("product_id=".$productId);
-        $this->flashJson(200, array('type' => 'create', 'count'=> $model2->count()));
+		$wishlistModel = WishlistModel::find("product_id=". $productId);
+        $this->flashJson(200, array('type' => 'create', 'count'=> $wishlistModel->count()));
 		return;
     }
 
     public function removeAction()
     {
-        // $productId = 2;
-		$productId = $this->request->getPost("product_id", "int");
-		
         if(!$this->user) {
             $this->flashJson(403);
+            return ;
+        }
+		$productId = $this->request->getPost("product_id", "int");
+
+        if($productId < 1) {
+            $this->flashJson(500, array(), "非法请求");
+            return ;     
+        }
+        
+        $productModel = ProductModel::findFirst($productId);
+        if(empty($productModel)) {
+            $this->flashJson(500, array(), "商品不存在");
             return ;
         }
         $model = WishlistModel::findFirst("user_id=".$this->user->id." AND product_id=".$productId);
@@ -75,8 +97,8 @@ class WishlistController extends ControllerBase
                 return;
             }
         }
-		$model2 = WishlistModel::find("product_id=".$productId);
-        $this->flashJson(200, array('type' => 'remove', 'count'=> $model2->count()));
+		$wishlistModel = WishlistModel::find("product_id=".$productId);
+        $this->flashJson(200, array('type' => 'remove', 'count'=> $wishlistModel->count()));
 		return ;
     }
 }

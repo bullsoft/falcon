@@ -88,7 +88,7 @@
 					<span> <i class="ev-star star-one"> <i class="star-light"></i> </i> </span>
 					<span class="price">￥{{provider.price}}</span>
 					<span class="provider"> <a data-id="{{product.id}}" data-providerid="{{provider.user_id}}" href="#">查看详情</a> </span>
-					<span class="buy"> <a data-id="{{product.id}}" data-providerid="{{provider.user_id}}" href="{{ url('sample/cart/insertitem/') }}{{product.id}}/{{provider.user_id}}">加入购物车</a> </span>
+					<span class="buy"> <a data-id="{{product.id}}" data-providerid="{{provider.user_id}}" href="{{ url('cart/insertitem/') }}{{product.id}}/{{provider.user_id}}">加入购物车</a> </span>
 				</li>
 				{% endfor %}
 			</ul>

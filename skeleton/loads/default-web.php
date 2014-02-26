@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Tue Feb 25 21:12:22 2014 (+0800)
+ * Last-Updated: Wed Feb 26 22:19:13 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 54
+ *     Update #: 71
  * 
  */
 
@@ -109,7 +109,14 @@ $di->set('router', function() {
                        "controller" => "cart",
                        "action"     => 1,
                        "params"     => 2
-                 )); 			      
+                 ));
+
+    $router->add("/social-oauth/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "social-o-auth",
+                       "action"     => 1,
+                       "params"     => 2
+                 ));
     
     return $router;
 });

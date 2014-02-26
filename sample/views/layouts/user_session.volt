@@ -8,7 +8,7 @@
 					<a href="#">我的主页</a>
 				</li>
 				<li>
-					<a href="{{ url('sample/cart/index') }}">我的购物车</a>
+					<a href="{{ url('cart/index') }}">我的购物车</a>
 				</li>
 				<li>
 					<a href="#">购买记录</a>
@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div class="cell">
-		<a class="publish uk-icon-plus transition-all"  href="{{ url('sample/goods/create/') }}"> </a>
+		<a class="publish uk-icon-plus transition-all"  href="{{ url('goods/create/') }}"> </a>
 	</div>
 	<div class="cell shopping-cart uk-parent" data-uk-dropdown="">
 		<a class="uk-icon-shopping-cart transition-all shopping-cart-icon" href="#"></a>
@@ -73,7 +73,7 @@
 					<div class="shopping-cart-total-tip">
 						共<span class="total-count">{{ global_cart_num }}</span>件商品，共计<span class="total-price uk-icon-jpy">{{ array_sum(global_cart_totals) }}</span>
 					</div>
-					<a href="{{url('sample/cart/order')}}">去购物车结算</a>
+					<a href="{{url('cart/order')}}">去购物车结算</a>
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 <!-- 未登录  -->
 <div class="login-register">
 	<a class="ck-btn transition-all ms-check-login" href="#">登录</a>
-	<a class="ck-btn transition-all ms-check-register" href="{{url('sample/user/register')}}">注册</a>
+	<a class="ck-btn transition-all ms-check-register" href="{{url('user/register')}}">注册</a>
 </div>
 <div class="shopping-cart-nologin-box uk-parent" data-uk-dropdown="">
 	<span class="shopping-cart-count">{{global_cart_num}}</span>
@@ -123,7 +123,7 @@
 				<div class="shopping-cart-total-tip">
 					共<span class="total-count">{{global_cart_num}}</span>件商品，共计<span class="total-price uk-icon-jpy">{{ array_sum(global_cart_totals) }}</span>
 				</div>
-				<a href="{{url('sample/cart/order')}}">去购物车结算</a>
+				<a href="{{url('cart/order')}}">去购物车结算</a>
 			</div>
 		</div>
 	</div>

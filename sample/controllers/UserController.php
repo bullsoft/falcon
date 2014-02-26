@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Tue Feb 25 21:15:25 2014 (+0800)
+ * Last-Updated: Wed Feb 26 22:19:50 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 47
+ *     Update #: 49
  * 
  */
 
@@ -45,7 +45,7 @@ class UserController extends ControllerBase
             'client_id'     => $ak,
             'state'         => '',
             'response_type' => 'code',
-            'redirect_uri'  => $this->url->get('sample/social-o-auth/callback'),
+            'redirect_uri'  => $this->url->get('social-oauth/callback'),
             'display'       => 'page',
             'client_type'   => 'web',
         );
