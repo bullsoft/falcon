@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 26 23:04:56 2014 (+0800)
+ * Last-Updated: Thu Feb 27 22:09:12 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 130
+ *     Update #: 136
  * 
  */
 
@@ -38,6 +38,7 @@ use BullSoft\Sample\Models\Provider as ProviderModel;
 class CartController extends ControllerBase
 {
     const BULL_CART_KEY = "shop-cart";
+
     public function indexAction()
     {
         $sessionCart = array();
@@ -59,30 +60,6 @@ class CartController extends ControllerBase
         } else {
             $this->view->setVar('msg', '抱歉，您的购物车为空！');
         }
-    }
-
-    public function orderAction()
-    {
-        $sessionCart = array();
-        $displayCart = array();
-        
-        if ($this->session->has(self::BULL_CART_KEY)) {
-            $sessionCart = json_decode($this->session->get(self::BULL_CART_KEY), true);
-            $totals = array();
-            foreach($sessionCart as $providerId => $cartArray) {
-                $cart = new Cart\Cart();
-                $cart->importJson(json_encode($cartArray));
-                $displayCart[$providerId] = $cart;
-                
-                $_totals = $cart->getTotals();
-                $totals[$providerId] = $_totals['items'];
-            }
-            $this->view->setVar('carts', $displayCart);
-            $this->view->setVar('totals', $totals);
-            $this->view->setVar('msg', null);            
-        } else {
-            $this->view->setVar('msg', '抱歉，您的购物车为空！');
-        }        
     }
 
     public function removeItemAction($productId = 0, $providerId = 0)
@@ -170,7 +147,6 @@ class CartController extends ControllerBase
         if($cart->hasItem($productId, false)) {
             $item = $cart->getItem($productId, false);
             $item->setQty($qty);
-            // $cart->unsetItem($item);
         } else {
             $item = new Cart\Item();
             $item->setId($productId)

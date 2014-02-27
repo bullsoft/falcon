@@ -8,7 +8,7 @@
 					<a href="#">我的主页</a>
 				</li>
 				<li>
-					<a href="{{ url('cart/index') }}">我的购物车</a>
+					<a href="{{ url('cart') }}">我的购物车</a>
 				</li>
 				<li>
 					<a href="#">购买记录</a>
@@ -73,7 +73,7 @@
 					<div class="shopping-cart-total-tip">
 						共<span class="total-count">{{ global_cart_num }}</span>件商品，共计<span class="total-price uk-icon-jpy">{{ array_sum(global_cart_totals) }}</span>
 					</div>
-					<a href="{{url('cart/order')}}">去购物车结算</a>
+					<a href="{{url('cart')}}">去购物车结算</a>
 				</div>
 			</div>
 		</div>
@@ -123,7 +123,7 @@
 				<div class="shopping-cart-total-tip">
 					共<span class="total-count">{{global_cart_num}}</span>件商品，共计<span class="total-price uk-icon-jpy">{{ array_sum(global_cart_totals) }}</span>
 				</div>
-				<a href="{{url('cart/order')}}">去购物车结算</a>
+				<a href="{{url('cart')}}">去购物车结算</a>
 			</div>
 		</div>
 	</div>

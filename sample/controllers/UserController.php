@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 26 22:19:50 2014 (+0800)
+ * Last-Updated: Thu Feb 27 21:45:15 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 49
+ *     Update #: 50
  * 
  */
 
@@ -67,6 +67,10 @@ class UserController extends ControllerBase
 
     public function logoutAction()
     {
+        if(!$this->user) {
+            $this->flashJson(403);
+            return;
+        }
         $this->session->destroy();
         $this->response->redirect('')->sendHeaders();
         return ;
