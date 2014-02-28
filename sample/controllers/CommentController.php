@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 20 22:04:41 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 27 22:29:51 2014 (+0800)
+ * Last-Updated: Fri Feb 28 23:09:51 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 79
+ *     Update #: 84
  * 
  */
 
@@ -116,7 +116,12 @@ class CommentController extends ControllerBase
         if($model->save() == false) {
             $this->flashJson(500, array(), '评论插入失败');
         } else {
-            $this->flashJson(200);
+            if(isset($userModel)) {
+                $comment['reply_to']["user_id"] = $userModel->id;
+                $comment['reply_to']["nickname"] = $userModel->nickname;
+                $comment['reply_to']["image_url"] = $userModel->photo;
+            }
+            $this->flashJson(200, $comment);
         }
         return;
     }

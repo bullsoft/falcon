@@ -85,7 +85,7 @@
 		</div>
 		<div class="p-detail">
 		  <p class="name">
-		    <a target="_blank"  href="{{url('goods/detail/')}}{{item['id']}}"> {{ item['name'] }} </a>
+		    <a target="_blank"  href="{{url('goods/detail-')}}{{item['id']}}.html"> {{ item['name'] }} </a>
 		  </p>
 		</div>
 	      </div>
