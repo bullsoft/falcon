@@ -43,3 +43,10 @@
 .respond-el .other-color{color: #999}
 .respond-el .respond-text{color: #333}
 .respond-el .time{padding: 4px 0 0 0;margin: 0;}
+.respond-el .content .reply-to{display: none}
+.respond-el .content:hover .reply-to{display: block}
+.respond-el .reply-to{float: right;color:#FFA40D}
+.respond-el .reply-to:hover{color:#ff5200}
+.respond-to-user{padding-left: 50px;display: none}
+.respond-to-user textarea{width: 425px;height: 25px;resize: none;overflow: hidden;font-size: 12px;color: #787878}
+.respond-to-user button{border: none;font-size: 12px;margin-left: 40px}
