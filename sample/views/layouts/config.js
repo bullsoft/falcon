@@ -24,7 +24,9 @@ global.config = {
 		publisNowUrl : '/goods/insert',
 		loveUrl : '/goods/like',
 		wishCreateUrl : '/wishlist/create',
-		wishRemoveUrl : '/wishlist/remove'
+		wishRemoveUrl : '/wishlist/remove',
+		respondTemplateId: 'js%goods%respond',
+		commentTemplateId: 'js%goods%comment',
 	},
 	
 	comment: {

@@ -84,17 +84,20 @@ class CommentController extends ControllerBase
         $comment['content'] = $content;
         
         $comment['reply_to_comment_id'] = intval($this->request->getPost('comment_id', 'int'));
-        if($comment['reply_to_comment_id'] < 1) {
+        if($comment['reply_to_comment_id'] < 0) {
 			$this->flashJson(500, array(), "非法请求");
 			return; 
         }
-        $commentModel = CommentModel::findFirst($comment['reply_to_comment_id']);
-        if(empty($commentModel)) {
-            $this->flashJson(500, array(), "你所评论的主题不存在");
-            return;
-        }
-        
-        $comment['reply_to_user_id'] = intval($this->request->getPost('reply_to_user_id', 'int'));
+		
+		if($comment['reply_to_comment_id'] > 0) {
+	        $commentModel = CommentModel::findFirst($comment['reply_to_comment_id']);
+	        if(empty($commentModel)) {
+	            $this->flashJson(500, array(), "你所评论的主题不存在");
+	            return;
+	        }
+		}
+		
+        $comment['reply_to_user_id'] = intval($this->request->getPost('user_id', 'int'));
         if($comment['reply_to_user_id'] < 0) {
 			$this->flashJson(500, array(), "非法请求");
             return ;
@@ -121,6 +124,11 @@ class CommentController extends ControllerBase
                 $comment['reply_to']["nickname"] = $userModel->nickname;
                 $comment['reply_to']["image_url"] = $userModel->photo;
             }
+			
+			$comment['id'] = $model->id;
+			$comment['user']["user_id"] = $this->user->id;
+            $comment['user']["nickname"] = $this->user->nickname;
+            $comment['user']["image_url"] = $this->user->photo;
             $this->flashJson(200, $comment);
         }
         return;

@@ -9,8 +9,7 @@
 .goods-comment-btn-box button{border: none;float: right}
 
 
-.goods-comment-list{padding-top: 30px}
-.goods-comment-el{padding:15px 20px;background: #FFFFFF;border: 1px solid #DFDFDF}
+.goods-comment-el{padding:15px 20px;background: #FFFFFF;border: 1px solid #DFDFDF;margin-top: 30px}
 .goods-comment-el .user-img{float: left}
 .goods-comment-el .user-img img{border-radius: 50%;width: 50px;height: 50px}
 .goods-comment-el .info{float: left;font-size: 14px;padding-left: 20px;  }
@@ -40,6 +39,19 @@
 .respond-el{padding: 10px 20px;border-bottom: 1px solid #efefef}
 .respond-el .user-img img{width: 36px;height: 36px}
 .respond-el .content{padding: 0 0 4px 15px;font-size: 12px;width: 536px}
+.respond-el .reply-to-txt{color: #999;padding: 0 4px}
+.respond-el .reply-to-nick{color: #FFA40D;cursor: pointer}
+.respond-el .reply-to-nick:hover{color: #ff5200}
 .respond-el .other-color{color: #999}
 .respond-el .respond-text{color: #333}
 .respond-el .time{padding: 4px 0 0 0;margin: 0;}
+.respond-el .content .reply-to{display: none}
+.respond-el .content:hover .reply-to{display: block}
+.respond-el .reply-to{float: right;color:#FFA40D}
+.respond-el .reply-to:hover{color:#ff5200}
+.respond-to-user{padding-left: 50px;display: none}
+.respond-to-user textarea{width: 405px;height: 18px;resize: none;
+box-sizing: content-box;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;
+overflow: hidden;font-size: 12px;color: #787878}
+.respond-to-user button{border: none;font-size: 12px;color:#a3a3a3;margin-left: 40px;background: none;border: 1px solid #c3c3c3;border-radius: 2px}
+.respond-to-user button:hover{background: #ffad26;color: #FFFFFF;border-color:#ffad26}
