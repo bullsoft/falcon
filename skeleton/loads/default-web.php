@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 26 22:53:54 2014 (+0800)
+ * Last-Updated: Thu Feb 27 22:17:34 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 72
+ *     Update #: 82
  * 
  */
 
@@ -90,6 +90,13 @@ $di->set('router', function() {
                        "params"     => 2
                  ));
 
+    $router->add("/goods/detail-{id:[0-9]+}.html",
+                 array("module"     => "sample",
+                       "controller" => "goods",
+                       "action"     => "detail"
+                 ));
+    
+    
     $router->add("/user/:action/:params",
                  array("module"     => "sample",
                        "controller" => "user",
@@ -124,6 +131,13 @@ $di->set('router', function() {
                        "action"     => 1,
                        "params"     => 2
                  ));
+
+    $router->add("/order/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "order",
+                       "action"     => 1,
+                       "params"     => 2
+                 ));    
     
     return $router;
 });

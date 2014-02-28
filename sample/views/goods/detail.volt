@@ -29,7 +29,7 @@
 						<span>￥{{product.price}}</span> (
 						{{date("Y-m-d", strtotime(product.addtime))}} 更新 )
 					</p>
-					<span class="type">食品</span>
+					<!-- <span class="type">食品</span> -->
 					<div class="oprate-box">
 						<div class="oprate clearfix">
 							<a class="star goods-collect transition-all" href="#"><span class="uk-icon-star-empty"></span><i> {{product.likeit}}</i></a>

@@ -85,7 +85,7 @@
 		</div>
 		<div class="p-detail">
 		  <p class="name">
-		    <a target="_blank"  href="{{url('goods/detail/')}}{{item['id']}}"> {{ item['name'] }} </a>
+		    <a target="_blank"  href="{{url('goods/detail-')}}{{item['id']}}.html"> {{ item['name'] }} </a>
 		  </p>
 		</div>
 	      </div>
@@ -130,7 +130,7 @@
 	    <div class="submit-order-box">
 	      <div>
 		<span class="price-box">总计：<span class="price" id="total-price-text">{{ array_sum(totals) }}</span></span>
-		<a class="ck-btn settle-accounts" href="{{url('cart/order')}}"> 去结算 </a>
+		<a class="ck-btn settle-accounts" href="{{url('order')}}"> 去结算 </a>
 	      </div>
 	    </div>
 	  </div>
