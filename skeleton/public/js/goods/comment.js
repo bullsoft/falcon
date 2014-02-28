@@ -55,12 +55,16 @@
 
         doRespond : function(element, options) {
 
-            var self = this, params = {};
-
+            var self = this, params = {}, $text,
+            
+            commentListId = options.commentListId;
+            
             params.comment = options.comment;
             params.product_id = options.productId;
             params.comment_id = options.id;
             params.user_id = options.userId;
+            
+            $text = options.txtEl ? $(options.txtEl) : $(element).prev();
 
             $.ajax({
                 url : global.config.comment.doRespondUrl,
@@ -69,10 +73,37 @@
                 dataType : 'json',
                 success : function(res) {
 
-                    var data = res.data;
+                    var data = res.data, templateHtml='',
+                    $html = null, $list, templateId, templateData,
+                    $contanier;
+                    
+                    templateId = global.config.goods.respondTemplateId;
+                    
+                    $list = $(self.options.respondIdPre + commentListId);
+                    $contanier =  $list;
+                    
+                    if(options.txtEl){
+                        templateId = global.config.goods.commentTemplateId;
+                        $contanier = $('#goods-comment-list');
+                    }
+                    
 
                     if (res.status == 200) {
-
+                        
+                        templateHtml = $.MSspirit.template({id : templateId}).getHtml();
+                        
+                        if(options.txtEl){
+                            
+                            $html =  $(nunjucks.renderString(templateHtml, {comment: data}));
+                        }else{
+                            
+                            $html =  $(nunjucks.renderString(templateHtml, {reply: data}));
+                            $list.find('.respond-to-user').hide();
+                        }
+                        
+                        
+                        $html.prependTo($contanier).fadeIn();
+                        $text.val('');
                     } else if (res.status == 403) {
 
                         new $.MSspirit.login($('body'), {}).showDialog();
@@ -104,10 +135,12 @@
 
         },
 
-        replyTo : function(element, event) {
+        replyTo : function(element, event, txtEl) {
             var self = this, $el = $(element), id = $el.attr('data-id'),
                 productId = $el.attr('data-productid'), 
-                userId = $el.attr('data-userid'), val = $el.prev().val();
+                userId = $el.attr('data-userid'), 
+                commentListId = $el.parents('.respond-list').attr('data-id'),
+                val = txtEl ? $(txtEl).val() : $el.prev().val();
 
             if ($.trim(val) == '') {
                 alert('请输入内容');
@@ -123,7 +156,9 @@
                     'id' : id,
                     productId : productId,
                     userId : userId,
-                    comment : val
+                    comment : val,
+                    commentListId: commentListId,
+                    txtEl : txtEl
                 });
             }
 
@@ -138,6 +173,12 @@
                self.replyTo(this, event);
                return false;
 
+            });
+            
+            $('#comment-now').on('click.doRespond.ms',function(event){
+                
+                self.replyTo(this, event, $('#comment-now-textarea')[0]);
+                return false;
             });
 
             self.$container.on('click.showRespond.ms', self.options.showRespondClass, function() {

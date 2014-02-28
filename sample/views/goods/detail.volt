@@ -11,6 +11,7 @@
 {{ super() }}
 <script src="/js/detail/index.js"></script>
 <script src="/js/goods/comment.js"></script>
+<script src="/js/ms-js/ms-auto-textarea.js"></script>
 {% endblock %}
 
 {% block main_content %}
@@ -71,9 +72,11 @@
 				</div>
 			</div>
 		</div>
-		{% if comments.count() != 0 %}
-		{% include "goods/goods-comment-list.volt" %}
-		{% endif %}
+		<div class="goods-comment-list" id="goods-comment-list">
+			{% if comments.count() != 0 %}
+			{% include "goods/goods-comment-list.volt" %}
+			{% endif %}
+		</div>
 		{% include "goods/goods-comment.volt" %}
 
 		<div class="merchant" id="merchant-info-list-box">

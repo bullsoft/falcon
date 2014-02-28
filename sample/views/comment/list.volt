@@ -7,7 +7,8 @@
 		<div>
 			<a class="user-nick transition-all" href="#">{{ reply.user.nickname }}</a>
 			{% if reply.reply_to_user_id > 0 %}
-			回复 {{reply.replyto.nickname}}
+			<span class="reply-to-txt">回复 </span>
+			<a href="#" class="reply-to-nick">{{reply.replyto.nickname}}</a>
 			{% endif %}
 			<span class="respond-text">{{reply.content}}</span>
 		</div>
@@ -17,8 +18,8 @@
 		</div>
 	</div>
 	<div class="respond-to-user">
-		<textarea class="normal-textarea"></textarea>
-		<button class="ck-btn doRespond" data-productid="{{product.id}}" data-id="{{comment.id}}" data-userid="{{reply.reply_to_user_id}}">
+		<textarea class="normal-textarea"  data-ms-autoarea="{}"></textarea>
+		<button class="ck-btn doRespond" data-productid="{{reply.product_id}}" data-id="{{reply.reply_to_comment_id}}" data-userid="{{reply.user_id}}">
 			发布
 		</button>
 	</div>
