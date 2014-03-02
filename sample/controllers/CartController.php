@@ -74,7 +74,9 @@ class CartController extends ControllerBase
             $this->flashJson(500, array(), "非法请求");
             return ;
         }
-
+		
+		$retArray = array('product_id' => $productId, 'provider_id' => $providerId);
+		
         $cart = new Cart\Cart();
         $sessionCart = array();
         
@@ -83,7 +85,7 @@ class CartController extends ControllerBase
             if(isset($sessionCart[$providerId])) {
                 $cart->importJson(json_encode($sessionCart[$providerId]));
             } else {
-                $this->flashJson(500, array(), "购物车中不存在该商品");
+                $this->flashJson(500, $retArray, "购物车中不存在该商品1");
                 return ;
             }
         }
@@ -91,16 +93,31 @@ class CartController extends ControllerBase
         if($cart->hasItem($productId, false)) {
             $cart->unsetItem($productId, false);
         } else {
-            $this->flashJson(500, array(), "购物车中不存在该商品");
+            $this->flashJson(500, $retArray, "购物车中不存在该商品2");
             return ;
         }
         if(count($cart->getItemsAsArray()) == 0) {
-            $this->session->remove(self::BULL_CART_KEY);
+            unset($sessionCart[$providerId]); 
         } else {
             $sessionCart[$providerId] = $cart->toArray();
-            $this->session->set(self::BULL_CART_KEY, json_encode($sessionCart));
         }
-        $this->flashJson(200);
+		if(empty($sessionCart)) {
+        	$this->session->remove(self::BULL_CART_KEY);	
+		} else {
+			$this->session->set(self::BULL_CART_KEY, json_encode($sessionCart));
+		}
+		$total_num = 0;
+		$_totals = array();
+		foreach ($sessionCart as $_providerId => $_cartArray) {
+			$total_num += count($_cartArray['items']);
+            $_total = $cart->getTotals();
+            $_totals[$_providerId] = $_total['items'];
+		}
+		
+		$retArray['total_num'] = $total_num;
+		$retArray['total_price'] = array_sum($_totals);
+		
+        $this->flashJson(200, $retArray);
         return ;
     }
     

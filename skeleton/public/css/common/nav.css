@@ -36,6 +36,8 @@
 /*.nav .publish{float: left;padding-top: 11px}*/
 
 .login-register{padding-top: 11px;float: right}
+.login-register a{color: #FFFFFF;background: none;border: 1px solid #ffffff}
+.login-register a:hover{color: #DC322F;background: #FFFFFF}
 
 .nav-user{float: right;border-right: 1px solid #009f9f}/*#00675c*/
 .nav-user .cell{float: right;width: 50px;height: 50px;border-left: 1px solid #009f9f;position: relative}
@@ -72,6 +74,8 @@
 
 .nav-shopping-cart-box{background: #FFFFFF;}
 .nav-shopping-cart-box .tit{padding: 15px 0 5px 15px}
+.clear-shopping-cart{float: right;padding-right: 15px;font-size: 14px}
+.nav-shopping-cart-box .null-shopping{padding: 0 15px 15px 15px;font-size: 14px;color: #DC322F}
 .shopping-cart-el{padding: 10px 15px 15px 15px;border-bottom: 1px dotted #c3c3c3;}
 .shopping-cart-el:first-child{padding-top: 0}
 .shopping-cart-el:last-child{border-bottom: none}
@@ -94,6 +98,7 @@
 /*未登录购物车*/
 .shopping-cart-nologin-box{float: right;padding: 11px 0 10px 0;margin-right:6px; position: relative}
 .shopping-cart-nologin{position: relative;padding-right: 28px}
+.shopping-cart-nologin{color: #fff;background:none;border: 1px solid #FFFFFF}
 .shopping-cart-nologin span{padding-left: 5px;}
 .shopping-cart-nologin .arrow-triangle{
 	display:block;
@@ -101,7 +106,7 @@
 	right:10px;
 	top:5px
 }
-.shopping-cart-nologin-box .shopping-cart-count{display: block;position: absolute;top: 10px;left: 0;width: 20px;height: 20px;line-height:20px; border-radius: 50%;background-color: #C91032;color:#FFFFFF;font-size:12px;text-align:center; z-index: 11}
+.shopping-cart-nologin-box .shopping-cart-count{display: block;position: absolute;top: 15px;left: 4px;width: 20px;height: 20px;line-height:20px; border-radius: 50%;background-color: #C91032;color:#FFFFFF;font-size:12px;text-align:center; z-index: 11}
 .shopping-cart-nologin-dropdown{padding: 0;width: 380px;}
 .shopping-cart-nologin-box:hover{background: #FFFFFF}
 .shopping-cart-nologin-box:hover .shopping-cart-nologin{background: #FFFFFF;color: #FFA40D}

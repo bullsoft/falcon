@@ -6,7 +6,7 @@
 	float:left;
 	width: 620px;
 	overflow:hidden;
-	background-color: #f2fcff;
+	background-color: rgb(0,170,170);
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	-ms-border-radius: 3px;
@@ -26,7 +26,7 @@ border-top-left-radius: 3px;
 border-bottom-left-radius: 3px;
 }
 
-.login-right { float: left; width: 226px;height:370px; padding: 37px 18px 0 24px; background-color:#f2fcff;
+.login-right { float: left; width: 226px;height:370px; padding: 37px 18px 0 24px; background-color:rgb(0,170,170);
 border-top-right-radius: 3px;
 border-bottom-right-radius: 3px;
 position: relative;
@@ -53,9 +53,9 @@ position: relative;
 .login-submit-btn{border: none;font-size: 14px;padding: 7px 24px}
 
 .other-login{}
-.other-login-tip{font-size: 12px;color: #666}
+.other-login-tip{font-size: 12px;color: #fff}
 .other-login-el{float:left; border: 1px solid #dfdfdf;margin-top: 10px;font-size: 14px;cursor: pointer}
-.other-login-el a{color: #888;text-decoration: none;display: block;opacity: .8;padding:6px 8px 8px 8px;width:90px; }
+.other-login-el a{color: #888;text-decoration: none;display: block;padding:6px 8px 8px 8px;width:90px; }
 .other-login-el a:hover{opacity: 1}
 .other-login-el:nth-of-type(2n+1){margin-right: 10px}
 .other-login-el .icon{float: left;width:21px;height: 20px;margin-right: 8px}
@@ -64,11 +64,12 @@ position: relative;
 .other-login-el .renren-icon{background-position:-1px -61px}
 .other-login-el .qqweibo-icon{background-position:-1px -89px}
 
-.other-login-el:hover a{color: #535353}
+.other-login-el a{color: rgba(255,255,255,1)}
+.other-login-el:hover a{color: rgba(255,255,255,1)}
 
 
 .login-register-box{position: absolute;bottom: 0;width: 100%;padding-bottom: 60px}
-.login-register-box .tip{font-size: 12px;color: #787878}
+.login-register-box .tip{font-size: 12px;color: #fff}
 .login-register-box .btn-box{margin-top:10px;padding:6px 8px 8px 8px;border: 1px solid #dfdfdf;text-align: center;width: 80px}
 .login-register-box .btn-box a{font-size: 14px;color: #888;text-decoration: none}
 .login-register-box .btn-box a:hover{color: #535353}

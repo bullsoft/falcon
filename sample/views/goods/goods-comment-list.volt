@@ -24,12 +24,16 @@
 		</div>
 	</div>
 	<div class="respond-list" id="respond-list-box-{{comment.id}}" data-id="{{comment.id}}">
+		{% if login_user %}
 		<div class="respond-box clearfix">
 			<textarea class="ms-textarea"  data-ms-autoarea="{}"></textarea>
 			<button class="ck-btn doRespond" data-productid="{{product.id}}" data-id="{{comment.id}}">
 				发布
 			</button>
 		</div>
+		{% else %}
+		<div class="respond-box-nologin"><span>请先</span><a class="ms-check-login" href="#">登录</a><span>再回复</span></div>
+		{% endif %}
 		<div>
 			<div id="respond-list-{{comment.id}}"></div>
 			<div class="ajax-loading">

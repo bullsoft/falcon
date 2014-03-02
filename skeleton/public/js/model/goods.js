@@ -44,7 +44,7 @@
 
             var $this = $(this), $span = $this.find('span'), fun, params, url, Login, loginFlag;
 
-            new $.MSspirit.login($('body'), {}).check();
+            loginFlag = new $.MSspirit.login($('body'), {}).check();
 
             if (!loginFlag)
                 return false;
@@ -69,15 +69,17 @@
 
                 if (data.type == 'create') {
 
-                    if(data.count && data.count != 0)$count.text(data.count);
+                    if(data.count != undefined)$count.text(data.count);
                     $this.addClass('collected');
                 } else {
 
-                    if(data.count && data.count != 0)$count.text(data.count);
+                    if(data.count != undefined)$count.text(data.count);
                     $this.removeClass('collected');
                 }
 
             }, url);
+            
+            return false;
 
         });
 

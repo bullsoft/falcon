@@ -173,6 +173,8 @@
         } else {
             $this.data("login").check();
         };
+        
+        return false;
     });
 
     MS["login"] = InitLogin;
