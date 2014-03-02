@@ -34,6 +34,8 @@
 .goods-comment-el .respond-box{padding: 20px;background-color: #fafafa;}
 .goods-comment-el .respond-box textarea{width: 460px;height: 18px;float: left;font-size: 12px}
 .goods-comment-el .respond-box button{border: none;font-size: 14px;float: right;margin-left: 20px}
+.respond-box-nologin{padding: 10px 0 10px 20px; font-size: 12px;background-color: #FFFFFF}
+.respond-box-nologin a{color: #DC322F;padding: 0 5px}
 
 
 .respond-el{padding: 10px 20px;border-bottom: 1px solid #efefef}

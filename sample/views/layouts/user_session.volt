@@ -37,13 +37,14 @@
 	</div>
 	<div class="cell shopping-cart uk-parent" data-uk-dropdown="">
 		<a class="uk-icon-shopping-cart transition-all shopping-cart-icon" href="#"></a>
-		<span class="shopping-cart-count">{{global_cart_num}}</span>
+		<span class="shopping-cart-count" id="shopping-cart-count">{{global_cart_num}}</span>
 		<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-flip shopping-cart-dropdown">
 			<div class="nav-shopping-cart-box">
 				<div class="tit">
 					最新加入的商品
+					<a href="#" class="clear-shopping-cart">清空购物车</a>
 				</div>
-				<div class="nav-shopping-cart-list">
+				<div class="nav-shopping-cart-list" id="nav-shopping-cart-list">
 					{% for cart in global_carts %}
 					{% for item in cart.getItemsAsArray() %}
 					<div class="shopping-cart-el clearfix">
@@ -61,7 +62,7 @@
 								<span>×</span>
 								<span class="count">{{item['qty']}}</span>
 							</div>
-							<a href="#" class="del-goods">删除</a>
+							<a href="#" class="del-goods" data-id="{{item['id']}}" data-providerid="{{item['provider']}}">删除</a>
 						</div>
 					</div>
 					{% endfor %}
@@ -71,7 +72,7 @@
 			<div class="shopping-cart-total-box clearfix">
 				<div class="shopping-cart-total">
 					<div class="shopping-cart-total-tip">
-						共<span class="total-count">{{ global_cart_num }}</span>件商品，共计<span class="total-price uk-icon-jpy">{{ array_sum(global_cart_totals) }}</span>
+						共<span id="nav-shopping-total-count" class="total-count">{{ global_cart_num }}</span>件商品，共计<span id="nav-shopping-total-price" class="total-price uk-icon-jpy">{{ array_sum(global_cart_totals) }}</span>
 					</div>
 					<a href="{{url('cart')}}">去购物车结算</a>
 				</div>
@@ -83,17 +84,17 @@
 <!-- 未登录  -->
 <div class="login-register">
 	<a class="ck-btn transition-all ms-check-login" href="#">登录</a>
-	<a class="ck-btn transition-all ms-check-register" href="{{url('user/register')}}">注册</a>
 </div>
 <div class="shopping-cart-nologin-box uk-parent" data-uk-dropdown="">
-	<span class="shopping-cart-count">{{global_cart_num}}</span>
+	<span class="shopping-cart-count" id="shopping-cart-count">{{global_cart_num}}</span>
 	<span class="shopping-cart-nologin ck-btn uk-icon-shopping-cart"> <span class="transition-all" href="">购物车</span> <span class="arrow-triangle transition-all uk-icon-caret-right"></span> </span>
 	<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-flip shopping-cart-nologin-dropdown">
 		<div class="nav-shopping-cart-box">
 			<div class="tit">
 				最新加入的商品
+				<a href="#" class="clear-shopping-cart">清空购物车</a>
 			</div>
-			<div class="nav-shopping-cart-list">
+			<div class="nav-shopping-cart-list" id="nav-shopping-cart-list">
 				{% for cart in global_carts %}
 				{% for item in cart.getItemsAsArray() %}
 				<div class="shopping-cart-el clearfix">
@@ -111,7 +112,7 @@
 							<span>×</span>
 							<span class="count">{{item['qty']}}</span>
 						</div>
-						<a href="#" class="del-goods">删除</a>
+						<a href="#" class="del-goods" data-id="{{item['id']}}" data-providerid="{{item['provider']}}">删除</a>
 					</div>
 				</div>
 				{% endfor %}

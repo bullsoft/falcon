@@ -5,6 +5,8 @@ global={};
 global.config = {
 	requestType : 'post',//请求方式
 	
+	indexUrl : '{{url("")}}',
+	
 	user:{
 	    {% if login_user %}
 		name: '{{login_user.username}}',
@@ -38,7 +40,8 @@ global.config = {
 	
 	order: {
 		carChangeUrl: '/cart/insertitem',
-		deleteUrl:'/mock/car-change.json'
+		deleteUrl:'/cart/removeitem',
+		clearUrl:'/cart/removeall'
 	}
 };
 

@@ -18,9 +18,10 @@ body{height: 1000px}
 
 
 .goods-info{width: 100%;height:260px;}
-.single-goods .txt-info{height: 200px; position: absolute; top: 0; left: 0;
-	background:rgba(0,0,0,0.2); opacity:0; padding: 0 20px;color:#fff;
+.single-goods .txt-info{height: 204px; position: absolute; top: 0; left: 0;
+	background:rgba(0,0,0,0.5); opacity:0; color:#fff;
 	font-size:14px;
+	width:100%;
 	-webkit-transform:scale(0.3,0.3);
 	-moz-transition:scale(0.3,0.3);
 	-o-transition:scale(0.3,0.3);
@@ -33,6 +34,8 @@ body{height: 1000px}
 	-o-transition:scale(1,1);transform: scale(1,1);
 	border-radius: 0
 }
+.single-goods .txt-info-inner{padding: 0 20px;}
+
 .goods-info:hover .shadow{background-color: rgb(0,170,170)}
 .goods-info:hover .shadow .price{color: #FFFFFF}
 
@@ -41,16 +44,17 @@ body{height: 1000px}
 .single-goods .txt-info .info{margin-top: 20px}
 .single-goods .txt-info .skip{display: block;position: absolute;bottom: 0;left: 0;height: 40px;width: 100%;}
 .single-goods .txt-info .skip-a{text-decoration: none;width: 100px;margin: auto;cursor: pointer;display: block}
-.single-goods .txt-info .skip-a:hover span{background: #ff5200}
-.single-goods .txt-info .skip span{display: block;margin: 0 auto;width: 80px;color: #FFFFFF;background: #ffad26;padding:5px 10px;text-align: center}
+.single-goods .txt-info .skip-a:hover span{background: #ff5200}.single-goods .txt-info .skip span{display: block;margin: 0 auto;width: 80px;color: #FFFFFF;background: #ffad26;padding:5px 10px;text-align: center}
+
+
 .merchant-box{font-size: 14px;padding: 15px 20px 0 20px}
 .merchant-box .line{margin-bottom: 8px}
 .merchant-box span{float: left;margin-right: 10px}
 .merchant-box a{float: right;color: #0077dd}
 .merchant-box a:hover{color: #005599}
 .merchant-box .no-merchant{padding: 0 0 20px;color: #222}
-.merchant-box .merchant-provider{color: #fff;float: none;margin: 0 auto;width: 60px;display: block}
-.merchant-box .merchant-provider:hover{color: #fff}
+.merchant-box .merchant-provider{color: #999;float: none;margin: 0 auto;width: 60px;display: block;border: 1px solid #C3C3C3;padding: 5px 10px 6px;text-decoration: none}
+.merchant-box .merchant-provider:hover{color: #787878;background: #F6F7F8;border: 1px solid #dedede}
 .merchant-box .star,.merchant-box .star-level{width: 75px;height: 16px;display: block}
 .merchant-box .star-level{margin-top: 3px;}
 .merchant-box .star{background: url('../../images/star.png') no-repeat}
@@ -77,12 +81,12 @@ body{height: 1000px}
 .oprate-box .oprate a{float: right;text-decoration:none;color:#999999;}
 .oprate-box .oprate .star{margin-right: 15px}
 
-.oprate-box .oprate .star:hover{color:#ffbb4d}
-.oprate-box .oprate .star.hover:hover{color: #ffbb4d}
+.oprate-box .oprate .star:hover{color:rgb(0,170,170)}
+.oprate-box .oprate .star.hover:hover{color: rgb(0,170,170)}
 .oprate-box .oprate .star.hover:hover span:before{content:"\f006";opacity: .8}
-.oprate-box .oprate .collected{color:#FFBB4D}
+.oprate-box .oprate .collected{color:rgb(0,170,170)}
 .oprate-box .oprate .collected span:before{content:"\f005";opacity: 1;}
-.oprate-box .oprate .collected:hover{color: #FFBB4D}
+.oprate-box .oprate .collected:hover{color: rgb(0,170,170)}
 .oprate-box .oprate .hover.collected:hover{color: #999999;}
 .oprate-box .oprate .hover.collected:hover span:before{content:"\f005";}
 .oprate-box .oprate .collected:hover span:before{content:"\f005";}

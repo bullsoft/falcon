@@ -54,6 +54,9 @@
 				$currentLi.removeClass('current');	
 				$li.addClass('current');
 			}
+			if($li.hasClass('new-address-li')){
+			    $li.find('.edit').click();
+			}
 		},
 		bindEvents : function(){
 			var self = this;
@@ -61,9 +64,9 @@
 			self.$modifyBox.on('click','.edit',self.showEditBox);
 			self.$modifyBox.on('click','.setToDefault',self.setToDefault);
 			self.$modifyBox.on('click','.consignee-check',self.doSelected);
-			self.$modifyBox.find('.consignee-info-edit').validate({
-				onBlur: true
-			});
+			// self.$modifyBox.find('.consignee-info-edit').validate({
+				// onBlur: true
+			// });
 		},
 		init : function(){
 			this.$InfoBox = $('#consignee-info-box');

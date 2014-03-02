@@ -1,14 +1,15 @@
-.wapper{background: #FFFFFF}
-.main{margin: 40px auto 0;width: 980px;min-height: 450px}
-.main .content{width: 680px}
-.recom h1{height: 40px;line-height: 40px;color: #666;position: relative}
-.recom h1 .txt{font-size: 20px;display: block;width: 90px;float: left}
-.recom h1 .line{margin-top:24px;height: 3px;
+.main{margin: 40px auto 0;width: 980px;min-height: 450px;position: relative}
+.main-bg-img{background: url(../../images/bigbang-bag-man.png) no-repeat 0 0;position: absolute;top: 5px;right: 0;width: 261px;height: 391px}
+.recom{border-top: 3px solid #DC322F;background-color: #FFFFFF}
+.recom h3{height: 50px;line-height: 50px;color: #666;padding-left: 15px;margin-bottom: 40px}
+.recom h3 .line{margin-top:24px;height: 3px;
 				border-top:1px solid #d5d5d5;border-bottom:1px solid #d5d5d5;
 			display: block;width: 580px;float: left}
-.recom.web h1 .txt{font-size: 16px}
+.recom.web h3 .txt{font-size: 16px}
 .recom .back-step{font-size: 16px;position: absolute;top: -5px;right: 10px;}
 
+
+#publish-container .txt{font-size: 14px;color: #999;padding-bottom: 5px}
 
 #publish-box .loading{display:none;margin: 40px auto 0;width: 380px}
 .capture-link div{float: left}

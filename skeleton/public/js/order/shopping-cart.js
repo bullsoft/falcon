@@ -125,7 +125,9 @@
 				id = $this.attr('data-id'),
 				providerId = $this.attr('data-providerid'),
 				index = that.getIndex(id, providerId);
-
+            
+            params['provider_id'] = providerId;
+            params['product_id'] = id;
 			$('#' + that.goodsListPre + index).fadeOut();
 			
 			$.ajax({
@@ -136,18 +138,18 @@
 				success: function(res){
 					var data = res.data, html = '', index;
 					
-					index = that.getIndex(data.id, data.provider);
+					index = that.getIndex(data['product_id'], data['provider_id']);
 					
 					if(res.status == 200){
 						$('#' + that.goodsListPre + index).remove();
-
+						
 						if($('.goods-info').length == 0){
-							html = '<div class="uk-alert uk-alert-warning no-goods">请前往挑选商品,<a href="">go>></a></div>';
-							$('#goods-list-contanier').html(html);
+							html = '<div class="shopping-null"><div class="null-txt">购物车为空，请挑选商品。</div><div class="go-on"><a class="ck-btn" href="' + global.config.indexUrl + '">继续购物</a></div></div>';
+							$('#shopping-cart-box').html(html);
 						}
 					}else{
 						$('#' + that.goodsListPre + index).fadeIn();
-						alert('商品删除失败');
+						alert(res.msg || '商品删除失败');
 					}
 				},
 				error: function(data){

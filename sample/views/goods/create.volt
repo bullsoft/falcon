@@ -19,10 +19,10 @@
 {% endblock %}
 
 {% block main_content %}
-
+<div class="main-bg-img"></div>
 <div class="content">
 	<div class="recom">
-		<h1><span class="txt">推荐商品</span><span class="line"></span></h1>
+		<h3><span class="txt">推荐商品</span></h3>
 	</div>
 	<div id="publish-box">
 		<div class="loading loading-animate">
@@ -38,6 +38,7 @@
 		</div>
 		<div class="detail-container" id="detail-container"></div>
 		<div id="publish-container">
+			<div class="txt">请输入商品网址:</div>
 			<div class="capture-link clearfix">
 				<form id="publish-detail-form" action="/goods/fetch" method="post">
 					<div class="capture-link-input">
