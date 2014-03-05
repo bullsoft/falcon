@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 27 21:45:15 2014 (+0800)
+ * Last-Updated: Wed Mar  5 23:48:46 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 50
+ *     Update #: 59
  * 
  */
 
@@ -76,6 +76,26 @@ class UserController extends ControllerBase
         return ;
     }
 
+    public function homeAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            exit;
+        }
+        $products = \BullSoft\Sample\Models\Product::find('user_id='.$this->user->id);
+        $this->view->setVar('products', $products);
+    }
+
+    public function wishlistAction()
+    {
+        
+    }
+
+    public function orderAction()
+    {
+
+    }
+    
     public function registerAction()
     {
         

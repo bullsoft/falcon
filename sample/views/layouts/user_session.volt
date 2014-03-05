@@ -5,7 +5,7 @@
 		<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-flip">
 			<ul class="uk-nav uk-nav-navbar">
 				<li>
-					<a href="#">我的主页</a>
+					<a href="{{ url('user/home') }}">我的主页</a>
 				</li>
 				<li>
 					<a href="{{ url('cart') }}">我的购物车</a>
