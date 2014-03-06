@@ -79,6 +79,7 @@
 		</div>
 		{% include "goods/goods-comment.volt" %}
 
+                {% if product.provider.count() > 0 %}
 		<div class="merchant" id="merchant-info-list-box">
 			<div class="hd">
 				商家信息
@@ -96,6 +97,7 @@
 				{% endfor %}
 			</ul>
 		</div>
+                {% endif %}
 	</div>
 	<div class="right">
 		{% include "goods/goods-recommend.volt" %}
