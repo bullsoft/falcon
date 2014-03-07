@@ -1,14 +1,14 @@
 <?php
-/* User.php --- 
+/* OrderDetail.php --- 
  * 
- * Filename: User.php
+ * Filename: OrderDetail.php
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
- * Created: Mon Feb 10 16:29:55 2014 (+0800)
- * Version: master
- * Last-Updated: Fri Mar  7 22:53:19 2014 (+0800)
+ * Created: Fri Mar  7 22:51:13 2014 (+0800)
+ * Version: 
+ * Last-Updated: Fri Mar  7 23:38:53 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 9
+ *     Update #: 14
  * 
  */
 
@@ -31,32 +31,34 @@
 
 namespace BullSoft\Sample\Models;
 
-class User extends \Phalcon\Mvc\Model
+class OrderDetail extends \Phalcon\Mvc\Model
 {
     public $id;
-    public $username;
-    public $password;
-    public $nickname;
-    public $photo;
-    public $email;
-    public $level = 0;
-    public $is_active = 'N';
-    public $active_code;
+    public $user_id;
+    public $order_id;
+    public $product_id;
+    public $product_name;
+    public $provider_id;
+    public $qty;
+    public $price;
+    public $discount;
     public $addtime;
-    public $acttime;
     public $modtime;
 
     public function initialize()
     {
         $this->setConnectionService('db');
-        $this->hasMany("id", "\BullSoft\Sample\Models\Order", "user_id", array("alias" => "order"));        
+        $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
+        $this->hasOne("product_id", "\BullSoft\Sample\Models\Product", "id", array("alias" => "product"));
+        $this->hasOne("order_id", "\BullSoft\Sample\Models\Order", "id", array("alias" => "order"));
+        
     }
 
     public function getSource()
     {
-        return "user";
+        return "order_detail";
     }                        
 }
 
+/* OrderDetail.php ends here */
 
-/* User.php ends here */

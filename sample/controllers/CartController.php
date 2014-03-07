@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 27 22:09:12 2014 (+0800)
+ * Last-Updated: Sat Mar  8 00:50:10 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 136
+ *     Update #: 143
  * 
  */
 
@@ -39,6 +39,20 @@ class CartController extends ControllerBase
 {
     const BULL_CART_KEY = "shop-cart";
 
+    public static function getCart()
+    {
+        $sessionCart = array();
+        if (getDI()->get('session')->has(self::BULL_CART_KEY)) {
+            $sessionCart = json_decode(getDI()->get('session')->get(self::BULL_CART_KEY), true);
+        }
+        return $sessionCart;
+    }
+
+    public static function destroyCart()
+    {
+        getDI()->get('session')->remove(self::BULL_CART_KEY);
+    }
+    
     public function indexAction()
     {
         $sessionCart = array();
