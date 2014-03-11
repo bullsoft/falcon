@@ -57,4 +57,42 @@
 .user-info-wapper .function-ft{background: #FAFAFA;border-top: 1px solid #DFDFDF;padding: 10px;text-align: center}
 .user-info-wapper .function-ft a{color: #DA314B;font-size: 14px}
 
+/*订单中心*/
+.order-center-box{font-size: 12px}
+.order-title{background: #FFFFFF;height: 36px;line-height: 36px;margin-top: 20px;padding:8px 0;font-size: 12px}
+.order-title select{width: 80px}
+.order-title .each{text-align: center;height: 36px}
+.order-center-box .each{float: left;border-right: 1px solid #F3F3F3}
+.order-center-box .order-info{width: 239px;}
+.order-center-box .order-consignee-price{width: 129px;}
+.order-center-box .oreder-time{width: 99px}
+.order-center-box .oreder-status{width: 99px;}
+.order-center-box .oprate{width: 97px;border: none}
 
+.order-center-list{width: 100%;margin-top: 10px;padding: 0}
+.order-center-list td{padding: 0;margin: 0}
+.order-center-list-each{background-color: #FFFFFF;margin-top: 20px}
+.order-number-box{float: left}
+.order-th{padding: 10px 10px;background-color:#FDFDFD;border: 1px solid #f3f3f3;border-bottom: none}
+.order-center-list-each .merchant{float: right;}
+.order-center-list-each .order-info img{width: 60px;height: 60px}
+.order-center-list .order-th td{padding: 8px 12px;height: 18px;}
+.order-center-list-each .order-tr{border: 1px solid #F2F2F2;}
+.order-center-list-each .order-tr .each{padding: 8px 0}
+.order-center-list-each .order-info a{display:block; float:left; width: 60px;height: 60px;border: 1px solid #f3f3f3;margin:0 0 0 8px}
+.order-center-list .order-tr td{border-right: 1px solid #f3f3f3;text-align: center;padding: 8px 0}
+.order-center-list .order-consignee-price-box p{padding: 4px;margin: 0}
+.order-center-list .wait{color: #DA314B}
+.order-center-list .del{color: #535353}
+
+
+/*消息中心*/
+.message-center-wapper{margin-top: 20px}
+.message-list-each{background-color: #FFFFFF;padding: 10px;margin-top: 25px}
+.message-list-each .img-box{float: left}
+.message-list-each .img-box img{width:50px;height:50px; border-radius: 50%;}
+.message-list-each .info{font-size: 12px;padding-left: 70px}
+.message-list-each .goods-name{color: #DA314B}
+.message-list-each .content{padding: 4px 0}
+.message-list-each .time{color: #C0C0C0}
+.message-list-each .uk-icon-quote-left, .message-list-each .uk-icon-quote-right{color: #a3a3a3}

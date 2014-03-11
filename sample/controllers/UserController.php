@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Mar  6 22:04:24 2014 (+0800)
+ * Last-Updated: Tue Mar 11 19:23:18 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 60
+ *     Update #: 71
  * 
  */
 
@@ -36,7 +36,7 @@ use BullSoft\Sample\Models\Wishlist as WishlistModel;
 class UserController extends ControllerBase
 {
     const BULL_SOCIAL_URL_PREFIX = 'http://openapi.baidu.com/social/oauth/2.0/authorize?';
-    
+
     public function loginformAction()
     {
         $ak = $this->di->get('config')->bcs->ak;
@@ -76,6 +76,11 @@ class UserController extends ControllerBase
         return ;
     }
 
+    public function loginAction()
+    {
+        
+    }
+    
     public function homeAction()
     {
         if(!$this->user) {
@@ -88,23 +93,38 @@ class UserController extends ControllerBase
 
     public function wishlistAction()
     {
-        
+        if(!$this->user) {
+            $this->flashJson(403);
+            return;
+        }        
     }
 
-    public function orderAction()
+    public function orderlistAction()
     {
+        if(!$this->user) {
+            $this->flashJson(403);
+            return;
+        }
+    }
 
+    public function providersAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            return;
+        }
     }
     
-    public function registerAction()
+    public function messagesAction()
     {
-        
-    }
+        if(!$this->user) {
+            $this->flashJson(403);
+            return;
+        }
 
-    public function loginAction()
-    {
         
     }
+    
 }
 
 /* UserController.php ends here */

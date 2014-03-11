@@ -17,6 +17,10 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             $this->forward("sample/error/countdown");
             return;
         }
+
+        $this->view->setVar("controller", $this->dispatcher->getControllerName());
+        $this->view->setVar("action", $this->dispatcher->getActionName());
+        $this->view->setVar("module", $this->dispatcher->getModuleName());
         
         if($this->di->has('user')) {
             $this->user = $this->di->get('user');
