@@ -10,6 +10,14 @@ class ControllerBase extends \Phalcon\Mvc\Controller
     protected function initialize()
     {
         $this->config = $this->getDI()->get('config');
+
+        $isClose = isset($_GET['close'])?(bool)$_GET['close']:true;
+        
+        if((bool)$this->config->application->close && $isClose) {
+            $this->forward("sample/error/countdown");
+            return;
+        }
+        
         if($this->di->has('user')) {
             $this->user = $this->di->get('user');
         } else {

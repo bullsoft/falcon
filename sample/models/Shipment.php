@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Mar  7 23:38:13 2014 (+0800)
- * Version: 
- * Last-Updated: Sat Mar  8 00:02:37 2014 (+0800)
+ * Version: master
+ * Last-Updated: Mon Mar 10 18:47:46 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 3
+ *     Update #: 4
  * 
  */
 
@@ -36,6 +36,7 @@ class Shipment extends \Phalcon\Mvc\Model
     public $id;
     public $name;
     public $slug;
+    public $method;
     public $addtime;
     public $modtime;
 

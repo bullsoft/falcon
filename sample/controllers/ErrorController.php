@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Mar  4 22:50:55 2014 (+0800)
- * Version: 
- * Last-Updated: Tue Mar  4 23:45:44 2014 (+0800)
+ * Version: master
+ * Last-Updated: Tue Mar 11 12:12:43 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 14
+ *     Update #: 15
  * 
  */
 
@@ -37,6 +37,11 @@ class ErrorController extends ControllerBase
     {
         echo "<h1>404, Not Found!</h1>";
         exit;
+    }
+    
+    public function countdownAction()
+    {
+
     }
 }
 

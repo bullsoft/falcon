@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Mon Feb 10 16:18:56 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Feb 19 15:35:09 2014 (+0800)
+ * Last-Updated: Mon Mar 10 18:28:20 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 6
+ *     Update #: 11
  * 
  */
 
@@ -40,6 +40,15 @@ class Provider extends \Phalcon\Mvc\Model
     public $is_new;
     public $sale_style_id = 0;
     public $price;
+    public $shipment_id_1;
+    public $shipment_price_1;
+
+    public $shipment_id_2;
+    public $shipment_price_2;
+    
+    public $shipment_id_3;
+    public $shipment_price_3;
+    
     public $addtime;
     public $modtime;
 
@@ -48,6 +57,9 @@ class Provider extends \Phalcon\Mvc\Model
         $this->setConnectionService('db');
         $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
         $this->hasOne("product_id", "\BullSoft\Sample\Models\Product", "id", array("alias" => "product"));
+        $this->hasOne("shipment_id_1", "\BullSoft\Sample\Models\Shipment", "id", array("alias" => "shipment1"));
+        $this->hasOne("shipment_id_2", "\BullSoft\Sample\Models\Shipment", "id", array("alias" => "shipment2"));
+        $this->hasOne("shipment_id_3", "\BullSoft\Sample\Models\Shipment", "id", array("alias" => "shipment3"));        
     }
 
     public function getSource()

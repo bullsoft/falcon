@@ -1,5 +1,9 @@
 <?php
 error_reporting(E_ALL);
+
+$debug = new \Phalcon\Debug();
+$debug->listen();
+
 try {
     require dirname(__DIR__) . '/apps/Bootstrap.php';
     $boostrap = new Bootstrap();

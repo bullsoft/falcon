@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Mar  8 00:50:10 2014 (+0800)
+ * Last-Updated: Mon Mar 10 22:35:25 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 143
+ *     Update #: 158
  * 
  */
 
@@ -52,6 +52,7 @@ class CartController extends ControllerBase
     {
         getDI()->get('session')->remove(self::BULL_CART_KEY);
     }
+    
     
     public function indexAction()
     {
@@ -179,6 +180,20 @@ class CartController extends ControllerBase
             $item = $cart->getItem($productId, false);
             $item->setQty($qty);
         } else {
+            $shipments = array();
+            for($i = 1; $i< 4; ++$i) {
+                if(!empty($provider->{"shipment".$i})) {
+                    $shipmentDetail = array(
+                        'id'     => $provider->{"shipment".$i}->id,
+                        'vendor' => $provider->{"shipment".$i}->slug,
+                        'method' => $provider->{"shipment".$i}->method,
+                        'price'  => $provider->{"shipment_price_".$i},
+                    );
+                    $shipment = new Cart\Shipment();
+                    $shipment->importJson(json_encode($shipmentDetail));
+                    $shipments[] = $shipment;
+                }
+            }
             $item = new Cart\Item();
             $item->setId($productId)
                  ->setProvider($providerId)
@@ -189,6 +204,11 @@ class CartController extends ControllerBase
                  ->setPrice($provider->price)
                  ->setIsTaxable(true)
                  ->setIsDiscountable(true);
+            if(!empty($shipments)) {
+                foreach($shipments as $shipment) {
+                    $cart->setShipment($shipment);
+                }
+            }
             $cart->setItem($item);                
         }
         

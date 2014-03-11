@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 27 21:35:23 2014 (+0800)
  * Version: master
- * Last-Updated: Sat Mar  8 00:18:04 2014 (+0800)
+ * Last-Updated: Mon Mar 10 17:51:23 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 42
+ *     Update #: 43
  * 
  */
 
@@ -81,6 +81,8 @@ class OrderController extends ControllerBase
     public function createAction()
     {
         $carts = CartController::getCart();
+        var_dump($carts);
+        exit;
         $time = time("Y-m-d H:i:s");
         foreach($carts as $providerId => $cartArray) {
             $order = array();
