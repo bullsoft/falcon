@@ -54,12 +54,12 @@
 	    <div class="user-center-nav">
 	      <ul class="clearfix">
 		<li class="line{% if action == 'wishlist'%} current{% endif %}">
-		  <a class="transition-all" href="{{url('user/wishlist')}}"><span>收藏的宝贝</span></a>
+		  <a class="transition-all" href="{{url('user/wishlist')}}"><span>愿望清单</span></a>
 		</li>
 		<li class="line{% if action == 'home'%} current{% endif %}">
-		  <a class="transition-all" href="{{url('user/home')}}"><span>发布的宝贝</span></a>
+		  <a class="transition-all" href="{{url('user/home')}}"><span>我的宝贝</span></a>
 		</li>
-		<li class="line{% if action == 'provider'%} current{% endif %}">
+		<li class="line{% if action == 'providers'%} current{% endif %}">
 		  <a class="transition-all" href="{{url('user/providers')}}"><span>售卖的宝贝</span></a>
 		</li>
 		<li class="line{% if action == 'orderlist'%} current{% endif %}">

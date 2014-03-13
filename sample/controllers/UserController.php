@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Tue Mar 11 19:23:18 2014 (+0800)
+ * Last-Updated: Wed Mar 12 16:46:46 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 71
+ *     Update #: 79
  * 
  */
 
@@ -30,9 +30,11 @@
 /* Code: */
 
 namespace BullSoft\Sample\Controllers;
-use BullSoft\Sample\Models\Comment as CommentModel;
+use BullSoft\Sample\Models\Comment  as CommentModel;
 use BullSoft\Sample\Models\Wishlist as WishlistModel;
-    
+use BullSoft\Sample\Models\Provider as ProviderModel;
+use BullSoft\Sample\Models\Order    as OrderModel;
+
 class UserController extends ControllerBase
 {
     const BULL_SOCIAL_URL_PREFIX = 'http://openapi.baidu.com/social/oauth/2.0/authorize?';
@@ -96,7 +98,9 @@ class UserController extends ControllerBase
         if(!$this->user) {
             $this->flashJson(403);
             return;
-        }        
+        }
+        $wishlist = WishlistModel::find('user_id='.$this->user->id);
+        $this->view->setVar('wishlist', $wishlist);
     }
 
     public function orderlistAction()
@@ -113,6 +117,9 @@ class UserController extends ControllerBase
             $this->flashJson(403);
             return;
         }
+        $providers = ProviderModel::find('user_id='.$this->user->id);
+        $this->view->setVar('providers', $providers);
+        
     }
     
     public function messagesAction()
@@ -121,10 +128,7 @@ class UserController extends ControllerBase
             $this->flashJson(403);
             return;
         }
-
-        
     }
-    
 }
 
 /* UserController.php ends here */
