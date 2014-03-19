@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 27 21:35:23 2014 (+0800)
  * Version: master
- * Last-Updated: Mon Mar 10 17:51:23 2014 (+0800)
+ * Last-Updated: Wed Mar 19 23:45:05 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 43
+ *     Update #: 46
  * 
  */
 
@@ -61,17 +61,19 @@ class OrderController extends ControllerBase
         
         if ($this->session->has(CartController::BULL_CART_KEY)) {
             $sessionCart = json_decode($this->session->get(CartController::BULL_CART_KEY), true);
-            $totals = array();
+            $totals_goods = array();
+            $totals_shipments = array();            
             foreach($sessionCart as $providerId => $cartArray) {
                 $cart = new Cart\Cart();
                 $cart->importJson(json_encode($cartArray));
                 $displayCart[$providerId] = $cart;
-                
                 $_totals = $cart->getTotals();
-                $totals[$providerId] = $_totals['items'];
+                $totals_goods[$providerId] = $_totals['items'];
+                $totals_shipments[$providerId] = $_totals['shipments'];                
             }
             $this->view->setVar('carts', $displayCart);
-            $this->view->setVar('totals', $totals);
+            $this->view->setVar('totals_goods', $totals_goods);
+            $this->view->setVar('totals_shipments', $totals_shipments);            
             $this->view->setVar('msg', null);            
         } else {
             $this->view->setVar('msg', '抱歉，您的购物车为空！');
