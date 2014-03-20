@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 27 21:35:23 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Mar 19 23:45:05 2014 (+0800)
+ * Last-Updated: Thu Mar 20 21:21:36 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 46
+ *     Update #: 65
  * 
  */
 
@@ -56,48 +56,36 @@ class OrderController extends ControllerBase
     
     public function indexAction()
     {
-        $sessionCart = array();
-        $displayCart = array();
-        
-        if ($this->session->has(CartController::BULL_CART_KEY)) {
-            $sessionCart = json_decode($this->session->get(CartController::BULL_CART_KEY), true);
-            $totals_goods = array();
-            $totals_shipments = array();            
-            foreach($sessionCart as $providerId => $cartArray) {
-                $cart = new Cart\Cart();
-                $cart->importJson(json_encode($cartArray));
-                $displayCart[$providerId] = $cart;
-                $_totals = $cart->getTotals();
-                $totals_goods[$providerId] = $_totals['items'];
-                $totals_shipments[$providerId] = $_totals['shipments'];                
-            }
-            $this->view->setVar('carts', $displayCart);
-            $this->view->setVar('totals_goods', $totals_goods);
-            $this->view->setVar('totals_shipments', $totals_shipments);            
-            $this->view->setVar('msg', null);            
-        } else {
+        $retVal = CartController::getCartDetail();
+        if(empty($retVal)) {
             $this->view->setVar('msg', '抱歉，您的购物车为空！');
-        }        
+            return ;
+        }
+        foreach($retVal as $key => $val) {
+            $this->view->setVar($key, $val);
+        }
+        $this->view->setVar('msg', null);            
     }
 
     public function createAction()
     {
-        $carts = CartController::getCart();
-        var_dump($carts);
-        exit;
-        $time = time("Y-m-d H:i:s");
-        foreach($carts as $providerId => $cartArray) {
+        $retVal = CartController::getCartDetail();
+        if(empty($retVal)) {
+            $this->flashJson(500);
+            exit ;
+        }
+        
+        $carts = $retVal['carts'];
+
+        foreach($carts as $providerId => $cart) {
+            $time = time("Y-m-d H:i:s");
+
             $order = array();
-            $cart = new Cart\Cart();
-            $cart->importJson(json_encode($cartArray));
-            $totals = $cart->getTotals();
             $order['sn'] = $this->createGuid();
             $order['user_id'] = $this->user->id;
             $order['status']  = self::STATUS_UNPAY;
-            $order['price']   = $totals['items'];
-            $order['shipment_id'] = 1;
-            $order['shipment_price'] = 10.00;
-            $order['customer'] = $cart->getCustomer()->toJson();
+            $order['price']   = array_sum($retVal['totals_goods']) + array_sum($retVal['totals_shipments']);
+            $order['detail']  = $cart->toJson();
             $order['addtime'] = $order['modtime'] = $time;
 
             $orderModel = new OrderModel();
@@ -108,31 +96,35 @@ class OrderController extends ControllerBase
                     echo $message . PHP_EOL;
                 }
                 $this->db->rollback();
+                $this->flashJson(500);
+                exit ;                
             }
 
             foreach($cart->getItemsAsArray() as $item) {
                 $orderDetailModel = new OrderDetailModel();
-                $orderDetailModel->user_id = $this->user->id;
+                $orderDetailModel->user_id  = $this->user->id;
                 $orderDetailModel->order_id = $orderModel->id;
-                $orderDetailModel->product_id = $item['id'];
+                $orderDetailModel->product_id   = $item['id'];
                 $orderDetailModel->product_name = $item['name'];
-                $orderDetailModel->provider_id = $providerId;
-                $orderDetailModel->qty = $item['qty'];
+                $orderDetailModel->provider_id  = $providerId;
+                $orderDetailModel->qty   = $item['qty'];
                 $orderDetailModel->price = $item['price'];
-                $orderDetailModel->discount = 0.9;
-                $orderDetailModel->addtime = $orderDetailModel->modtime = $time;
+                $orderDetailModel->discount = 1.0;
+                $orderDetailModel->addtime  = $orderDetailModel->modtime = $time;
 
                 if($orderDetailModel->save() == false) {
                     foreach($orderDetailModel->getMessages() as $message) {
                         echo $message . PHP_EOL;
                     }
-                    $this->db->rollback();                    
+                    $this->db->rollback();
+                    $this->flashJson(500);
+                    exit ;
                 }
             }
-            
             $this->db->commit();
         }
-        exit;
+        CartController::destroyCart();
+        $this->flashJson(200);
     }
     
     public function createGuid($namespace = '')
@@ -142,8 +134,8 @@ class OrderController extends ControllerBase
         $data = $namespace;
         $data .= $_SERVER['REQUEST_TIME'];
         $data .= $_SERVER['HTTP_USER_AGENT'];
-        $data .= $_SERVER['LOCAL_ADDR'];
-        $data .= $_SERVER['LOCAL_PORT'];
+        $data .= $_SERVER['SERVER_ADDR'];
+        $data .= $_SERVER['SERVER_PORT'];
         $data .= $_SERVER['REMOTE_ADDR'];
         $data .= $_SERVER['REMOTE_PORT'];
         $hash = strtoupper(hash('ripemd128', $uid . $guid . md5($data)));

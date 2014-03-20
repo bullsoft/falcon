@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Mar  7 22:51:13 2014 (+0800)
- * Version: 
- * Last-Updated: Sat Mar  8 00:03:07 2014 (+0800)
+ * Version: master
+ * Last-Updated: Thu Mar 20 21:14:28 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 9
+ *     Update #: 10
  * 
  */
 
@@ -38,9 +38,7 @@ class Order extends \Phalcon\Mvc\Model
     public $user_id;
     public $status;
     public $price;
-    public $shipment_id;
     public $customer;
-    public $shipment_price;
     public $addtime;
     public $modtime;
 

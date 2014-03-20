@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Mar 19 23:35:05 2014 (+0800)
+ * Last-Updated: Thu Mar 20 21:10:51 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 234
+ *     Update #: 342
  * 
  */
 
@@ -35,7 +35,6 @@ use BullSoft\Cart;
 use BullSoft\Sample\Models\Product as ProductModel;
 use BullSoft\Sample\Models\Provider as ProviderModel;
 use BullSoft\Sample\Models\Shipment as ShipmentModel;
-use BullSoft\Sample\Models\UserShipment as UserShipmentModel;
 
 class CartController extends ControllerBase
 {
@@ -44,42 +43,79 @@ class CartController extends ControllerBase
     public static function getCart()
     {
         $sessionCart = array();
+        $displayCart = array();
         if (getDI()->get('session')->has(self::BULL_CART_KEY)) {
             $sessionCart = json_decode(getDI()->get('session')->get(self::BULL_CART_KEY), true);
-        }
-        return $sessionCart;
-    }
-
-    public static function destroyCart()
-    {
-        getDI()->get('session')->remove(self::BULL_CART_KEY);
-    }
-    
-    
-    public function indexAction()
-    {
-        $sessionCart = array();
-        $displayCart = array();
-        
-        if ($this->session->has(self::BULL_CART_KEY)) {
-            $sessionCart = json_decode($this->session->get(self::BULL_CART_KEY), true);
-            $totals_goods = array();
-            $totals_shipments = array();
             foreach($sessionCart as $providerId => $cartArray) {
                 $cart = new Cart\Cart();
                 $cart->importJson(json_encode($cartArray));
                 $displayCart[$providerId] = $cart;
-                $_total = $cart->getTotals();
-                $totals_goods[$providerId] = $_total['items'];
-                $totals_shipments[$providerId] = $_total['shipments'];
             }
-            $this->view->setVar('carts', $displayCart);
-            $this->view->setVar('totals_goods', $totals_goods);
-            $this->view->setVar('totals_shipments', $totals_shipments);
-            $this->view->setVar('msg', null);
-        } else {
-            $this->view->setVar('msg', '抱歉，您的购物车为空！');
         }
+        return $displayCart;
+    }
+
+    public static function toJson($displayCart = array())
+    {
+        if(empty($displayCart)) {
+            $displayCart = self::getCart();
+        }
+        $sessionCart = array();
+        foreach($displayCart as $providerId => $cart) {
+            $sessionCart[$providerId] = $cart->toArray();
+        }
+        return json_encode($sessionCart);
+    }
+    
+    public static function putCart($displayCart)
+    {
+        getDI()->get('session')->set(self::BULL_CART_KEY, self::toJson($displayCart));
+    }
+    
+    public static function destroyCart()
+    {
+        getDI()->get('session')->remove(self::BULL_CART_KEY);
+    }
+
+    public static function getCartDetail()
+    {
+        $displayCart = array();
+
+        $displayCart = self::getCart();
+        if(empty($displayCart)) {
+            return null;
+        }
+
+        $totalNum = 0;
+        $totalGoods = array();
+        $totalShipments = array();
+        
+        foreach($displayCart as $providerId => $cart) {
+            $totalNum += count($cart->getItemsAsArray());
+            $totalPrice = $cart->getTotals();
+            $totalGoods[$providerId] = $totalPrice['items'];
+            $totalShipments[$providerId] = $totalPrice['shipments'];
+        }
+
+        return array(
+            'carts' => $displayCart,
+            'totals_num' => $totalNum,
+            'totals_goods' => $totalGoods,
+            'totals_shipments' => $totalShipments,
+        );
+    }
+    
+    public function indexAction()
+    {
+        $retVal = self::getCartDetail();
+        if(is_null($retVal)) {
+            $this->view->setVar('msg', '抱歉，您的购物车为空！');
+            return ;
+        }
+        foreach($retVal as $key => $val) {
+            $this->view->setVar($key, $val);
+        }
+        $this->view->setVar('msg', null);
     }
 
     public function removeItemAction($productId = 0, $providerId = 0)
@@ -92,56 +128,46 @@ class CartController extends ControllerBase
 
         if($productId < 1 || $providerId < 1) {
             $this->flashJson(500, array(), "非法请求");
-            return ;
+            exit ;
         }
-		
 		$retArray = array('product_id' => $productId, 'provider_id' => $providerId);
 		
-        $cart = new Cart\Cart();
-        $sessionCart = array();
+        $retVal = self::getCartDetail();
+
+        if(is_null($retVal)) {
+            $this->flashJson(500, array(), '抱歉，您的购物车为空！');
+            exit ;
+        }
         
-        if($this->session->has('shop-cart')) {
-            $sessionCart = json_decode($this->session->get("shop-cart"),  true);
-            if(isset($sessionCart[$providerId])) {
-                $cart->importJson(json_encode($sessionCart[$providerId]));
-            } else {
-                $this->flashJson(500, $retArray, "购物车中不存在该商品1");
-                return ;
-            }
+        if(isset($retVal['carts'][$providerId])) {
+            $cart = $retVal['carts'][$providerId];
+        } else {
+            $this->flashJson(500, $retArray, "购物车中不存在该商品1");
+            exit ;
         }
         
         if($cart->hasItem($productId, false)) {
             $cart->unsetItem($productId, false);
         } else {
             $this->flashJson(500, $retArray, "购物车中不存在该商品2");
-            return ;
+            exit ;
         }
+        
         if(count($cart->getItemsAsArray()) == 0) {
-            unset($sessionCart[$providerId]); 
-        } else {
-            $sessionCart[$providerId] = $cart->toArray();
+            unset($retVal['carts'][$providerId]); 
         }
-		if(empty($sessionCart)) {
+
+		if(empty($retVal['carts'])) {
         	$this->session->remove(self::BULL_CART_KEY);	
 		} else {
-			$this->session->set(self::BULL_CART_KEY, json_encode($sessionCart));
+            self::putCart($retVal['carts']);
 		}
-		$total_num = 0;
-		$_totals_goods    = array();
-        $_totals_shipment = array();
-		foreach ($sessionCart as $_providerId => $_cartArray) {
-			$total_num += count($_cartArray['items']);
-            $_total = $cart->getTotals();
-            $_totals_goods[$_providerId] = $_total['items'];
-            $_totals_shipment[$_providerId] = $_total['shipments'];
-		}
-		
-		$retArray['total_num'] = $total_num;
-		$retArray['goods_price'] = array_sum($_totals_goods);
-		$retArray['total_price'] = array_sum($_totals_shipment) + array_sum($_totals_goods);
-		
+        
+		$retArray['total_num']   = $retVal['totals_num'];
+		$retArray['goods_price'] = array_sum($retVal['totals_goods']);
+		$retArray['total_price'] = array_sum($retVal['totals_shipments']) + array_sum($retVal['totals_goods']);
         $this->flashJson(200, $retArray);
-        return ;
+        exit ;
     }
     
     public function insertItemAction($productId = 0, $providerId = 0)
@@ -154,34 +180,37 @@ class CartController extends ControllerBase
 
         if($productId < 1 || $providerId < 1) {
             $this->flashJson(500, array(), "非法请求");
-            return ;
+            exit ;
         }
-        
+
 		$qty = $this->request->getPost("qty", "int");
 		if($qty < 1) $qty = 1;
 		
         $product  = ProductModel::findFirst($productId);
 
         if(empty($product)) {
-            $this->flash->error('抱歉，该商品不存在');
-            return ;
+            $this->flashJson(500, array(), '抱歉，该商品不存在');
+            exit ;
         }
         
         $provider = ProviderModel::findFirst("user_id={$providerId} AND product_id={$productId}");
 
         if(empty($provider)) {
-            $this->flash->error('非法请求');
-            return ;
+            $this->flashJson(500, array(), '非法请求');
+            exit ;
         }
 
-        $cart = new Cart\Cart();
-        $sessionCart = array();
+        $displayCart = self::getCart();
         
-        if($this->session->has('shop-cart')) {
-            $sessionCart = json_decode($this->session->get("shop-cart"),  true);
-            if(isset($sessionCart[$providerId])) {
-                $cart->importJson(json_encode($sessionCart[$providerId]));
-            }
+        if(empty($displayCart)) {
+            $this->flashJson(500, array(), "请求已过期");
+            exit ;
+        }
+        
+        if(isset($displayCart[$providerId])) {
+            $cart = $displayCart[$providerId];
+        } else {
+            $cart = new Cart\Cart();
         }
         
         if($cart->hasItem($productId, false)) {
@@ -198,76 +227,82 @@ class CartController extends ControllerBase
                  ->setPrice($provider->price)
                  ->setIsTaxable(true)
                  ->setIsDiscountable(true);
+            
             $cart->setItem($item);                
         }
         
-        $sessionCart[$providerId] = $cart->toArray();
-        $this->session->set('shop-cart', json_encode($sessionCart));
+        $displayCart[$providerId] = $cart;
+
+        self::putCart($displayCart);
         
         if($this->request->isAjax()) {
         	$ajaxRet = $item->toArray();
 			$ajaxRet['totals'] = $cart->getTotals();
             $this->flashJson(200, $ajaxRet);
-			return ;
+			exit ;
         } else {
             $this->response->redirect('cart/')->sendHeaders();
-            return;
+            exit ;
         }
     }
 
-    public function shipmentAction($providerId = 0, $shipmentId =0, $price = 0.0)
+    public function shipmentAction($productId = 0, $providerId = 0, $shipmentSeq = 1)
     {
-        $providerId = intval($providerId);
-        $shipmentId = intval($shipmentId);
-        $shipmentPrice = floatval($price);
+        $productId   = intval($productId);
+        $providerId  = intval($providerId);
+        $shipmentSeq = intval($shipmentSeq);
+
+        $productId   = $productId   > 0  ? $productId  : $this->request->getPost("product_id",   "int");        
+        $providerId  = $providerId  > 0  ? $providerId : $this->request->getPost("provider_id",  "int");
+        $shipmentSeq = $shipmentSeq > 0 ? $shipmentSeq : $this->request->getPost("shipment_seq", "int");
         
-        $providerId = $providerId > 0 ? $providerId : $this->request->getPost("provider_id", "int");
-        $shipmentId = $shipmentId > 0 ? $shipmentId : $this->request->getPost("shipment_id", "int");
-        
-        if($providerId < 1 || $shipmentId < 1) {
+        if($productId < 1 || $providerId < 1 || $shipmentSeq < 1 ||  $shipmentSeq > 3) {
             $this->flashJson(500, array(), "非法请求");
-            return ;
-        }        
+            exit ;
+        }
+
+        $product  = ProductModel::findFirst($productId);
+        if(empty($product)) {
+            $this->flashJson(500, array(), '抱歉，该商品不存在');
+            exit ;
+        }
         
-        $cart = new Cart\Cart();
-        $sessionCart = array();
-        
-        if($this->session->has('shop-cart')) {
-            $sessionCart = json_decode($this->session->get("shop-cart"),  true);
-            if(isset($sessionCart[$providerId])) {
-                $cart->importJson(json_encode($sessionCart[$providerId]));
-            }
+        $displayCart = self::getCart();
+        if(empty($displayCart)) {
+            $this->flashJson(500, array(), "非法请求");
+            exit ;
+        }
+        if(isset($displayCart[$providerId])) {
+            $cart = $displayCart[$providerId];
         } else {
+            $this->flashJson(500, array(), "过期请求");
+            exit ;
+        }
+
+        $provider = ProviderModel::findFirst("user_id={$providerId} AND product_id={$productId}");
+        if(empty($provider)) {
             $this->flashJson(500, array(), "非法请求");
-            return ;
+            exit ;
         }
-
-        $productIds = array();
-        foreach($cart->getItemsAsArray() as $item) {
-            $productIds[] = $item['id'];
-        }
-
-        if(empty($productIds)) {
-            $this->flashJson(500, array(), '非法请求');
-            return ;
-        }   
-        $providers = ProviderModel::find("user_id={$providerId} AND product_id IN (" . join(", ", $productIds) .")");
         
-        $userShipment = UserShipmentModel::findFirst("user_id = " . $providerId . " AND shipment_id = " . $shipmentId);
-        if(!empty($userShipment)) {
-            $seq = $userShipment->seq;
+        $shipmentId = $provider->{"shipment_id_".$shipmentSeq};
+        
+        if(!empty($provider->{"shipment".$shipmentSeq})) {
+            if($cart->hasShipment($providerId.'-'.$providerId, false)) {
+                $cart->unsetShipment($productId.'-'.$providerId, false);
+            }
             $shipmentDetail = array(
-                'id'     => $userShipment->shipment->id,
-                'vendor' => $userShipment->shipment->slug,
-                'method' => $userShipment->shipment->method,
-                'price'  => array_sum(\BullSoft\Utility::array_column($providers->toArray(), "shipment_price_".$seq, "id")),
+                'id'     => $providerId . '-' . $productId,
+                'vendor' => $provider->{"shipment".$shipmentSeq}->slug,
+                'method' => $provider->{"shipment".$shipmentSeq}->method,
+                'price'  => $provider->{"shipment_price_".$shipmentSeq}
             );
             $cartShipment = new Cart\Shipment();
             $cartShipment->importJson(json_encode($shipmentDetail));
             $cart->setShipment($cartShipment);
-
-            $sessionCart[$providerId] = $cart->toArray();
-            $this->session->set('shop-cart', json_encode($sessionCart));            
+            $displayCart[$providerId] = $cart;
+            self::putCart($displayCart);
+            $this->flashJson(200);
         }
     }
 
