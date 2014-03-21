@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Tue Feb 11 19:54:20 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Mar 20 21:10:51 2014 (+0800)
+ * Last-Updated: Fri Mar 21 15:30:03 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 342
+ *     Update #: 343
  * 
  */
 
@@ -201,11 +201,6 @@ class CartController extends ControllerBase
         }
 
         $displayCart = self::getCart();
-        
-        if(empty($displayCart)) {
-            $this->flashJson(500, array(), "请求已过期");
-            exit ;
-        }
         
         if(isset($displayCart[$providerId])) {
             $cart = $displayCart[$providerId];

@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Wed Mar 12 16:46:46 2014 (+0800)
+ * Last-Updated: Fri Mar 21 16:59:21 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 79
+ *     Update #: 85
  * 
  */
 
@@ -97,7 +97,7 @@ class UserController extends ControllerBase
     {
         if(!$this->user) {
             $this->flashJson(403);
-            return;
+            exit ;
         }
         $wishlist = WishlistModel::find('user_id='.$this->user->id);
         $this->view->setVar('wishlist', $wishlist);
@@ -107,15 +107,17 @@ class UserController extends ControllerBase
     {
         if(!$this->user) {
             $this->flashJson(403);
-            return;
+            exit ;
         }
+        $orderlist = OrderModel::find('user_id='.$this->user->id);
+        $this->view->setVar('orderlist', $orderlist);
     }
 
     public function providersAction()
     {
         if(!$this->user) {
             $this->flashJson(403);
-            return;
+            exit ;
         }
         $providers = ProviderModel::find('user_id='.$this->user->id);
         $this->view->setVar('providers', $providers);
@@ -126,7 +128,7 @@ class UserController extends ControllerBase
     {
         if(!$this->user) {
             $this->flashJson(403);
-            return;
+            exit ;
         }
     }
 }
