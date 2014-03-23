@@ -7,6 +7,7 @@
 			display: block;width: 580px;float: left}
 .recom.web h3 .txt{font-size: 16px}
 .recom .back-step{font-size: 16px;position: absolute;top: -5px;right: 10px;}
+.image-list li .img-loading{background: url(../../images/img-loading.gif) no-repeat center center}
 
 
 #publish-container .txt{font-size: 14px;color: #999;padding-bottom: 5px}
@@ -47,6 +48,7 @@ border-radius: 2px
 
 .goods-sprite{padding-top: 50px}
 .goods-sprite .tit{padding-bottom: 5px;font-size: 14px;color: #686868}
+.goods-sprite .tit .txt{line-height: 28px;display: block;float: left}
 .goods-sprite.goods-images .ck-line:after{background: #E74C3C}
 .goods-sprite.goods-images{padding-top: 60px}
 .resaon-box{padding-top: 10px}
@@ -55,11 +57,19 @@ border-radius: 2px
 .goods-images-box{padding-top: 10px}
 .goods-images-box .change-img{float: right;font-size: 12px;}
 .goods-images-box .change-img .normal-btn{padding-bottom: 2px}
-.image-list-box{width: 680px;overflow: hidden}
-.image-list{width: 700px;padding-top: 8px}
-.image-list li{float: left;margin:0 13px 13px 0;position: relative}
-.image-list img{width: 125px;height: 125px;border: 1px solid rgba(223,224,225,.7);}
-.image-list img.l_img{position: absolute;top: 0;left: 0;}
+.image-list-box{width: 100%;}
+.image-list{width: 1020px;padding-top: 12px}
+.publish-image-list li{float: left;margin:0 15px 15px 0;position: relative;width: 125px;height: 125px;border: 1px solid rgba(223,224,225,.7);}
+.image-list li.current{border-color: rgb(165,207,78);}
+.image-list li .img-loading{background-color: rgba(0,0,0,.4);width: 100%;height: 100%;position: absolute;top: 0;left: 0}
+.image-list img{width: 100%;height: 100%;display: none}
+.image-list .theme-txt{position: absolute;bottom: 0;left: 0;display:none;z-index:3;width: 100%;height: 24px;line-height:24px;font-size: 12px;color: #FFFFFF;text-align: center;background-color: rgba(165,207,78,0.7);}
+.image-list .img-error{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,.3);color: red;line-height: 102px;text-align: center}
+.image-list li:hover .theme-txt{display: block}
+.image-list .current .theme-txt{background-color: rgb(165,207,78);display: block}
+
+.image-list .close{position: absolute;top: -8px;right: -8px;width: 16px;height: 16px;display: block;font-size:14px;line-height:15px;text-align:center;border-radius:50%;text-decoration:none;background-color: #C3C3C3;color: #FFFFFF;z-index: 11}
+.image-list .close:hover{background: #999999}
 
 .publish-btn-box{padding-top: 20px}
 .publish-btn-box .line{border-top: 1px solid #D5D5D5;padding-top: 15px}
