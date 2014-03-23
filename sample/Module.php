@@ -29,22 +29,15 @@ class Module
 
         // Registering a dispatcher
         $di->set('dispatcher', function () use ($di) {
-            $dispatcher = new \Phalcon\Mvc\Dispatcher();
-            $dispatcher->setDefaultNamespace("BullSoft\Sample\Controllers\\");
-            return $dispatcher;
-        });
-
-        // Registering a dispatcher
-        $di->set('dispatcher', function () use ($di) {
             $evtManager = $di->getShared('eventsManager');
             $evtManager->attach("dispatch:beforeException", function ($event, $dispatcher, $exception) {
                 switch ($exception->getCode()) {
                     case \Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                     case \Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                         $dispatcher->forward(array(
-                            'module' => 'sample',
+                            'module'     => 'sample',
                             'controller' => 'error',
-                            'action' => 'show404'
+                            'action'     => 'show404'
                         ));
                         return false;
                 }

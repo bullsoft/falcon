@@ -1,0 +1,34 @@
+
+header {
+	background: url(../images/dark-pattern.jpg) top left repeat;
+}
+
+.form-container {
+	background: #999;
+}
+
+form {
+	background: url(../images/dark-pattern.jpg) top left repeat;
+}
+
+.email {
+	float: left;
+	line-height: 50px;
+}
+
+.submit {
+	float: left;
+	margin-top: 16px;
+}
+
+a.facebook, a.twitter, a.dribble, a.rss {
+	margin: 0;
+}
+a.facebook, a.twitter, a.dribble {
+	padding-right: 17px;
+}
+
+footer p {
+	color: #999;
+}
+

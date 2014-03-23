@@ -74,7 +74,7 @@
 			<div class="oprate-box ">
 				<div class="inner clearfix">
 					<div class="oprate clearfix">
-						<a class="prefer goods-love transition-all" data-id="{{product.id}}" href="#"> <span class="uk-icon-heart-empty"></span> <i class="count"> {{product.likeit}} </i> </a>
+						<a class="prefer goods-love transition-all" data-id="{{product.id}}" href="#" title="用户评论数"> <span class="uk-icon-heart-empty"></span> <i class="count"> {{product.comment.count()}} </i> </a>
 						<?php if(isset($wishlist[$product->id])) {
 						?>
 						<a class="star goods-collect collected transition-all" data-id="{{product.id}}" href="#"> <?php } else { ?>

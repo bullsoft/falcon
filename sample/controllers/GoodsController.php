@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Nov 28 13:34:36 2013 (+0800)
  * Version: master
- * Last-Updated: Tue Feb 25 21:44:40 2014 (+0800)
+ * Last-Updated: Wed Mar  5 23:46:50 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 191
+ *     Update #: 192
  * 
  */
 
@@ -128,7 +128,7 @@ class GoodsController extends ControllerBase
                 getDI()->get('logger')->error($message->__toString());
             }
         } else {
-            $this->flashJson(200, array('forward' => $this->url->get('goods/detail/').$model->id), "商品推荐成功！");
+            $this->flashJson(200, array('forward' => $this->url->get('goods/detail-').$model->id.'.html'), "商品推荐成功！");
         }
         exit();
     }

@@ -1,14 +1,14 @@
 <?php
-/* User.php --- 
+/* Shipment.php --- 
  * 
- * Filename: User.php
+ * Filename: Shipment.php
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
- * Created: Mon Feb 10 16:29:55 2014 (+0800)
+ * Created: Fri Mar  7 23:38:13 2014 (+0800)
  * Version: master
- * Last-Updated: Fri Mar  7 22:53:19 2014 (+0800)
+ * Last-Updated: Mon Mar 10 18:47:46 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 9
+ *     Update #: 4
  * 
  */
 
@@ -31,32 +31,24 @@
 
 namespace BullSoft\Sample\Models;
 
-class User extends \Phalcon\Mvc\Model
+class Shipment extends \Phalcon\Mvc\Model
 {
     public $id;
-    public $username;
-    public $password;
-    public $nickname;
-    public $photo;
-    public $email;
-    public $level = 0;
-    public $is_active = 'N';
-    public $active_code;
+    public $name;
+    public $slug;
+    public $method;
     public $addtime;
-    public $acttime;
     public $modtime;
 
     public function initialize()
     {
         $this->setConnectionService('db');
-        $this->hasMany("id", "\BullSoft\Sample\Models\Order", "user_id", array("alias" => "order"));        
     }
 
     public function getSource()
     {
-        return "user";
-    }                        
+        return "shipment";
+    }                            
 }
 
-
-/* User.php ends here */
+/* Shipment.php ends here */

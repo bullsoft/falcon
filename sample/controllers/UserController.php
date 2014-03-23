@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Feb 21 11:41:15 2014 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 27 21:45:15 2014 (+0800)
+ * Last-Updated: Fri Mar 21 16:59:21 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 50
+ *     Update #: 85
  * 
  */
 
@@ -30,13 +30,15 @@
 /* Code: */
 
 namespace BullSoft\Sample\Controllers;
-use BullSoft\Sample\Models\Comment as CommentModel;
+use BullSoft\Sample\Models\Comment  as CommentModel;
 use BullSoft\Sample\Models\Wishlist as WishlistModel;
-    
+use BullSoft\Sample\Models\Provider as ProviderModel;
+use BullSoft\Sample\Models\Order    as OrderModel;
+
 class UserController extends ControllerBase
 {
     const BULL_SOCIAL_URL_PREFIX = 'http://openapi.baidu.com/social/oauth/2.0/authorize?';
-    
+
     public function loginformAction()
     {
         $ak = $this->di->get('config')->bcs->ak;
@@ -76,14 +78,58 @@ class UserController extends ControllerBase
         return ;
     }
 
-    public function registerAction()
-    {
-        
-    }
-
     public function loginAction()
     {
         
+    }
+    
+    public function homeAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            exit;
+        }
+        $products = \BullSoft\Sample\Models\Product::find('user_id='.$this->user->id);
+        $this->view->setVar('products', $products);
+    }
+
+    public function wishlistAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            exit ;
+        }
+        $wishlist = WishlistModel::find('user_id='.$this->user->id);
+        $this->view->setVar('wishlist', $wishlist);
+    }
+
+    public function orderlistAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            exit ;
+        }
+        $orderlist = OrderModel::find('user_id='.$this->user->id);
+        $this->view->setVar('orderlist', $orderlist);
+    }
+
+    public function providersAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            exit ;
+        }
+        $providers = ProviderModel::find('user_id='.$this->user->id);
+        $this->view->setVar('providers', $providers);
+        
+    }
+    
+    public function messagesAction()
+    {
+        if(!$this->user) {
+            $this->flashJson(403);
+            exit ;
+        }
     }
 }
 

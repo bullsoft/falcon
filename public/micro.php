@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 try {
-    require dirname(__DIR__) . '/apps/Bootstrap.php';
+    require dirname(__DIR__) . '/skeleton/apps/Bootstrap.php';
     $boostrap = new Bootstrap();
     $appliction = $boostrap->execMicro();
     $appliction->handle();

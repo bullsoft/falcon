@@ -1,14 +1,14 @@
 <?php
-/* User.php --- 
+/* Order.php --- 
  * 
- * Filename: User.php
+ * Filename: Order.php
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
- * Created: Mon Feb 10 16:29:55 2014 (+0800)
+ * Created: Fri Mar  7 22:51:13 2014 (+0800)
  * Version: master
- * Last-Updated: Fri Mar  7 22:53:19 2014 (+0800)
+ * Last-Updated: Thu Mar 20 21:14:28 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 9
+ *     Update #: 10
  * 
  */
 
@@ -31,32 +31,29 @@
 
 namespace BullSoft\Sample\Models;
 
-class User extends \Phalcon\Mvc\Model
+class Order extends \Phalcon\Mvc\Model
 {
     public $id;
-    public $username;
-    public $password;
-    public $nickname;
-    public $photo;
-    public $email;
-    public $level = 0;
-    public $is_active = 'N';
-    public $active_code;
+    public $sn;
+    public $user_id;
+    public $status;
+    public $price;
+    public $customer;
     public $addtime;
-    public $acttime;
     public $modtime;
 
     public function initialize()
     {
         $this->setConnectionService('db');
-        $this->hasMany("id", "\BullSoft\Sample\Models\Order", "user_id", array("alias" => "order"));        
+        $this->hasOne("user_id", "\BullSoft\Sample\Models\User", "id", array("alias" => "user"));
+        $this->hasOne("shipment_id", "\BullSoft\Sample\Models\Shipment", "id", array("alias" => "shipment"));        
+        $this->hasMany("id", "\BullSoft\Sample\Models\OrderDetail", "order_id", array("alias" => "order_detail"));
     }
 
     public function getSource()
     {
-        return "user";
+        return "order";
     }                        
 }
 
-
-/* User.php ends here */
+/* Order.php ends here */
