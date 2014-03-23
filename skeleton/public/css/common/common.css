@@ -2,7 +2,7 @@ ul,li{margin:0;padding:0}
 ul{list-style: none}
 body{font-family:"Microsoft Yahei","微软雅黑",Arial,sans-serif}
 h1, h2, h3, h4, h5, h6{font-family:"Microsoft Yahei","微软雅黑",Arial,sans-serif}
-html, .wapper{background: #f6f7f8}
+html, body, .wapper{background: #f6f7f8}
 .ck-btn{
 	color: #fff;text-decoration:none;background-color:#ffa40d;display:inline-block;
 	/*background-image: -webkit-linear-gradient(bottom, #ffa40d 0%, #ffc15a 100%);*/
