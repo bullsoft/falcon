@@ -4,8 +4,8 @@ error_reporting(E_ALL);
 // $debug->listen();
 try {
     require dirname(__DIR__) . '/skeleton/apps/Bootstrap.php';
-    $boostrap = new Bootstrap();
-    $boostrap->execWeb();
+    $bootstrap = new Bootstrap();
+    $bootstrap->execWeb();
 } catch (Phalcon\Exception $e) {
 	echo $e->getMessage();
 } catch (PDOException $e){

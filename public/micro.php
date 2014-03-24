@@ -2,8 +2,8 @@
 error_reporting(E_ALL);
 try {
     require dirname(__DIR__) . '/skeleton/apps/Bootstrap.php';
-    $boostrap = new Bootstrap();
-    $appliction = $boostrap->execMicro();
+    $bootstrap = new Bootstrap();
+    $appliction = $bootstrap->execMicro();
     $appliction->handle();
 } catch (Phalcon\Exception $e) {
 	echo $e->getMessage();
