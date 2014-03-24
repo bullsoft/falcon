@@ -27,6 +27,7 @@ global.config = {
 		loveUrl : '/goods/like',
 		wishCreateUrl : '/wishlist/create',
 		wishRemoveUrl : '/wishlist/remove',
+		imgResizeUrl: '/image/resize',
 		respondTemplateId: 'js%goods%respond',
 		commentTemplateId: 'js%goods%comment',
 	},

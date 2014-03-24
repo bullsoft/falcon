@@ -58,6 +58,8 @@
 						data: {url: $.trim(that.$inputUrl.val())},
 						dataType: 'json',
 						success: function(res){
+						    
+						    console.log(res);
 							
 							var html = '';
 							
@@ -162,4 +164,35 @@
 	};
 	
 	goods.init();
+	
+	
+	
+	function imgOnload(obj){
+	    
+	    var $img = $(obj),
+	        url = $img.attr('data-src');
+	    
+	    $.ajax({
+	        
+	        url: global.config.goods.imgResizeUrl,
+	        data: {'img_url': url},
+	        type: global.config.requestType,
+            success:function(res){
+                    $img.siblings('.img-loading').remove();
+                console.log(res);
+                $img.show();
+                if(res.status == '200'){
+                    
+                    
+                }else{
+                    //alert('图片加载失败');
+                    $img.parent().append('<div class="img-error">上传失败</div>');
+                }
+                
+            }
+	        
+	    });
+	    
+	};
+	window.imgOnload = imgOnload;
 })(jQuery, window, document);
