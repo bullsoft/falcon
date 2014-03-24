@@ -6,9 +6,9 @@
  * Author: Gu Weigang  * Maintainer: 
  * Created: Thu Feb 13 15:21:41 2014 (+0800)
  * Version: master
- * Last-Updated: Sun Mar 23 23:05:29 2014 (+0800)
+ * Last-Updated: Mon Mar 24 23:13:13 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 67
+ *     Update #: 93
  * 
  */
 
@@ -33,6 +33,7 @@ namespace BullSoft\Sample\Controllers;
 
 use Imagine\Image\Box;
 use Imagine\Image\Point;
+use BullSoft\Sample\Models\Image as ImageModel;
 
 class ImageController extends ControllerBase
 {
@@ -46,6 +47,9 @@ class ImageController extends ControllerBase
                                             $fileUpload,
                                             array('acl' => \BaiduBCS::BCS_SDK_ACL_TYPE_PUBLIC_READ));
             if (! $response->isOK ()) {
+                foreach($imageUrls as $objName => $fileUpload) {
+                    $bcs->delete_object($conf->bcs->bucket, $objName);
+                }
                 return false;
             }
         }
@@ -60,7 +64,7 @@ class ImageController extends ControllerBase
         $response = $bcs->get_object($conf->bcs->bucket, $objName);
 
         if (! $response->isOK ()) {
-            $this->flash->error("抱兼，文件获取失败，请重试！");
+            $this->flashJson("抱兼，文件获取失败，请重试！");
         } else {
             header("Content-type: image/jpeg");
             echo $response->body;
@@ -79,8 +83,18 @@ class ImageController extends ControllerBase
         if(!is_dir($tmpImgDir)) {
             mkdir($tmpImgDir, 0777, true);
         }
+        
         $imgUrl = $this->request->getPost('img_url');
-        // $imgUrl = 'http://img10.360buyimg.com/n0/g15/M05/02/14/rBEhWFLXvMoIAAAAAAC6RpTOuM4AAH-FgKKByIAALpe772.jpg';
+        $productUrl = $this->request->getPost('product_from_url');
+
+        if(empty($imgUrl) || empty($productUrl)) {
+            $this->flashJson(500, array(), "非法请求");
+            exit ;
+        }
+        
+        // $imgUrl = 'http://img11.360buyimg.com/n1/g14/M00/10/1F/rBEhVlMDOEMIAAAAAASiVlD7TXwAAIz3gAp0kUABKJu998.jpg';
+        // $productUrl = 'http://item.jd.com/1082070511.html';
+
         $imagine = new \Imagine\Gd\Imagine();
         $image   = $imagine->open($imgUrl);
         $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
@@ -89,15 +103,30 @@ class ImageController extends ControllerBase
         $extname = pathinfo($imgUrl, PATHINFO_EXTENSION);
         
         $imageUrls = array();
-        foreach(array(75, 150, 300) as $width) {
+        foreach(array(0, 75, 150, 300) as $width) {
             $objName = '/'.$filename.'_'.$width.'.'.$extname;
             $filePath = $tmpImgDir.$objName;
-            $size = new \Imagine\Image\Box($width, $width);
-            $image->thumbnail($size, $mode)->save($filePath);
+            if($width == 0) {
+                $image->save($filePath);
+            } else {
+                $size = new \Imagine\Image\Box($width, $width);
+                $image->thumbnail($size, $mode)->save($filePath, array('quality' => 100));
+            }
             $imageUrls[$objName] = $filePath;
         }
+        
         if($this->upload($imageUrls)) {
-            $this->flashJson(200);
+            $imageModel = new ImageModel();
+            $imageModel->product_from_url = $productUrl;
+            $imageModel->name = $filename;
+            $imageModel->extname = $extname;
+            $imageModel->url_prefix = 'http://bcs.duapp.com/'.$conf->bcs->bucket.'/';
+            if($imageModel->save() == false) {
+                foreach($imageModel->getMessages() as $message) {
+                    echo $message->__toString();
+                }
+            }
+            $this->flashJson(200, array('filename'=> $filename));
         } else {
             $this->flashJson(500, array(), "抱歉，文件上传失败，请重试！");
         }
