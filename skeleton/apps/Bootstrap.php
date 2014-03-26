@@ -37,7 +37,7 @@ final class Bootstrap
 
         // global config file must exists
         if(!is_file($confPath)) {
-            throw new \Phalcon\Config\Exception("Phalcon config file not exist, file position: {$confPath}");            
+            throw new \Phalcon\Config\Exception("Global config file not exist, file position: {$confPath}");            
         }
 
         if(PHALCON_CONF_TYPE == 'ini') {
