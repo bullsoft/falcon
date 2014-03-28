@@ -5,10 +5,10 @@
  * Description: 
  * Author: Gu Weigang  * Maintainer: 
  * Created: Fri Nov  8 13:48:21 2013 (+0800)
- * Version: 
- * Last-Updated: Fri Nov  8 14:43:31 2013 (+0800)
+ * Version: master
+ * Last-Updated: Mon Mar 24 21:37:12 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 25
+ *     Update #: 27
  * 
  */
 
@@ -41,5 +41,5 @@ $di->set('request', function() {
 });
 
 $application->get('/default', function() use ($application)  {
-    echo "Hello, Micro APP";
+    echo "Hello, BullSoft Micro APP!!!";
 });

@@ -17,6 +17,10 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             $this->forward("sample/error/countdown");
             return;
         }
+
+        $this->view->setVar("controller", $this->dispatcher->getControllerName());
+        $this->view->setVar("action", $this->dispatcher->getActionName());
+        $this->view->setVar("module", $this->dispatcher->getModuleName());
         
         if($this->di->has('user')) {
             $this->user = $this->di->get('user');
@@ -24,25 +28,16 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             $this->user = null;
         }
 
-        $displayCart = array();
-        $totals      = array();
-        $num         = 0;
-        if ($this->session->has(CartController::BULL_CART_KEY)) {
-            $sessionCart = json_decode($this->session->get(CartController::BULL_CART_KEY), true);
-            $totals = array();
-            foreach($sessionCart as $providerId => $cartArray) {
-                $cart = new Cart\Cart();
-                $cart->importJson(json_encode($cartArray));
-                $num += count($cartArray['items']);
-                $displayCart[$providerId] = $cart;
-                $_total = $cart->getTotals();
-                $totals[$providerId] = $_total['items'];
-            }
+        $cartDetail = CartController::getCartDetail();
+        if(empty($cartDetail)) {
+            $this->view->setVar('global_carts', array());
+            $this->view->setVar('global_cart_totals', array());
+            $this->view->setVar('global_cart_num', 0);
+        } else {
+            $this->view->setVar('global_carts', $cartDetail['carts']);
+            $this->view->setVar('global_cart_totals', $cartDetail['totals_goods']);
+            $this->view->setVar('global_cart_num', $cartDetail['totals_num']);
         }
-        
-        $this->view->setVar('global_carts', $displayCart);
-        $this->view->setVar('global_cart_totals', $totals);
-        $this->view->setVar('global_cart_num', $num);        
         $this->view->setVar('login_user', $this->user);
     }
 
@@ -66,5 +61,6 @@ class ControllerBase extends \Phalcon\Mvc\Controller
             'data'   => $data,
             'msg'    => $msg,
         ));
+        exit ;
     }
 }

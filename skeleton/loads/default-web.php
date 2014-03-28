@@ -7,9 +7,9 @@
  * Maintainer: 
  * Created: Tue Jan 29 14:56:13 2013 (+0800)
  * Version: master
- * Last-Updated: Thu Feb 27 22:17:34 2014 (+0800)
+ * Last-Updated: Sun Mar 23 21:40:13 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 82
+ *     Update #: 83
  * 
  */
 
@@ -137,8 +137,14 @@ $di->set('router', function() {
                        "controller" => "order",
                        "action"     => 1,
                        "params"     => 2
-                 ));    
+                 ));
     
+    $router->add("/image/:action/:params",
+                 array("module"     => "sample",
+                       "controller" => "image",
+                       "action"     => 1,
+                       "params"     => 2
+                 ));        
     return $router;
 });
 
