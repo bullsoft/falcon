@@ -130,6 +130,8 @@ class UserController extends ControllerBase
             $this->flashJson(403);
             exit ;
         }
+	$comments = CommentModel::find(array('reply_to_user_id='.$this->user->id, 'order' => 'addtime DESC'));
+	$this->view->setVar('comments', $comments);
     }
 }
 

@@ -77,8 +77,8 @@ class CommentController extends ControllerBase
 		}
 
         $content = trim($this->request->getPost('comment'));
-        if(mb_strlen($content, "UTF-8") < 10) {
-            $this->flashJson(500, array('comment'), "内容长度至少10字");
+        if(mb_strlen($content, "UTF-8") < 4) {
+            $this->flashJson(500, array('comment'), "内容长度至少4个字");
             return ;
         }
         $comment['content'] = $content;
@@ -89,26 +89,37 @@ class CommentController extends ControllerBase
 			return; 
         }
 		
-		if($comment['reply_to_comment_id'] > 0) {
-	        $commentModel = CommentModel::findFirst($comment['reply_to_comment_id']);
-	        if(empty($commentModel)) {
-	            $this->flashJson(500, array(), "你所评论的主题不存在");
-	            return;
-	        }
-		}
-		
+	if($comment['reply_to_comment_id'] > 0) {
+	  $commentModel = CommentModel::findFirst($comment['reply_to_comment_id']);
+	  if(empty($commentModel)) {
+	    $this->flashJson(500, array(), "你所评论的主题不存在");
+	    return;
+	  }
+	}
+	
         $comment['reply_to_user_id'] = intval($this->request->getPost('user_id', 'int'));
+
         if($comment['reply_to_user_id'] < 0) {
-			$this->flashJson(500, array(), "非法请求");
-            return ;
+	  $this->flashJson(500, array(), "非法请求");
+	  return ;
         }
         if($comment['reply_to_user_id'] > 0) {
-            $userModel = UserModel::findFirst($comment['reply_to_user_id']);
-            if(empty($userModel)) {
-                $this->flashJson(500, array(), "你所评论的用户不存在");
-                return;
-            }
-        }
+	  $userModel = UserModel::findFirst($comment['reply_to_user_id']);
+        } else {
+	  if($comment['reply_to_comment_id'] > 0) {
+	    $comment['reply_to_user_id'] = $commentModel->user_id;
+	    $userModel = $commentModel->user;
+	  } else if($comment['reply_to_comment_id'] == 0) {
+	    $comment['reply_to_user_id'] = $productModel->user_id;
+	    $userModel = $productModel->user;
+	  }
+	}
+
+	if(empty($userModel)) {
+	  $this->flashJson(500, array(), "你所评论的用户不存在");
+	  return;
+	}
+	
         $comment['user_id']  = $this->user->id;
         $time = date('Y-m-d H:i:s');
         $comment['addtime'] = $time;

@@ -4,67 +4,38 @@
 
 <div class="message-center-wapper">
   <div class="message-list">
+  {% for comment in comments %}
     <div class="message-list-each clearfix">
+      
       <div class="img-box">
-	<a href="#" hidefocus="true"><img src="public/images/img/u2815691-25.jpg"></a>
+	<a href="#" hidefocus="true"><img src="{{ comment.user.photo }}"></a>
       </div>
+
       <div class="info">
-	<div class="theme"><span>评论了</span><a class="goods-name" href="#">买一送一 林丹欲争神器 李宁全碳素羽毛球拍 超轻手感好羽拍(赠羽毛球赠手胶) 男款</a></div>
+
+	<div class="theme">
+	{% if comment.reply_to_comment_id == 0 %}
+	<span>评论了您的宝贝</span>
+	<a class="goods-name" href="{{url('goods/detail-')}}{{comment.product_id}}.html">{{ comment.product.name}}</a>
+	{% else %}
+	<span>在 <a class="goods-name" href="{{url('goods/detail-')}}{{comment.product_id}}.html">{{ mb_substr(comment.product.name, 0, 20) }}</a> 宝贝中对您说：</span>
+	{% endif %}
+	</div>
+
 	<div class="content">
 	  <i class="uk-icon-quote-left"> </i>
-	  感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？
+	  {{comment.content}}
 	  <i class="uk-icon-quote-right"> </i>
 	</div>
-	<div class=""><span class="time">2014-03-05 16:45:20</span></div>
+
+	<div class=""><span class="time">{{comment.addtime}}</span></div>
+
       </div>
+
     </div>
-    <div class="message-list-each clearfix">
-      <div class="img-box">
-	<a href="#" hidefocus="true"><img src="public/images/img/u2815691-25.jpg"></a>
-      </div>
-      <div class="info">
-	<div class="theme"><span>悄悄地说：</span>
-	</div>
-	<div class="content">
-	  <i class="uk-icon-quote-left"> </i>
-	  感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？
-	  <i class="uk-icon-quote-right"> </i>
-	</div>
-	<div class=""><span class="time">2014-03-05 16:45:20</span></div>
-      </div>
-    </div>
-    <div class="message-list-each clearfix">
-      <div class="img-box">
-	<a href="#" hidefocus="true"><img src="public/images/img/u2815691-25.jpg"></a>
-      </div>
-      <div class="info">
-	<div class="theme"><span>下订单：</span>
-	</div>
-	<div class="content">
-	  <i class="uk-icon-quote-left"> </i>
-	  感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？
-	  <i class="uk-icon-quote-right"> </i>
-	</div>
-	<div class=""><span class="time">2014-03-05 16:45:20</span></div>
-      </div>
-    </div>
-    <div class="message-list-each clearfix">
-      <div class="img-box">
-	<a href="#" hidefocus="true"><img src="public/images/img/u2815691-25.jpg"></a>
-      </div>
-      <div class="info">
-	<div class="theme"><span>悄悄地说：</span>
-	</div>
-	<div class="content">
-	  <i class="uk-icon-quote-left"> </i>
-	  感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？感觉手胶不是很好,不知道多少钱呢？
-	  <i class="uk-icon-quote-right"> </i>
-	</div>
-	<div class=""><span class="time">2014-03-05 16:45:20</span></div>
-      </div>
-    </div>
+    {% endfor %}
+
   </div>
-</div>
 </div>
  
 {% endblock %}          
