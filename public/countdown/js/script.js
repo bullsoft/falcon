@@ -9,7 +9,7 @@ $(document).ready(function(){
 	/* ---- Countdown timer ---- */
 	$('#counter').countdown({
 		// timestamp : (new Date()).getTime() + 10*24*60*60*1000
-		timestamp : (new Date("2014-04-01 00:00:00")).getTime()
+		timestamp : (new Date("2014/04/15 00:00:00")).getTime()
 	});
 
 
