@@ -6,10 +6,10 @@
  * Author: Gu Weigang, Xiao Xialan
  * Maintainer: 
  * Created: Thu May  9 20:08:52 2013 (+0800)
- * Version: 80815
- * Last-Updated: Wed May 22 12:19:36 2013 (+0800)
+ * Version: master
+ * Last-Updated: Mon Mar 31 13:43:28 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 23
+ *     Update #: 25
  * 
  */
 
@@ -24,13 +24,13 @@
  * 
  * You should have received a copy of the Baidu General Private License
  * along with this program; see the file COPYING. If not, write to
- * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
+ * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The People's
  * Republic of China, 100085.
  */
 
 /* Code: */
 
-namespace Nexus\Library\Geo;
+namespace BullSoft\Geo;
 
 class Location
 {

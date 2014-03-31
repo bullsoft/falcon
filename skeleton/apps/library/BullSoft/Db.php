@@ -25,7 +25,7 @@ class Db
         try {
             $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($descriptor);
         } catch(\Exception $e) {
-            error_log("PHP Fatal error:  Nexus::Db::connect() failed to connect to MySQL Host in " . __FILE__ . " on line " . __LINE__);
+            error_log("PHP Fatal error:  BullSoft::Db::connect() failed to connect to MySQL Host in " . __FILE__ . " on line " . __LINE__);
             usleep(200000);
             $connection = new \Phalcon\Db\Adapter\Pdo\Mysql($descriptor);            
         }

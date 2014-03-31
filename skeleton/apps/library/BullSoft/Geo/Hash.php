@@ -1,11 +1,17 @@
 <?php
-namespace Geo;
 
-class GeoHash
+namespace BullSoft\Geo;
+
+class Hash
 {
     private static $table = "0123456789bcdefghjkmnpqrstuvwxyz";
+    
+    /* private static $bits = array( */
+    /*     0b10000, 0b01000, 0b00100, 0b00010, 0b00001 */
+    /* ); */
+
     private static $bits = array(
-        0b10000, 0b01000, 0b00100, 0b00010, 0b00001
+        16, 8, 4, 2, 1
     );
 
     public static function encode($lng, $lat, $prec = 0.00001)
@@ -18,7 +24,8 @@ class GeoHash
         $hash = array();
         $error = 180;
         $isEven = true;
-        $chr = 0b00000;
+        // $chr = 0b00000;
+        $chr = 0;
         $b = 0;
 
         while ($error >= $prec) {
@@ -47,7 +54,8 @@ class GeoHash
                 $hash[] = self::$table[$chr];
                 $error = max($maxlng - $minlng, $maxlat - $minlat);
                 $b = 0;
-                $chr = 0b00000;
+                // $chr = 0b00000;
+                $chr = 0;
             }
         }
 
@@ -153,7 +161,6 @@ class GeoHash
                 }
             }
         }
-
         return array($minlng, $maxlng, $minlat, $maxlat);
     }
 }

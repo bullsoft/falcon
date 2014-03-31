@@ -6,10 +6,10 @@
  * Author: Gu Weigang, Xiao Xialan
  * Maintainer: 
  * Created: Thu May  9 16:13:44 2013 (+0800)
- * Version: 80320
- * Last-Updated: Mon May 13 10:55:57 2013 (+0800)
+ * Version: master
+ * Last-Updated: Mon Mar 31 14:02:10 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 62
+ *     Update #: 65
  * 
  */
 
@@ -24,13 +24,13 @@
  * 
  * You should have received a copy of the Baidu General Private License
  * along with this program; see the file COPYING. If not, write to
- * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
+ * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The People's
  * Republic of China, 100085.
  */
 
 /* Code: */
 
-namespace Nexus\Library\Geo;
+namespace BullSoft\Geo;
 
 class Coordinate
 {
@@ -73,16 +73,6 @@ class Coordinate
             } else {
                 $x = $coordinates[1];
                 $y = $coordinates[0];
-            }
-            if($y < self::CHINA_MIN_LAT || $y > self::CHINA_MAX_LAT) {
-                throw new \InvalidArgumentException(sprintf(
-                    '%s', '文盲，中国纬度范围：' . self::CHINA_MIN_LNG. '~' . self::CHINA_MAX_LNG
-                ));
-            }
-            if($x < self::CHINA_MIN_LNG || $x > self::CHINA_MAX_LNG) {
-                throw new \InvalidArgumentException(sprintf(
-                    '%s', '文盲，中国经度范围：' . self::CHINA_MIN_LAT . '~' . self::CHINA_MAX_LAT
-                ));
             }
             $this->setLat($y);
             $this->setLng($x);

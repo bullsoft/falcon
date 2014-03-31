@@ -6,10 +6,10 @@
  * Author: Gu Weigang, Xiao Xialan
  * Maintainer: 
  * Created: Thu May  9 16:29:44 2013 (+0800)
- * Version: 80815
- * Last-Updated: Wed May 22 12:11:29 2013 (+0800)
+ * Version: master
+ * Last-Updated: Mon Mar 31 13:43:37 2014 (+0800)
  *           By: Gu Weigang
- *     Update #: 62
+ *     Update #: 64
  * 
  */
 
@@ -30,7 +30,7 @@
 
 /* Code: */
 
-namespace \Library\Geo;
+namespace BullSoft\Geo;
 
 class Convert
 {
