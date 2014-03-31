@@ -57,7 +57,6 @@ $itemB->setId(2)
       ->setIsTaxable(true)
       ->setIsDiscountable(true)
       ;
-
 $itemC = new Cart\Item();
 $itemC->setId(3)
       ->setName('Anniversary Present')
