@@ -72,79 +72,15 @@ $di->set('flash', function(){
 });
 
 // register rules for router
-$di->set('router', function() {
+$di->setShared('router', function() {
     $router = new \Phalcon\Mvc\Router();
     $router->setDefaultModule("sample");
-
     $router->add("/:module/:controller/:action/:params",
                  array("module"     => 1,
                        "controller" => 2,
                        "action"     => 3,
                        "params"     => 4
                  ));
-
-    $router->add("/goods/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "goods",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));
-
-    $router->add("/goods/detail-{id:[0-9]+}.html",
-                 array("module"     => "sample",
-                       "controller" => "goods",
-                       "action"     => "detail"
-                 ));
-    
-    
-    $router->add("/user/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "user",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));
-
-    $router->add("/wishlist/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "wishlist",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));  
-				 
-    $router->add("/cart/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "cart",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));
-
-    $router->add("/comment/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "comment",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));
-    
-    $router->add("/social-oauth/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "social-o-auth",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));
-
-    $router->add("/order/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "order",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));
-    
-    $router->add("/image/:action/:params",
-                 array("module"     => "sample",
-                       "controller" => "image",
-                       "action"     => 1,
-                       "params"     => 2
-                 ));        
     return $router;
 });
 
