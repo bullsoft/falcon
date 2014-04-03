@@ -80,10 +80,9 @@ class Logger
         $file    = basename($current['file']);
         $line    = $current['line'];
         $ip      = \BullSoft\Utility::getIP();
-        
         unset($trace, $current);
-        
-        $message = @preg_replace('/%(\w+)%/e', '$\\1', $this->template);
+
+        $message = preg_replace_callback('/%(\w+)%/', function($matches) use ($file, $line, $ip, $message) { return ${$matches[1]}; }, $this->template);
 
         if (!empty($args)) {
             if((bool) getDI()->get('config')->application->debug) {

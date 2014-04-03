@@ -81,7 +81,7 @@ if (!function_exists("getDI")) {
     }    
 }
 
-$di->set('db', function(){
+$di->setShared('db', function(){
         return \BullSoft\Db::connect("db");
 });
 

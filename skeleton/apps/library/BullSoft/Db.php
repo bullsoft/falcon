@@ -19,7 +19,7 @@ class Db
             "dbname"   => $nodes['dbname'][$nodeId],
             "options"  => array(
                 \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES '.$nodes['charset'],
-                \PDO::ATTR_TIMEOUT => 3,
+                \PDO::ATTR_TIMEOUT => 3, // seconds
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             ),
         );
@@ -51,11 +51,12 @@ class Db
         // begin debug mode
         $debug = false;
         $logger = null;
+        
         if((bool) $configs->application->debug && isset($configs->database->$nodeName->logger)) {
             if(!file_exists($configs->database->$nodeName->logger)) {
                 if(mkdir($configs->database->$nodeName->logger, 0777, true)) {
                     $debug = true;
-                    $logger = new \Phalcon\Logger\Adapter\File($configs->database->$nodeName->logger . date("Ymd"));                    
+                    $logger = new \Phalcon\Logger\Adapter\File($configs->database->$nodeName->logger . date("Ymd"));
                 } else {
                     error_log("PHP Notice:  BullSoft::Db::connect() permission denied for creating directory " . $configs->database->$nodeName->logger);
                 }
@@ -77,15 +78,17 @@ class Db
                         $connection->connect();
                         $connection->start = time();
                     }
+                    $sql = $connection->getSQLStatement();
                     // begin debug mode
                     if($debug == true) {
                         $variables = $connection->getSqlVariables();
                         if (count($variables)) {
-                            $query = preg_replace('/(\?)|(:[0-9a-z_]+)/s', "'%s'", $connection->getSQLStatement());
+                            $query = preg_replace("/('.*?')/", "", $sql);
+                            $query = preg_replace('/(\?)|(:[0-9a-z_]+)/is', "'%s'", $query);
                             $query = vsprintf($query, $variables);
                             $logger->log($query, \Phalcon\Logger::INFO);
                         } else {
-                            $logger->log($connection->getSQLStatement(), \Phalcon\Logger::INFO);                            
+                            $logger->log($sql, \Phalcon\Logger::INFO);
                         }
                     }
                     // end debug mode
