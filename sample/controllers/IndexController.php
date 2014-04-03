@@ -7,6 +7,19 @@ use BullSoft\Sample\Models\Wishlist as WishlistModel;
 
 class IndexController extends ControllerBase
 {
+    public function testAction()
+    {
+        $var = array(
+            "foo" => "bar",
+            "bar" => "baz",
+        );
+        $var1 = "hello";
+        $var2 = new \stdClass();
+        $var2->hello = "world";
+
+        getDI()->get('logger')->error("Hello World", $var, $var1, $var2);
+    }
+    
     public function indexAction()
     {
         $products   = ProductModel::find();

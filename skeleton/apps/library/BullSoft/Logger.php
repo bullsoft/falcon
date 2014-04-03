@@ -45,11 +45,11 @@ class Logger
         );
         
         if (!in_array($method, $methods)) {
-            throw new \BadMethodCallException("method {$method} not exists");
+            throw new \BadMethodCallException("logger: method {$method} not exists");
         }
         
         if (count($args) < 1) {
-            throw new \InvalidArgumentException("at least 1 parameters");
+            throw new \InvalidArgumentException("logger: needs at least 1 parameter");
         }
         
         $message = array_shift($args);
@@ -76,16 +76,26 @@ class Logger
         $trace   = debug_backtrace();
         $depth   = count($trace) > 1 ? 1 : 0;
         $current = $trace[$depth];
+        
         $file    = basename($current['file']);
         $line    = $current['line'];
         $ip      = \BullSoft\Utility::getIP();
+        
         unset($trace, $current);
         
-        $message = preg_replace('/%(\w+)%/e', '$\\1', $this->template);
+        $message = @preg_replace('/%(\w+)%/e', '$\\1', $this->template);
+
         if (!empty($args)) {
-            $message .= PHP_EOL;
-            foreach($args as $arg) {
-                $message .= $this->logVar($arg);
+            if((bool) getDI()->get('config')->application->debug) {
+                $message .= PHP_EOL;
+                foreach($args as $arg) {
+                    $message .= $this->logVar($arg);
+                }
+            } else {
+                foreach ($args as $arg) {
+                    $message .= ' ||| ';
+                    $message .= json_encode($arg);
+                }
             }
         }
         $this->logger->log($message, $type);
