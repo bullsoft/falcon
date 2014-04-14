@@ -1,27 +1,27 @@
 <?php
-/* testSample.php --- 
- * 
+/* testSample.php ---
+ *
  * Filename: testSample.php
- * Description: 
+ * Description:
  * Author: Gu Weigang
- * Maintainer: 
+ * Maintainer:
  * Created: Wed Jul 24 21:37:13 2013 (+0800)
  * Version: master
  * Last-Updated: Thu Feb 13 14:29:55 2014 (+0800)
  *           By: Gu Weigang
  *     Update #: 76
- * 
+ *
  */
 
 /* Change Log:
- * 
- * 
+ *
+ *
  */
 
 /* This program is part of "Baidu Darwin PHP Software"; you can redistribute it and/or
  * modify it under the terms of the Baidu General Private License as
  * published by Baidu Campus.
- * 
+ *
  * You should have received a copy of the Baidu General Private License
  * along with this program; see the file COPYING. If not, write to
  * the Baidu Campus NO.10 Shangdi 10th Street Haidian District, Beijing The Peaple's
@@ -35,7 +35,7 @@ registerTask('sample');
 
 use BullSoft\Cart;
 
-    
+
 //create toothbrush
 $itemA = new Cart\Item();
 $itemA->setId(1)
@@ -170,7 +170,7 @@ $discountB->setId(2)
           ->setPreConditionCompare($compare3)
           ->setTargetConditionCompare($compare2)
           ;
-          
+
 //apply the automatic discount, if pre-conditions validate
 if ($compare1->isValid($shipmentA)) {
     $discountA->setShipment($shipmentA);
@@ -205,9 +205,8 @@ class testSample extends PHPUnit_Framework_TestCase
     {
         $expected = true;
         $actual   = false;
-        $this->assertEquals($expected, $actual);        
+        $this->assertEquals($expected, $actual);
     }
 }
-
 
 /* testSample.php ends here */

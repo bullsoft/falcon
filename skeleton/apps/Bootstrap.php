@@ -64,7 +64,7 @@ final class Bootstrap
         $this->application->setDI($this->di);
 
         $this->load(PHALCON_SKELETON_DIR.'/loads/default-web.php');
-
+        $this->di->setShared('app', $this->application);
         $this->di->setShared('bootstrap', $this);
         
         echo $this->application->handle()->getContent();
@@ -80,6 +80,7 @@ final class Bootstrap
         $this->initConf();
 
         $this->application = new \Phalcon\CLI\Console();
+
         $this->application->setDI($this->di);
 
         $this->load(PHALCON_SKELETON_DIR.'/loads/default-cli.php');
@@ -169,5 +170,10 @@ final class Bootstrap
     public function getConfObj()
     {
         return $this->config;
+    }
+
+    public function getApplication()
+    {
+        return $this->application;
     }
 }

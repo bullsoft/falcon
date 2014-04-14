@@ -73,11 +73,14 @@ $di->setShared('modelsManager', function() {
     return new Phalcon\Mvc\Model\Manager();
 });
 
+// $GLOBALS['di'] = $di;
+
 // global funciton to retrive $di
 if (!function_exists("getDI")) {
     function getDI()
     {
         return \Phalcon\DI::getDefault();
+        // return $GLOBALS['di'];
     }    
 }
 

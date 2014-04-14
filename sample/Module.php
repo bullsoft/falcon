@@ -21,52 +21,6 @@ class Module
     */
     public function registerServices($di)
     {
-        // routers
-        $router = $di->get('router');
-
-        $router->add("/goods/:action/:params",
-            array("module"     => "sample",
-                  "controller" => "goods",
-                  "action"     => 1,
-                  "params"     => 2
-        ));
-
-        $router->add("/user/:action/:params",
-            array("module"     => "sample",
-                  "controller" => "user",
-                  "action"     => 1,
-                  "params"     => 2
-        ));
-
-        $router->add("/wishlist/:action/:params",
-            array("module"     => "sample",
-                  "controller" => "wishlist",
-                  "action"     => 1,
-                  "params"     => 2
-        ));  
-				 
-        $router->add("/cart/:action/:params",
-            array("module"     => "sample",
-                  "controller" => "cart",
-                  "action"     => 1,
-                  "params"     => 2
-        ));
-
-        $router->add("/comment/:action/:params",
-            array("module"     => "sample",
-                  "controller" => "comment",
-                  "action"     => 1,
-                  "params"     => 2
-        ));
-        
-        $router->add("/goods/detail-{id:[0-9]+}.html",
-            array("module"     => "sample",
-                  "controller" => "goods",
-                  "action"     => "detail"
-        ));
-
-        $router->handle();
-        
         // get bootstrap obj
         $bootstrap = $di->get('bootstrap');
 
@@ -75,9 +29,11 @@ class Module
 
         // module config
         $mConfPath = __DIR__.'/confs/'.PHALCON_ENV.'.'.PHALCON_CONF_TYPE;
-	if(!is_file($mConfPath)) {
-	  throw new \Phalcon\Config\Exception("Module config file not exist, file position: {$mConfPath}");
-	}	
+        
+        if(!is_file($mConfPath)) {
+            throw new \Phalcon\Config\Exception("Module config file not exist, file position: {$mConfPath}");
+        }
+        
         if(PHALCON_CONF_TYPE == 'ini') {
             $mConfig = new $confClass($mConfPath);
         } else if(PHALCON_CONF_TYPE == 'php') {
@@ -135,9 +91,5 @@ class Module
             ));
             return $view;
         });
-
-
-
-
     }
 }

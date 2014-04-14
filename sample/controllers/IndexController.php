@@ -19,7 +19,7 @@ class IndexController extends ControllerBase
 
         getDI()->get('logger')->error("Hello World", $var, $var1, $var2);
     }
-    
+
     public function indexAction()
     {
         $products   = ProductModel::find();
